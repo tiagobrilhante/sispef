@@ -80,14 +80,12 @@
             var nomeInicial = $('#nameElement_' + id + ' h2').text();
             var siglaInicial = $('#siglaElement_' + id + ' h6').text();
 
-            var inputElement = $('<label for="nomeOm_' + nodes[id].data.id + '">Nome da Om</label>'+
-                '<input autofocus id="nomeOm_' + nodes[id].data.id + '" placeholder="Digite o nome da Om" '+
+            var inputElement = $('<label for="nomeOm_' + nodes[id].data.id + '">Nome da Om</label>' +
+                '<input autofocus id="nomeOm_' + nodes[id].data.id + '" placeholder="Digite o nome da Om" ' +
                 'class="org-input" type="text" value="' + nomeInicial + '">');
-            var inputSigla = $('<label for="siglaOm_' + nodes[id].data.id + '">Sigla da Om</label>'+
-                '<input id="siglaOm_' + nodes[id].data.id + '" placeholder="Digite a sigla da Om" '+
+            var inputSigla = $('<label for="siglaOm_' + nodes[id].data.id + '">Sigla da Om</label>' +
+                '<input id="siglaOm_' + nodes[id].data.id + '" placeholder="Digite a sigla da Om" ' +
                 'class="org-input" type="text" value="' + siglaInicial + '">');
-
-
 
             // nome (troca pelo input)
             $container.find('div[node-id=' + id + '] h2').replaceWith(inputElement);
@@ -100,38 +98,30 @@
             // checkbox pode ver tudo permite edição
             $container.find('#podeVerTudo_' + id).attr('disabled', false);
             // Esconde o botão de editar
-            $container.find('div[node-id=' + id + '] .org-edit-button').addClass('d-none');
-            // esconde os demais botões de adicionar om subordinadas e excluir om
-            $container.find('div[node-id=' + id + '] .org-del-button').addClass('d-none');
-            $container.find('div[node-id=' + id + '] .org-add-button').addClass('d-none');
+            $container.find('.org-edit-button').each(function () {
 
+                $(this).addClass('d-none');
 
-           // inputElement.focus();
-/*
-            inputElement.keyup(function (event) {
-                if (event.which == 13) {
-                    commitChange();
-                } else {
-                    nodes[id].data.name = inputElement.val();
-                    nodes[id].data.sigla = inputSigla.val();
-                }
             });
 
-            inputSigla.keyup(function (event) {
-                if (event.which == 13) {
-                    commitChange();
-                } else {
-                    nodes[id].data.name = inputElement.val();
-                    nodes[id].data.sigla = inputSigla.val();
-                }
-            });
-*/
+            // esconde o botão de excluir
+            $container.find('.org-del-button').each(function () {
 
+                $(this).addClass('d-none');
+
+            });
+
+            // esconde o botão de adicionar nó
+            $container.find('.org-add-button').each(function () {
+
+                $(this).addClass('d-none');
+
+            });
 
         }
 
         // clica para salvar as alterações
-        $(document).on('click','.salvante', function (e) {
+        $(document).on('click', '.salvante', function (e) {
 
             let nodeIdReference = $(this).attr('id').split('_')[1];
 
@@ -139,12 +129,10 @@
 
             commitChange(nodeIdReference);
 
-        } );
+        });
 
         // salva as alterações nos nós
-        function commitChange (id) {
-
-            console.log(id);
+        function commitChange(id) {
 
             var valorInputName = $('#nomeOm_' + nodes[id].data.id).val();
 
@@ -158,23 +146,39 @@
 
             // troca pelo novo nome
             spanNameElement.replaceWith(h2Element);
+
             // troca pela nova sigla
             spanSiglaElement.replaceWith(h6Element);
 
-
             // desabilita o pode ver tudo
             $container.find('#podeVerTudo_' + id).attr('disabled', true);
+
             // altera para compactar
             $container.find('div[node-id=' + id + ']').removeClass('expandForInput');
-            // mostra o botão de editar
-            $container.find('div[node-id=' + id + '] .org-edit-button').removeClass('d-none');
+
             // oculta o botão de salvar
             $container.find('div[data-button-id=' + id + ']').addClass('d-none');
-            // mostra novamente os demais botões de adicionar om subordinadas e excluir om
-            $container.find('div[node-id=' + id + '] .org-del-button').removeClass('d-none');
-            $container.find('div[node-id=' + id + '] .org-add-button').removeClass('d-none');
 
+            // mostra os botões de editar
+            $container.find('.org-edit-button').each(function () {
 
+                $(this).removeClass('d-none');
+
+            });
+
+            // mostra novamente o botão de excluir OM
+            $container.find('.org-del-button').each(function () {
+
+                $(this).removeClass('d-none');
+
+            });
+
+            // mostra novamente o botão de adicionar filho
+            $container.find('.org-add-button').each(function () {
+
+                $(this).removeClass('d-none');
+
+            });
         }
 
         //inicializa os dados de um novo nó
