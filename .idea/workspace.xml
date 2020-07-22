@@ -20,21 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99972188-b99b-437d-a39b-7c1d993dd8cf" name="Default Changelist" comment="ajuste do orgchart2">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/jquery.orgchart.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/jquery.orgchart.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/jquery.orgchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/jquery.orgchart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/insideApp/ommanager/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/insideApp/ommanager/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/insideApp/requiredJs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/insideApp/requiredJs.blade.php" afterDir="false" />
-    </list>
-    <list id="d7943f34-86c0-45b5-b439-ef6420608df0" name="Ignore" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/KGJJDTmSSshv63t69P2um13CtoHtxoYRZxtum6F0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,7 +212,7 @@
     <task active="true" id="Default" summary="Default task">
       <changelist id="99972188-b99b-437d-a39b-7c1d993dd8cf" name="Default Changelist" comment="" />
       <changelist id="" name="ignore" comment="" />
-      <changelist id="d7943f34-86c0-45b5-b439-ef6420608df0" name="Ignore" comment="" />
+      <changelist id="" name="Ignore" comment="" />
       <created>1594981691127</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -233,7 +220,7 @@
       <workItem from="1594981695773" duration="31440000" />
       <workItem from="1595253510744" duration="1653000" />
       <workItem from="1595256212851" duration="37799000" />
-      <workItem from="1595423020563" duration="12159000" />
+      <workItem from="1595423020563" duration="12987000" />
     </task>
     <task id="LOCAL-00001" summary="teste">
       <created>1595361110305</created>
@@ -256,7 +243,21 @@
       <option name="project" value="LOCAL" />
       <updated>1595424132362</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="ajuste do orgchart2">
+      <created>1595436254229</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1595436254229</updated>
+    </task>
+    <task id="LOCAL-00005" summary="ajuste do orgchart2">
+      <created>1595436379314</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1595436379314</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,6 +298,10 @@
       <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
     <state x="-1235" y="295" key="ComposerInitDialogKey/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1594985983854" />
+    <state x="-2656" y="-705" key="DiffContextDialog" timestamp="1595436404851">
+      <screen x="-3200" y="-877" width="3200" height="1708" />
+    </state>
+    <state x="-2656" y="-705" key="DiffContextDialog/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595436404851" />
     <state x="530" y="342" key="Github.CreateGistDialog" timestamp="1595363044906">
       <screen x="0" y="23" width="1440" height="832" />
     </state>
@@ -360,11 +365,11 @@
       <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
     <state x="-1098" y="272" key="VCS.EditChangelistDialog/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595424244278" />
-    <state x="-2480" y="-604" key="Vcs.Push.Dialog.v2" timestamp="1595424144425">
+    <state x="-2480" y="-604" key="Vcs.Push.Dialog.v2" timestamp="1595436419035">
       <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
     <state x="324" y="156" key="Vcs.Push.Dialog.v2/0.23.1440.832@0.23.1440.832" timestamp="1595361164844" />
-    <state x="-2480" y="-604" key="Vcs.Push.Dialog.v2/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595424144425" />
+    <state x="-2480" y="-604" key="Vcs.Push.Dialog.v2/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595436419035" />
     <state x="-1127" y="164" width="346" height="232" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1595423329194">
       <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
@@ -376,6 +381,10 @@
       <screen x="0" y="23" width="1440" height="832" />
     </state>
     <state x="108" y="123" width="1232" height="587" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1440.832@0.23.1440.832" timestamp="1595356320921" />
+    <state x="-1148" y="316" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595436887940">
+      <screen x="-3200" y="-877" width="3200" height="1708" />
+    </state>
+    <state x="-1148" y="316" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595436887940" />
     <state x="-1658" y="-87" width="598" height="490" key="find.popup" timestamp="1594985899473">
       <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
