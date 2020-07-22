@@ -99,10 +99,7 @@
                 {id: 5, name: '16ª Brigada de Infantaria de Selva',sigla:'16ª Bda Inf Sl',cor:'#123456', parent: 1, podeVerTudo: false},
                 {id: 6, name: '5º Batalhão de Infantaria de Selva',sigla:'5º BIS',cor:'#654321', parent: 3, podeVerTudo: false},
 
-
             ];
-
-
 
 
             org_chart = $('#orgChart').orgChart({

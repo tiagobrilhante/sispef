@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="99972188-b99b-437d-a39b-7c1d993dd8cf" name="Default Changelist" comment="teste" />
+    <list default="true" id="99972188-b99b-437d-a39b-7c1d993dd8cf" name="Default Changelist" comment="teste">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/add.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/delete.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/jquery.orgchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/jquery.orgchart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/insideApp/ommanager/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/insideApp/ommanager/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/debugbar/X77f8ccd185ecc0e9488c0bf7995db2a7.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/debugbar/Xd0c95eff7127207e244e758e9c9af409.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/debugbar/Xd6e5d6eb7260933da92d8a31849b6173.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/debugbar/Xd93ac06ee79b844fa3702d98bddabc10.json" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -199,7 +210,7 @@
       <updated>1594981691127</updated>
       <workItem from="1594981695773" duration="31440000" />
       <workItem from="1595253510744" duration="1653000" />
-      <workItem from="1595256212851" duration="32421000" />
+      <workItem from="1595256212851" duration="37799000" />
     </task>
     <task id="LOCAL-00001" summary="teste">
       <created>1595361110305</created>
@@ -242,11 +253,15 @@
       <screen x="0" y="23" width="1440" height="832" />
     </state>
     <state x="530" y="342" key="Github.CreateGistDialog/0.23.1440.832@0.23.1440.832" timestamp="1595363044906" />
-    <state x="653" y="302" key="Github.ShareDialog" timestamp="1595363455015">
+    <state x="653" y="302" key="Github.ShareDialog" timestamp="1595364369258">
       <screen x="0" y="23" width="1440" height="832" />
     </state>
-    <state x="653" y="302" key="Github.ShareDialog/0.23.1440.832@0.23.1440.832" timestamp="1595363455015" />
+    <state x="653" y="302" key="Github.ShareDialog/0.23.1440.832@0.23.1440.832" timestamp="1595364369258" />
     <state x="597" y="320" key="Github.ShareDialog/0.23.1440.833@0.23.1440.833" timestamp="1595362729393" />
+    <state x="277" y="128" key="Github.UntrackedFilesDialog" timestamp="1595364415203">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state x="277" y="128" key="Github.UntrackedFilesDialog/0.23.1440.832@0.23.1440.832" timestamp="1595364415203" />
     <state width="695" height="199" key="GridCell.Tab.0.bottom" timestamp="1595362881047">
       <screen x="0" y="23" width="1440" height="832" />
     </state>

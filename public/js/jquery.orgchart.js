@@ -30,7 +30,9 @@
         var self = this;
 
         this.draw = function () {
+
             $container.empty().append(rootNodes[0].render(opts));
+
             $container.find('.node').click(function () {
                 if (self.opts.onClickNode !== null) {
                     self.opts.onClickNode(nodes[$(this).attr('node-id')]);
@@ -75,14 +77,17 @@
 
         this.startEdit = function (id) {
 
-
             var nomeInicial = $('#nameElement_' + id + ' h2').text();
             var siglaInicial = $('#siglaElement_' + id + ' h6').text();
 
+            var inputElement = $('<label for="nomeOm_' + nodes[id].data.id + '">Nome da Om</label>'+
+                '<input autofocus id="nomeOm_' + nodes[id].data.id + '" placeholder="Digite o nome da Om" '+
+                'class="org-input" type="text" value="' + nomeInicial + '">');
+            var inputSigla = $('<label for="siglaOm_' + nodes[id].data.id + '">Sigla da Om</label>'+
+                '<input id="siglaOm_' + nodes[id].data.id + '" placeholder="Digite a sigla da Om" '+
+                'class="org-input" type="text" value="' + siglaInicial + '">');
 
-            var inputElement = $('<label for="nomeOm_' + nodes[id].data.id + '">Nome da Om</label><input autofocus id="nomeOm_' + nodes[id].data.id + '" placeholder="Digite o nome da Om" class="org-input" type="text" value="' + nomeInicial + '">');
-            var inputSigla = $('<label for="siglaOm_' + nodes[id].data.id + '">Sigla da Om</label><input id="siglaOm_' + nodes[id].data.id + '" placeholder="Digite a sigla da Om" class="org-input" type="text" value="' + siglaInicial + '">');
-            var botaoSalvaTudo = $('#salvar_'+nodes[id].data.id);
+
 
             // nome (troca pelo input)
             $container.find('div[node-id=' + id + '] h2').replaceWith(inputElement);
@@ -100,40 +105,7 @@
             $container.find('div[node-id=' + id + '] .org-del-button').addClass('d-none');
             $container.find('div[node-id=' + id + '] .org-add-button').addClass('d-none');
 
-            function commitChange () {
 
-                console.log(id);
-
-                var valorInputName = $('#nomeOm_' + nodes[id].data.id).val();
-
-                var valorInputSigla = $('#siglaOm_' + nodes[id].data.id).val();
-
-                var h2Element = $('<span id="nameElement_' + nodes[id].data.id + '"><h2>' + valorInputName + '</h2></span>');
-                var h6Element = $('<span id="siglaElement_' + nodes[id].data.id + '"><h6>' + valorInputSigla + '</h6></span>');
-
-                var spanNameElement = $container.find('#nameElement_' + nodes[id].data.id);
-                var spanSiglaElement = $container.find('#siglaElement_' + nodes[id].data.id);
-
-                // troca pelo novo nome
-                spanNameElement.replaceWith(h2Element);
-                // troca pela nova sigla
-                spanSiglaElement.replaceWith(h6Element);
-
-
-                // desabilita o pode ver tudo
-                $container.find('#podeVerTudo_' + id).attr('disabled', true);
-                // altera para compactar
-                $container.find('div[node-id=' + id + ']').removeClass('expandForInput');
-                // mostra o botão de editar
-                $container.find('div[node-id=' + id + '] .org-edit-button').removeClass('d-none');
-                // oculta o botão de salvar
-                $container.find('div[data-button-id=' + id + ']').addClass('d-none');
-                // mostra novamente os demais botões de adicionar om subordinadas e excluir om
-                $container.find('div[node-id=' + id + '] .org-del-button').removeClass('d-none');
-                $container.find('div[node-id=' + id + '] .org-add-button').removeClass('d-none');
-
-
-            }
            // inputElement.focus();
 /*
             inputElement.keyup(function (event) {
@@ -155,14 +127,57 @@
             });
 */
 
-            botaoSalvaTudo.click(function (e) {
 
-                commitChange();
-
-            })
         }
 
-        //adiciona um novo n ó
+        // clica para salvar as alterações
+        $(document).on('click','.salvante', function (e) {
+
+            let nodeIdReference = $(this).attr('id').split('_')[1];
+
+            e.stopPropagation();
+
+            commitChange(nodeIdReference);
+
+        } );
+
+        // salva as alterações nos nós
+        function commitChange (id) {
+
+            console.log(id);
+
+            var valorInputName = $('#nomeOm_' + nodes[id].data.id).val();
+
+            var valorInputSigla = $('#siglaOm_' + nodes[id].data.id).val();
+
+            var h2Element = $('<span id="nameElement_' + nodes[id].data.id + '"><h2>' + valorInputName + '</h2></span>');
+            var h6Element = $('<span id="siglaElement_' + nodes[id].data.id + '"><h6>' + valorInputSigla + '</h6></span>');
+
+            var spanNameElement = $container.find('#nameElement_' + nodes[id].data.id);
+            var spanSiglaElement = $container.find('#siglaElement_' + nodes[id].data.id);
+
+            // troca pelo novo nome
+            spanNameElement.replaceWith(h2Element);
+            // troca pela nova sigla
+            spanSiglaElement.replaceWith(h6Element);
+
+
+            // desabilita o pode ver tudo
+            $container.find('#podeVerTudo_' + id).attr('disabled', true);
+            // altera para compactar
+            $container.find('div[node-id=' + id + ']').removeClass('expandForInput');
+            // mostra o botão de editar
+            $container.find('div[node-id=' + id + '] .org-edit-button').removeClass('d-none');
+            // oculta o botão de salvar
+            $container.find('div[data-button-id=' + id + ']').addClass('d-none');
+            // mostra novamente os demais botões de adicionar om subordinadas e excluir om
+            $container.find('div[node-id=' + id + '] .org-del-button').removeClass('d-none');
+            $container.find('div[node-id=' + id + '] .org-add-button').removeClass('d-none');
+
+
+        }
+
+        //inicializa os dados de um novo nó
         this.newNode = function (parentId) {
             var nextId = Object.keys(nodes).length;
             while (nextId in nodes) {
@@ -172,6 +187,7 @@
             self.addNode({id: nextId, name: '', sigla: '', cor: '#000000', podeVerTudo: '', parent: parentId});
         }
 
+        // adiciona o novo nó
         this.addNode = function (data) {
             var newNode = new Node(data);
             nodes[data.id] = newNode;
@@ -181,6 +197,7 @@
             self.startEdit(data.id);
         }
 
+        // deleta o nó
         this.deleteNode = function (id) {
             for (var i = 0; i < nodes[id].children.length; i++) {
                 self.deleteNode(nodes[id].children[i].data.id);
@@ -190,6 +207,7 @@
             self.draw();
         }
 
+        // traz informações sobre o nó
         this.getData = function () {
             var outData = [];
             for (var i in nodes) {
@@ -218,6 +236,7 @@
         self.draw();
     }
 
+    // functions od s nós
     function Node(data) {
         this.data = data;
         this.children = [];
@@ -238,6 +257,7 @@
             }
         }
 
+        // renderiza o espaço dos nós
         this.render = function (opts) {
             var childLength = self.children.length,
                 mainTable;
@@ -325,9 +345,7 @@
             }
 
             // botão salvar
-
-            var saveEditButton = '<div class="text-center mt-3 d-none" data-button-id="' + self.data.id + '"><button class="btn btn-sm btn-primary col-11" id="salvar_' + self.data.id + '">Salvar</button></div>';
-
+            var saveEditButton = '<div class="mt-3 d-none" data-button-id="' + self.data.id + '"><button class="salvante btn btn-sm btn-primary col-11" id="salvar_' + self.data.id + '">Salvar</button></div>';
 
             // controls
             if (opts.showControls) {
@@ -338,7 +356,9 @@
 
             // monta a view
             return "<div class='node' node-id='" + this.data.id + "'>" + nameString + siglaString + descString + podeVerTudoBoolean + corString + saveEditButton + buttonsHtml + "</div>";
+
         }
+
     }
 
 })(jQuery);
