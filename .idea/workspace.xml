@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="99972188-b99b-437d-a39b-7c1d993dd8cf" name="Default Changelist" comment="teste">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/add.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/delete.png" beforeDir="false" />
+    <list default="true" id="99972188-b99b-437d-a39b-7c1d993dd8cf" name="Default Changelist" comment="ajuste do orgchart2">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/jquery.orgchart.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/jquery.orgchart.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/jquery.orgchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/jquery.orgchart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/insideApp/ommanager/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/insideApp/ommanager/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/debugbar/X77f8ccd185ecc0e9488c0bf7995db2a7.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/debugbar/Xd0c95eff7127207e244e758e9c9af409.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/debugbar/Xd6e5d6eb7260933da92d8a31849b6173.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/debugbar/Xd93ac06ee79b844fa3702d98bddabc10.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/insideApp/requiredJs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/insideApp/requiredJs.blade.php" afterDir="false" />
+    </list>
+    <list id="d7943f34-86c0-45b5-b439-ef6420608df0" name="Ignore" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/KGJJDTmSSshv63t69P2um13CtoHtxoYRZxtum6F0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,9 +49,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpWorkspaceProjectConfiguration">
@@ -160,23 +180,23 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/css" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/public/css" />
+      <recent name="$PROJECT_DIR$/public/js" />
+      <recent name="$PROJECT_DIR$/resources/views/insideApp" />
+      <recent name="$PROJECT_DIR$/database/seeds" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/insideApp" />
       <recent name="$PROJECT_DIR$/resources/views/layouts/insideApp" />
       <recent name="$PROJECT_DIR$/public/fonts" />
       <recent name="$PROJECT_DIR$/app/Models" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public/css" />
-      <recent name="$PROJECT_DIR$/public/js" />
-      <recent name="$PROJECT_DIR$/resources/views/insideApp" />
-      <recent name="$PROJECT_DIR$/database/seeds" />
-      <recent name="$PROJECT_DIR$/resources/views/insideApp/usermanager" />
     </key>
   </component>
   <component name="RunManager" selected="Laravel.Laravel">
@@ -204,6 +224,8 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="99972188-b99b-437d-a39b-7c1d993dd8cf" name="Default Changelist" comment="" />
+      <changelist id="" name="ignore" comment="" />
+      <changelist id="d7943f34-86c0-45b5-b439-ef6420608df0" name="Ignore" comment="" />
       <created>1594981691127</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -211,6 +233,7 @@
       <workItem from="1594981695773" duration="31440000" />
       <workItem from="1595253510744" duration="1653000" />
       <workItem from="1595256212851" duration="37799000" />
+      <workItem from="1595423020563" duration="12159000" />
     </task>
     <task id="LOCAL-00001" summary="teste">
       <created>1595361110305</created>
@@ -226,25 +249,50 @@
       <option name="project" value="LOCAL" />
       <updated>1595363668599</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="ajuste do orgchart">
+      <created>1595424132362</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1595424132362</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="teste" />
-    <option name="LAST_COMMIT_MESSAGE" value="teste" />
+    <MESSAGE value="ajuste do orgchart" />
+    <MESSAGE value="ajuste do orgchart2" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajuste do orgchart2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-1895" y="-148" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594982060241">
-      <screen x="-3200" y="-877" width="3200" height="1777" />
+    <state x="-1895" y="-176" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1595423381721">
+      <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
     <state x="-1895" y="-148" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.829/-3200.-877.3200.1777@-3200.-877.3200.1777" timestamp="1594982060241" />
+    <state x="-1895" y="-176" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595423381721" />
     <state x="-1251" y="137" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1594991075455">
       <screen x="-3200" y="-877" width="3200" height="1777" />
     </state>
     <state x="-1251" y="137" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1440.830/-3200.-877.3200.1777@-3200.-877.3200.1777" timestamp="1594991075455" />
+    <state x="-1350" y="-11" key="CommitChangelistDialog2" timestamp="1595435806386">
+      <screen x="-3200" y="-877" width="3200" height="1777" />
+    </state>
+    <state x="-1350" y="-11" key="CommitChangelistDialog2/0.23.1440.832/-3200.-877.3200.1777@-3200.-877.3200.1777" timestamp="1595435806386" />
     <state x="-1235" y="295" key="ComposerInitDialogKey" timestamp="1594985983854">
       <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
@@ -262,38 +310,38 @@
       <screen x="0" y="23" width="1440" height="832" />
     </state>
     <state x="277" y="128" key="Github.UntrackedFilesDialog/0.23.1440.832@0.23.1440.832" timestamp="1595364415203" />
-    <state width="695" height="199" key="GridCell.Tab.0.bottom" timestamp="1595362881047">
-      <screen x="0" y="23" width="1440" height="832" />
+    <state width="1811" height="198" key="GridCell.Tab.0.bottom" timestamp="1595423827017">
+      <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
     <state width="1398" height="207" key="GridCell.Tab.0.bottom/0.23.1440.830/-3200.-877.3200.1777@-3200.-877.3200.1777" timestamp="1594991519745" />
     <state width="1390" height="199" key="GridCell.Tab.0.bottom/0.23.1440.830@0.23.1440.830" timestamp="1595257545354" />
     <state width="1398" height="207" key="GridCell.Tab.0.bottom/0.23.1440.831@0.23.1440.831" timestamp="1595253475560" />
     <state width="695" height="199" key="GridCell.Tab.0.bottom/0.23.1440.832@0.23.1440.832" timestamp="1595362881047" />
-    <state width="1398" height="207" key="GridCell.Tab.0.bottom/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1594982639851" />
-    <state width="695" height="199" key="GridCell.Tab.0.center" timestamp="1595362881046">
-      <screen x="0" y="23" width="1440" height="832" />
+    <state width="1811" height="198" key="GridCell.Tab.0.bottom/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595423827017" />
+    <state width="1811" height="198" key="GridCell.Tab.0.center" timestamp="1595423827016">
+      <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
     <state width="1398" height="207" key="GridCell.Tab.0.center/0.23.1440.830/-3200.-877.3200.1777@-3200.-877.3200.1777" timestamp="1594991519744" />
     <state width="1390" height="199" key="GridCell.Tab.0.center/0.23.1440.830@0.23.1440.830" timestamp="1595257545353" />
     <state width="1398" height="207" key="GridCell.Tab.0.center/0.23.1440.831@0.23.1440.831" timestamp="1595253475559" />
     <state width="695" height="199" key="GridCell.Tab.0.center/0.23.1440.832@0.23.1440.832" timestamp="1595362881046" />
-    <state width="1398" height="207" key="GridCell.Tab.0.center/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1594982639849" />
-    <state width="695" height="199" key="GridCell.Tab.0.left" timestamp="1595362881045">
-      <screen x="0" y="23" width="1440" height="832" />
+    <state width="1811" height="198" key="GridCell.Tab.0.center/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595423827016" />
+    <state width="1811" height="198" key="GridCell.Tab.0.left" timestamp="1595423827015">
+      <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
     <state width="1398" height="207" key="GridCell.Tab.0.left/0.23.1440.830/-3200.-877.3200.1777@-3200.-877.3200.1777" timestamp="1594991519743" />
     <state width="1390" height="199" key="GridCell.Tab.0.left/0.23.1440.830@0.23.1440.830" timestamp="1595257545353" />
     <state width="1398" height="207" key="GridCell.Tab.0.left/0.23.1440.831@0.23.1440.831" timestamp="1595253475557" />
     <state width="695" height="199" key="GridCell.Tab.0.left/0.23.1440.832@0.23.1440.832" timestamp="1595362881045" />
-    <state width="1398" height="207" key="GridCell.Tab.0.left/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1594982639848" />
-    <state width="695" height="199" key="GridCell.Tab.0.right" timestamp="1595362881046">
-      <screen x="0" y="23" width="1440" height="832" />
+    <state width="1811" height="198" key="GridCell.Tab.0.left/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595423827015" />
+    <state width="1811" height="198" key="GridCell.Tab.0.right" timestamp="1595423827017">
+      <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
     <state width="1398" height="207" key="GridCell.Tab.0.right/0.23.1440.830/-3200.-877.3200.1777@-3200.-877.3200.1777" timestamp="1594991519745" />
     <state width="1390" height="199" key="GridCell.Tab.0.right/0.23.1440.830@0.23.1440.830" timestamp="1595257545354" />
     <state width="1398" height="207" key="GridCell.Tab.0.right/0.23.1440.831@0.23.1440.831" timestamp="1595253475559" />
     <state width="695" height="199" key="GridCell.Tab.0.right/0.23.1440.832@0.23.1440.832" timestamp="1595362881046" />
-    <state width="1398" height="207" key="GridCell.Tab.0.right/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1594982639849" />
+    <state width="1811" height="198" key="GridCell.Tab.0.right/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595423827017" />
     <state x="308" y="175" key="IDE.errors.dialog" timestamp="1595246921479">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
@@ -303,16 +351,27 @@
     </state>
     <state x="-1535" y="-54" key="SettingsEditor/0.23.1440.829/-3200.-877.3200.1777@-3200.-877.3200.1777" timestamp="1594981774769" />
     <state x="443" y="133" key="SettingsEditor/0.23.1440.832@0.23.1440.832" timestamp="1595363700838" />
-    <state x="324" y="156" key="Vcs.Push.Dialog.v2" timestamp="1595361164844">
-      <screen x="0" y="23" width="1440" height="832" />
+    <state x="-1084" y="364" key="VCS.ChangelistChooser" timestamp="1595435904743">
+      <screen x="-3200" y="-877" width="3200" height="1777" />
+    </state>
+    <state x="-1084" y="364" key="VCS.ChangelistChooser/0.23.1440.832/-3200.-877.3200.1777@-3200.-877.3200.1777" timestamp="1595435904743" />
+    <state x="-1084" y="316" key="VCS.ChangelistChooser/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595424268276" />
+    <state x="-1098" y="272" key="VCS.EditChangelistDialog" timestamp="1595424244278">
+      <screen x="-3200" y="-877" width="3200" height="1708" />
+    </state>
+    <state x="-1098" y="272" key="VCS.EditChangelistDialog/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595424244278" />
+    <state x="-2480" y="-604" key="Vcs.Push.Dialog.v2" timestamp="1595424144425">
+      <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
     <state x="324" y="156" key="Vcs.Push.Dialog.v2/0.23.1440.832@0.23.1440.832" timestamp="1595361164844" />
-    <state x="933" y="529" width="346" height="232" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1595258344305">
-      <screen x="0" y="23" width="1440" height="830" />
+    <state x="-2480" y="-604" key="Vcs.Push.Dialog.v2/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595424144425" />
+    <state x="-1127" y="164" width="346" height="232" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1595423329194">
+      <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
     <state x="-1127" y="207" width="346" height="337" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.23.1440.830/-3200.-877.3200.1777@-3200.-877.3200.1777" timestamp="1594996255645" />
     <state x="933" y="529" width="346" height="232" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.23.1440.830@0.23.1440.830" timestamp="1595258344305" />
     <state x="-1127" y="207" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.23.1440.831/-3200.-877.3200.1777@-3200.-877.3200.1777" timestamp="1594996360304" />
+    <state x="-1127" y="164" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595423329194" />
     <state x="108" y="123" width="1232" height="587" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1595356320921">
       <screen x="0" y="23" width="1440" height="832" />
     </state>
