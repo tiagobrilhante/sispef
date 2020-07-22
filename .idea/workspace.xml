@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99972188-b99b-437d-a39b-7c1d993dd8cf" name="Default Changelist" comment="ajuste do orgchart2">
+    <list default="true" id="99972188-b99b-437d-a39b-7c1d993dd8cf" name="Default Changelist" comment="ajuste do ini">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -220,7 +220,7 @@
       <workItem from="1594981695773" duration="31440000" />
       <workItem from="1595253510744" duration="1653000" />
       <workItem from="1595256212851" duration="37799000" />
-      <workItem from="1595423020563" duration="12987000" />
+      <workItem from="1595423020563" duration="13414000" />
     </task>
     <task id="LOCAL-00001" summary="teste">
       <created>1595361110305</created>
@@ -257,7 +257,14 @@
       <option name="project" value="LOCAL" />
       <updated>1595436379314</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="ajuste do ini">
+      <created>1595437024344</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1595437024344</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,7 +285,8 @@
     <MESSAGE value="teste" />
     <MESSAGE value="ajuste do orgchart" />
     <MESSAGE value="ajuste do orgchart2" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajuste do orgchart2" />
+    <MESSAGE value="ajuste do ini" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajuste do ini" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1895" y="-176" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1595423381721">
@@ -365,11 +373,11 @@
       <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
     <state x="-1098" y="272" key="VCS.EditChangelistDialog/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595424244278" />
-    <state x="-2480" y="-604" key="Vcs.Push.Dialog.v2" timestamp="1595436419035">
+    <state x="-2480" y="-604" key="Vcs.Push.Dialog.v2" timestamp="1595437027762">
       <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
     <state x="324" y="156" key="Vcs.Push.Dialog.v2/0.23.1440.832@0.23.1440.832" timestamp="1595361164844" />
-    <state x="-2480" y="-604" key="Vcs.Push.Dialog.v2/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595436419035" />
+    <state x="-2480" y="-604" key="Vcs.Push.Dialog.v2/0.23.1440.877/-3200.-877.3200.1708@-3200.-877.3200.1708" timestamp="1595437027762" />
     <state x="-1127" y="164" width="346" height="232" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1595423329194">
       <screen x="-3200" y="-877" width="3200" height="1708" />
     </state>
