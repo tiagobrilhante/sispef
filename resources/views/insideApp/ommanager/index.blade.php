@@ -80,10 +80,18 @@
     <div id="consoleOutput">
     </div>
 
+    {{--<div class="picker"></div>
+--}}
 
 @endsection
 
 @section('myScripts')
+
+    {{--colorpick--}}
+    <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+
+    {{--orgchart modificado--}}
+    <script src="{{ asset('js/jquery.orgchart.js') }}" defer></script>
 
     <script>
 
@@ -91,6 +99,27 @@
         $(function () {
 
 
+/*
+            var hex = colorPicker.color.hexString;
+            console.log(hex); // hex = "#ff0000"
+
+
+            colorPicker.on(['color:init', 'color:change'], function(color) {
+                // log the current color as a HEX string
+                console.log(color.hexString);
+            });
+
+
+            function onColorChange(color) {
+                console.log(color.hexString);
+            }
+
+// add color:change listener
+            colorPicker.on('color:change', onColorChange);
+
+// later, if we want to stop listening to color:change...
+            colorPicker.off('color:change', onColorChange);
+*/
             var testData = [
                 {id: 1, name: 'Comando Militar da Amazônia',sigla:'CMA',cor:'#000000', parent: 0, podeVerTudo: true},
                 {id: 2, name: '12ª Região Militar',sigla:'12ª RM',cor:'#000000', parent: 1, podeVerTudo: true},

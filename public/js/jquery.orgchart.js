@@ -28,6 +28,7 @@
         this.opts = opts;
         this.$container = $container;
         var self = this;
+        var finalColor = '';
 
         this.draw = function () {
 
@@ -77,47 +78,106 @@
 
         this.startEdit = function (id) {
 
+            // pega o valor inicial de nome
             var nomeInicial = $('#nameElement_' + id + ' h2').text();
+
+            // pega o valor inicial de sigla
             var siglaInicial = $('#siglaElement_' + id + ' h6').text();
 
+            //input para o nome da OM
             var inputElement = $('<label for="nomeOm_' + nodes[id].data.id + '">Nome da Om</label>' +
                 '<input autofocus id="nomeOm_' + nodes[id].data.id + '" placeholder="Digite o nome da Om" ' +
                 'class="org-input" type="text" value="' + nomeInicial + '">');
+
+            // input para a sigla da OM
             var inputSigla = $('<label for="siglaOm_' + nodes[id].data.id + '">Sigla da Om</label>' +
                 '<input id="siglaOm_' + nodes[id].data.id + '" placeholder="Digite a sigla da Om" ' +
                 'class="org-input" type="text" value="' + siglaInicial + '">');
+
+            var inputColor = '<div id="theColorSpace"><div class="row"><div class="offset-4 align-content-center"></div>'+
+                '<div class=" p-2 picker"></div></div></div>';
 
             // nome (troca pelo input)
             $container.find('div[node-id=' + id + '] h2').replaceWith(inputElement);
             // sigla (troca pelo input)
             $container.find('div[node-id=' + id + '] h6').replaceWith(inputSigla);
-            // mostra o botão salvar edição
-            $container.find('div[data-button-id=' + id + ']').removeClass('d-none');
-            // muda o tamanho pra caber tudo
-            $container.find('div[node-id=' + id + ']').addClass('expandForInput');
+
+            // cria a variável que vai armazenar a cor inicial do elemento
+            const initialColor =  rgb2hex($container.find('#colorSpace_' + id).css('background-color'));
+
+            //cor pelo input
+            $container.find('#colorSpace_' + id).replaceWith(inputColor);
+
+            // monta a colorpick
+            var colorPicker = new iro.ColorPicker(".picker", {
+                width: 90,
+                sliderSize: 10,
+                handleRadius: 5,
+                display: 'block',
+                borderWidth: 1,
+                borderColor: '#534646',
+                layoutDirection: 'vertical',
+                // injeta a cor inicial
+                color: initialColor
+            });
+
+            colorPicker.on(['color:init', 'color:change'], function(color) {
+                // log the current color as a HEX string
+                console.log(color.hexString);
+                finalColor = color.hexString;
+            });
+
+            // sensação de disabled para os outros nós
+            $container.find('.node').each(function () {
+
+                $(this).addClass('disableColor');
+
+            });
+
+            // muda o tamanho pra caber tudo e remove a classe de disable
+            $container.find('div[node-id=' + id + ']').addClass('expandForInput').removeClass('disableColor');
+
             // checkbox pode ver tudo permite edição
             $container.find('#podeVerTudo_' + id).attr('disabled', false);
-            // Esconde o botão de editar
+
+            // Esconde o botão de editar de todos os nós
             $container.find('.org-edit-button').each(function () {
 
                 $(this).addClass('d-none');
 
             });
 
-            // esconde o botão de excluir
+            // esconde o botão de excluir de todos os nós
             $container.find('.org-del-button').each(function () {
 
                 $(this).addClass('d-none');
 
             });
 
-            // esconde o botão de adicionar nó
+            // esconde o botão de adicionar nó de todos os nós
             $container.find('.org-add-button').each(function () {
 
                 $(this).addClass('d-none');
 
             });
 
+            // mostra o botão salvar edição (apenas para o nó em evidência)
+            $container.find('div[data-button-id=' + id + ']').removeClass('d-none');
+
+        }
+
+
+
+        var hexDigits = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
+
+        //Function to convert rgb color to hex format
+        function rgb2hex(rgb) {
+            rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+            return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+        }
+
+        function hex(x) {
+            return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
         }
 
         // clica para salvar as alterações
@@ -127,12 +187,12 @@
 
             e.stopPropagation();
 
-            commitChange(nodeIdReference);
+            commitChange(nodeIdReference, finalColor);
 
         });
 
         // salva as alterações nos nós
-        function commitChange(id) {
+        function commitChange(id,theColor) {
 
             var valorInputName = $('#nomeOm_' + nodes[id].data.id).val();
 
@@ -140,15 +200,24 @@
 
             var h2Element = $('<span id="nameElement_' + nodes[id].data.id + '"><h2>' + valorInputName + '</h2></span>');
             var h6Element = $('<span id="siglaElement_' + nodes[id].data.id + '"><h6>' + valorInputSigla + '</h6></span>');
+            var colorElement = $('<span id="colorSpace_' + nodes[id].data.id + '" class="corbox" style="background-color: ' + theColor + '"></span>');
 
             var spanNameElement = $container.find('#nameElement_' + nodes[id].data.id);
             var spanSiglaElement = $container.find('#siglaElement_' + nodes[id].data.id);
+            var spanColorElement = $container.find('#theColorSpace');
+
+
+            //
 
             // troca pelo novo nome
             spanNameElement.replaceWith(h2Element);
 
             // troca pela nova sigla
             spanSiglaElement.replaceWith(h6Element);
+
+            // troca pela nova cor
+            spanColorElement.replaceWith(colorElement);
+
 
             // desabilita o pode ver tudo
             $container.find('#podeVerTudo_' + id).attr('disabled', true);
@@ -177,6 +246,13 @@
             $container.find('.org-add-button').each(function () {
 
                 $(this).removeClass('d-none');
+
+            });
+
+            // remove sensação de disabled para os nós
+            $container.find('.node').each(function () {
+
+                $(this).removeClass('disableColor');
 
             });
         }
@@ -321,7 +397,7 @@
 
             //cor
             if (typeof data.cor !== 'undefined') {
-                corString = 'Cor: <span class="corbox" style="background-color: ' + self.data.cor + '"></span>';
+                corString = 'Cor: <span id="colorSpace_'+self.data.id+'" class="corbox" style="background-color: ' + self.data.cor + '"></span>';
             }
 
             //sigla

@@ -11,10 +11,6 @@ div.orgChart h2 {
   min-height: 20px;
 }
 
-div.orgChart h2:hover {
-  background: #fcfaca;
-  cursor: text;
-}
 
 div.orgChart ul {
   list-style : none;
@@ -55,13 +51,7 @@ div.orgChart div.node {
   padding : 5px;
   width : 300px;
   height : 150px;
-  background: #ffffff; /* Old browsers */
-  background: -moz-linear-gradient(top, #ffffff 0%, #fbfbfb 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #fbfbfb)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #ffffff 0%, #fbfbfb 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #ffffff 0%, #fbfbfb 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #ffffff 0%, #fbfbfb 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #ffffff 0%, #fbfbfb 100%); /* W3C */
+  background-color: #FFFFFF;
   line-height : 1.3em;
   border-radius : 4px;
   -moz-border-radius : 4px;
@@ -71,7 +61,7 @@ div.orgChart div.node {
 }
 
 .expandForInput{
-    height : 250px !important;
+    height : 370px !important;
 }
 
 .org-add-button,
@@ -118,4 +108,8 @@ div.orgChart div.node {
 .corbox{
     padding-left: 25px;
     margin-left: 15px;
+}
+
+.disableColor{
+    background-color:  #494545 !important;
 }
