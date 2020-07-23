@@ -2,33 +2,34 @@
 
 @section('content')
 
+    {{--card--}}
     <div class="card mb-3">
+
+        {{--card header--}}
         <div class="card-header">{{ __('Gerenciamento de Organizações Militares') }}</div>
 
+        {{--card body--}}
         <div class="card-body ">
 
             {{--espaço do chart--}}
 
-
             <div class="container bordas">
+
             <div class="row ">
 
                 <div class="col-12 scroll">
 
-
-
                     <div id="orgChartContainer">
+
                         <div id="orgChart" ></div>
+
                     </div>
+
                     </div>
-
-
-
 
             </div>
+
             </div>
-
-
 
         </div>
 
