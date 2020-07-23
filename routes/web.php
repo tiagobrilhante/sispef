@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // controles de OM
     Route::resource('/admin/ommanager', 'OmController');
+    Route::get('/allOm', 'OmController@listaOms');
 
 
 

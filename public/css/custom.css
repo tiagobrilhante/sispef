@@ -335,3 +335,14 @@ a[data-toggle="collapse"] {
     }
 }
 
+.scroll {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.bordas{
+    border-color: #000000 !important;
+    border: 1px !important;
+    border-style: solid !important;
+    border-radius: 5px !important;
+}

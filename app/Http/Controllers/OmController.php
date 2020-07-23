@@ -20,4 +20,10 @@ class OmController extends Controller
 
     }
 
+    // lista as om para montar o orgchart
+    public function listaOms()
+    {
+        return Om::all();
+    }
+
 }

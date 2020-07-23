@@ -15,9 +15,13 @@ class CreateOmsTable extends Migration
     {
         Schema::create('oms', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
+            $table->string('name');
             $table->string('sigla');
             $table->string('cor');
+            $table->boolean('podeVerTudo');
+            $table->boolean('ePef');
+            $table->boolean('novoNo');
+            $table->integer('parent');
 
 
             $table->unsignedBigInteger('om_id')->nullable();
