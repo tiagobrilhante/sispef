@@ -22,6 +22,8 @@ class CreateOmsTable extends Migration
             $table->boolean('ePef');
             $table->boolean('novoNo');
             $table->integer('parent');
+            $table->integer('eixo_x');
+            $table->integer('eixo_y');
 
 
             $table->unsignedBigInteger('om_id')->nullable();

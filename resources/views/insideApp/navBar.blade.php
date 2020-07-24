@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark shadow-sm">
-    <div class="container">
-
+    <div class="container-fluid">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'SisPef') }}
         </a>
@@ -61,6 +60,6 @@
         </div>
 
     </div>
-
 </nav>
+
 

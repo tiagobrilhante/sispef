@@ -1,7 +1,6 @@
 {{-- Sidebar  --}}
 <nav id="sidebar">
 
-
     <ul class="list-unstyled components">
 
         {{--menu--}}

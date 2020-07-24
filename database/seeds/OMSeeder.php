@@ -23,6 +23,8 @@ class OMSeeder extends Seeder
                 'podeVerTudo' => 1,
                 'ePef' => 0,
                 'novoNo' => 0,
+                'eixo_x' => 100,
+                'eixo_y' => 200,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
@@ -36,6 +38,8 @@ class OMSeeder extends Seeder
                 'podeVerTudo' => 0,
                 'ePef' => 0,
                 'novoNo' => 0,
+                'eixo_x' => 150,
+                'eixo_y' => 250,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
@@ -49,6 +53,8 @@ class OMSeeder extends Seeder
                 'podeVerTudo' => 0,
                 'ePef' => 0,
                 'novoNo' => 0,
+                'eixo_x' => 200,
+                'eixo_y' => 250,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
@@ -62,6 +68,8 @@ class OMSeeder extends Seeder
                 'podeVerTudo' => 0,
                 'ePef' => 0,
                 'novoNo' => 0,
+                'eixo_x' => 250,
+                'eixo_y' => 300,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
@@ -75,6 +83,8 @@ class OMSeeder extends Seeder
                 'podeVerTudo' => 0,
                 'ePef' => 0,
                 'novoNo' => 0,
+                'eixo_x' => 300,
+                'eixo_y' => 198,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
@@ -88,6 +98,8 @@ class OMSeeder extends Seeder
                 'podeVerTudo' => 0,
                 'ePef' => 0,
                 'novoNo' => 0,
+                'eixo_x' => 400,
+                'eixo_y' => 500,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
@@ -101,6 +113,8 @@ class OMSeeder extends Seeder
                 'podeVerTudo' => 0,
                 'ePef' => 1,
                 'novoNo' => 0,
+                'eixo_x' => 600,
+                'eixo_y' => 800,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]

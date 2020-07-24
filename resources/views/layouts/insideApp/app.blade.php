@@ -21,20 +21,20 @@
 <div id="app">
     @include('insideApp.navBar')
 
-    <div class="row">
-        <div class="col">
+        <div class="row ">
+            <div class="col-12">
 
-            <div class="alert alert-dark corteste my-0">
-                <button type="button" id="sidebarCollapse" class="btn btn-dark btn-sm">
-                    <i class="fa fa-align-justify"> </i>
-                    <span> Recolher Menu</span>
-                </button>
+                <div class="alert alert-dark corteste my-0 mx-0">
+                    <button type="button" id="sidebarCollapse" class="btn btn-dark btn-sm">
+                        <i class="fa fa-align-justify"> </i>
+                        <span> Recolher Menu</span>
+                    </button>
 
-                alertas
+                    alertas
+                </div>
+
             </div>
-
         </div>
-    </div>
 
     <div class="wrapper">
 
@@ -42,13 +42,11 @@
         @include('insideApp.sidebar')
 
         {{-- Page Content  --}}
-        <div id="content">
+        <main id="content" class="container-fluid scroll">
 
-            <main>
                 @yield('content')
-            </main>
 
-        </div>
+        </main>
 
     </div>
 
