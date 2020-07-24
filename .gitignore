@@ -10,4 +10,5 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 .idea/
+./.idea/workspace.xml
 
