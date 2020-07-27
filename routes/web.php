@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/alluser', 'UserController@alluser');
 
     // controles de OM
-    Route::resource('/admin/ommanager', 'OmController');
+    Route::resource('ommanager', 'OmController');
     Route::get('/allOm', 'OmController@listaOms');
 
 

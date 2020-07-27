@@ -23,7 +23,7 @@
                     <a href="{{ route("usermanager.index") }}" class="link-menu__sidebar link-submenu__sidebar @if (Request::path() == 'admin/usermanager') active__sublink @endif"><i class="fas fa-user"></i> Controle de Usuários</a>
                 </li>
                 <li>
-                    <a href="{{ route("ommanager.index") }}" class="link-menu__sidebar link-submenu__sidebar @if (Request::path() == 'admin/ommanager') active__sublink @endif"><i class="fa fa-globe"></i> Gerenciamento de OM</a>
+                    <a href="{{ route("ommanager.index") }}" class="link-menu__sidebar link-submenu__sidebar @if (Request::path() == 'ommanager') active__sublink @endif"><i class="fa fa-globe"></i> Gerenciamento de OM</a>
                 </li>
                 <li>
                     <a href="#" class="link-menu__sidebar link-submenu__sidebar">About 3</a>

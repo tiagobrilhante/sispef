@@ -30,9 +30,8 @@
         var self = this;
         var finalColor = '';
 
-
+        // armazena os dados inicias para serem usados em caso de cancelamento de edição (sem necessidade de buscar no servido)
         var dadoInicial = [];
-
 
         this.draw = function () {
 
@@ -78,6 +77,7 @@
                 }
                 e.stopPropagation();
             });
+
         }
 
         this.startEdit = function (id) {
@@ -89,29 +89,42 @@
             var siglaInicial = $('#siglaElement_' + id + ' h6').text();
 
             // cria a variável que vai armazenar a cor inicial do elemento
-            const initialColor =  rgb2hex($container.find('#colorSpace_' + id).css('background-color'));
+            const initialColor = rgb2hex($container.find('#colorSpace_' + id).css('background-color'));
 
             // verifica o pode ver tudo inicial
-            const podeVerTudoInicial = $('#podeVerTudo_'+id).is(':checked');
+            const podeVerTudoInicial = $('#podeVerTudo_' + id).is(':checked');
 
             // verifica se é pef inicial
-            const ePefInicial = $('#ePef_'+id).is(':checked');
+            const ePefInicial = $('#ePef_' + id).is(':checked');
+
+            // pega o valor inicial do eixoX
+            var eixoXInicial = $('#positionX_' + id).val();
+
+            // pega o valor inicial do eixoy
+            var eixoYInicial = $('#positionY_' + id).val();
 
             // adicina a arrai de controle
-            dadoInicial.push(nomeInicial, siglaInicial, initialColor, podeVerTudoInicial, ePefInicial);
-
+            dadoInicial.push(nomeInicial, siglaInicial, initialColor, podeVerTudoInicial, ePefInicial, eixoXInicial, eixoYInicial);
 
             //input para o nome da OM
-            var inputElement = $('<label for="nomeOm_' + nodes[id].data.id + '">Nome da Om</label>' +
+            var inputElement = $('<div class="container-fluid">' +
+                '<div class="form-group">'+
+                '<label for="nomeOm_' + nodes[id].data.id + '">Nome da Om</label>' +
                 '<input autofocus id="nomeOm_' + nodes[id].data.id + '" placeholder="Digite o nome da Om" ' +
-                'class="org-input" type="text" value="' + nomeInicial + '">');
+                'class="form-control form-control-sm" type="text" value="' + nomeInicial + '">' +
+                '</div>' +
+                '</div>');
 
             // input para a sigla da OM
-            var inputSigla = $('<label for="siglaOm_' + nodes[id].data.id + '">Sigla da Om</label>' +
+            var inputSigla = $('<div class="container-fluid">' +
+                '<div class="form-group">' +
+                '<label for="siglaOm_' + nodes[id].data.id + '">Sigla da Om</label>' +
                 '<input id="siglaOm_' + nodes[id].data.id + '" placeholder="Digite a sigla da Om" ' +
-                'class="org-input" type="text" value="' + siglaInicial + '">');
+                'class="form-control form-control-sm" type="text" value="' + siglaInicial + '">' +
+                '</div>' +
+                '</div>');
 
-            var inputColor = '<div id="theColorSpace"><div class="row"><div class="offset-4 align-content-center"></div>'+
+            var inputColor = '<div id="theColorSpace"><div class="row"><div class="offset-4 align-content-center"></div>' +
                 '<div class=" p-2 picker"></div></div></div>';
 
             // nome (troca pelo input)
@@ -134,10 +147,13 @@
                 color: initialColor
             });
 
-            colorPicker.on(['color:init', 'color:change'], function(color) {
+            colorPicker.on(['color:init', 'color:change'], function (color) {
                 // modifica a cor final para a cor escolhida no colorpick
                 finalColor = color.hexString;
             });
+
+            // faz aparecer os inputs de X e Y no mapa
+            $container.find('#mapPosition_' + id).removeClass('d-none');
 
             // sensação de disabled para os outros nós
             $container.find('.node').each(function () {
@@ -183,8 +199,7 @@
         }
 
 
-
-        var hexDigits = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
+        var hexDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
 
         //Function to convert rgb color to hex format
         function rgb2hex(rgb) {
@@ -206,8 +221,8 @@
             commitChange(nodeIdReference, finalColor);
 
 
-
         });
+
 
         // clica para cancelar as alterações
         $(document).on('click', '.cancelante', function (e) {
@@ -218,139 +233,139 @@
 
             e.stopPropagation();
 
-           if (nodes[nodeIdReference].data.novoNo){
+            if (nodes[nodeIdReference].data.novoNo) {
 
 
-
-               var thisId = nodeIdReference;
-
-
-               if (self.opts.onDeleteNode !== null) {
-                   self.opts.onDeleteNode(nodes[thisId]);
-               } else {
-                   self.deleteNode(thisId);
-               }
-               e.stopPropagation();
-
-           } else {
+                var thisId = nodeIdReference;
 
 
-               // dado inicial
-               /*
-               0 - nome
-               1 - sigla
-               2 - cor
-               3 - podevertudo
-               4- é pef
-                */
+                if (self.opts.onDeleteNode !== null) {
+                    self.opts.onDeleteNode(nodes[thisId]);
+                } else {
+                    self.deleteNode(thisId);
+                }
+                e.stopPropagation();
 
-               var valorNameIni = dadoInicial[0];
-               var valorSiglaIni = dadoInicial[1];
-               var valorCorIni = dadoInicial[2];
-               var valorPodeVerTudoIni = dadoInicial[3];
-               var valorEPefIni = dadoInicial[4];
-
-               var h2Element = $('<span id="nameElement_' + nodeIdReference + '"><h2>' + valorNameIni + '</h2></span>');
-               var h6Element = $('<span id="siglaElement_' + nodeIdReference + '"><h6>' + valorSiglaIni + '</h6></span>');
-               var colorElement = $('<span id="colorSpace_' + nodeIdReference + '" class="corbox" style="background-color: ' + valorCorIni + '"></span>');
-
-               var spanNameElement = $container.find('#nameElement_' + nodeIdReference);
-               var spanSiglaElement = $container.find('#siglaElement_' + nodeIdReference);
-               var spanColorElement = $container.find('#theColorSpace');
-
-               // troca pelo novo nome
-               spanNameElement.replaceWith(h2Element);
-
-               // troca pela nova sigla
-               spanSiglaElement.replaceWith(h6Element);
-
-               // troca pela nova cor
-               spanColorElement.replaceWith(colorElement);
-
-               // desabilita o pode ver tudo
-               // se o podever tudo é false tem que deixar sem o check
-
-               if (valorPodeVerTudoIni){
-
-                   $container.find('#podeVerTudo_' + nodeIdReference).prop('checked',true).attr('disabled', true);
-
-               } else {
-                   $container.find('#podeVerTudo_' + nodeIdReference).prop('checked',false).attr('disabled', true);
-               }
-
-               // desabilita o ePef
-               // se o ePef é false tem que deixar sem o check
-
-               if (valorEPefIni){
-
-                   $container.find('#ePef_' + nodeIdReference).prop('checked', true).attr('disabled', true);
-               } else {
-                   $container.find('#ePef_' + nodeIdReference).prop('checked', false).attr('disabled', true);
-               }
-
-               // altera para compactar
-               $container.find('div[node-id=' + nodeIdReference + ']').removeClass('expandForInput');
-
-               // oculta o botão de salvar
-               $container.find('div[data-button-id=' + nodeIdReference + ']').addClass('d-none');
-
-               // mostra os botões de editar
-               $container.find('.org-edit-button').each(function () {
-
-                   $(this).removeClass('d-none');
-
-               });
-
-               // mostra novamente o botão de excluir OM
-               $container.find('.org-del-button').each(function () {
-
-                   $(this).removeClass('d-none');
-
-               });
-
-               // mostra novamente o botão de adicionar filho
-               $container.find('.org-add-button').each(function () {
-
-                   $(this).removeClass('d-none');
-
-               });
-
-               // remove sensação de disabled para os nós
-               $container.find('.node').each(function () {
-
-                   $(this).removeClass('disableColor');
-
-               });
+            } else {
 
 
-           }
+                // dado inicial
+                /*
+                0 - nome
+                1 - sigla
+                2 - cor
+                3 - podevertudo
+                4- é pef
+                5 - eixo X
+                6 - eixo Y
+                 */
+
+                var valorNameIni = dadoInicial[0];
+                var valorSiglaIni = dadoInicial[1];
+                var valorCorIni = dadoInicial[2];
+                var valorPodeVerTudoIni = dadoInicial[3];
+                var valorEPefIni = dadoInicial[4];
+                var valorEixoXIni = dadoInicial[5];
+                var valorEixoYIni = dadoInicial[6];
+
+                var h2Element = $('<span id="nameElement_' + nodeIdReference + '"><h2>' + valorNameIni + '</h2></span>');
+                var h6Element = $('<span id="siglaElement_' + nodeIdReference + '"><h6><br>' + valorSiglaIni + '</h6></span>');
+                var colorElement = $('<span id="colorSpace_' + nodeIdReference + '" class="corbox" style="background-color: ' + valorCorIni + '"></span>');
+
+                var spanNameElement = $container.find('#nameElement_' + nodeIdReference);
+                var spanSiglaElement = $container.find('#siglaElement_' + nodeIdReference);
+                var spanColorElement = $container.find('#theColorSpace');
+
+                // troca pelo novo nome
+                spanNameElement.replaceWith(h2Element);
+
+                // troca pela nova sigla
+                spanSiglaElement.replaceWith(h6Element);
+
+                // troca pela nova cor
+                spanColorElement.replaceWith(colorElement);
+
+                // desabilita o pode ver tudo
+                // se o podever tudo é false tem que deixar sem o check
+
+                if (valorPodeVerTudoIni) {
+
+                    $container.find('#podeVerTudo_' + nodeIdReference).prop('checked', true).attr('disabled', true);
+
+                } else {
+                    $container.find('#podeVerTudo_' + nodeIdReference).prop('checked', false).attr('disabled', true);
+                }
+
+                // desabilita o ePef
+                // se o ePef é false tem que deixar sem o check
+
+                if (valorEPefIni) {
+
+                    $container.find('#ePef_' + nodeIdReference).prop('checked', true).attr('disabled', true);
+                } else {
+                    $container.find('#ePef_' + nodeIdReference).prop('checked', false).attr('disabled', true);
+                }
+
+                // altera para compactar
+                $container.find('div[node-id=' + nodeIdReference + ']').removeClass('expandForInput');
+
+                // oculta o botão de salvar
+                $container.find('div[data-button-id=' + nodeIdReference + ']').addClass('d-none');
+
+                // oculta os inputs de X e Y no mapa e devolve os valore iniciais
+
+                $('#positionX_' + nodeIdReference).val(valorEixoXIni);
+                $('#positionY_' + nodeIdReference).val(valorEixoYIni);
+
+                $container.find('#mapPosition_' + nodeIdReference).addClass('d-none');
+
+                // mostra os botões de editar
+                $container.find('.org-edit-button').each(function () {
+
+                    $(this).removeClass('d-none');
+
+                });
+
+                // mostra novamente o botão de excluir OM
+                $container.find('.org-del-button').each(function () {
+
+                    $(this).removeClass('d-none');
+
+                });
+
+                // mostra novamente o botão de adicionar filho
+                $container.find('.org-add-button').each(function () {
+
+                    $(this).removeClass('d-none');
+
+                });
+
+                // remove sensação de disabled para os nós
+                $container.find('.node').each(function () {
+
+                    $(this).removeClass('disableColor');
+
+                });
 
 
+            }
 
 
-            dadoInicial =[];
-
-
-
-
+            dadoInicial = [];
 
 
         });
 
 
-
-
-
-
         // salva as alterações nos nós
-        function commitChange(id,theColor) {
+        function commitChange(id, theColor) {
 
             var valorInputName = $('#nomeOm_' + nodes[id].data.id).val();
 
             var valorInputSigla = $('#siglaOm_' + nodes[id].data.id).val();
 
             var h2Element = $('<span id="nameElement_' + nodes[id].data.id + '"><h2>' + valorInputName + '</h2></span>');
-            var h6Element = $('<span id="siglaElement_' + nodes[id].data.id + '"><h6>' + valorInputSigla + '</h6></span>');
+            var h6Element = $('<span id="siglaElement_' + nodes[id].data.id + '"><h6><br>' + valorInputSigla + '</h6></span>');
             var colorElement = $('<span id="colorSpace_' + nodes[id].data.id + '" class="corbox" style="background-color: ' + theColor + '"></span>');
 
             var spanNameElement = $container.find('#nameElement_' + nodes[id].data.id);
@@ -375,6 +390,9 @@
 
             // oculta o botão de salvar
             $container.find('div[data-button-id=' + id + ']').addClass('d-none');
+
+            // oculta os inputs de X e Y no mapa e devolve os valore iniciais
+            $container.find('#mapPosition_' + id).addClass('d-none');
 
             // mostra os botões de editar
             $container.find('.org-edit-button').each(function () {
@@ -404,7 +422,7 @@
 
             });
 
-            dadoInicial =[];
+            dadoInicial = [];
         }
 
         //inicializa os dados de um novo nó
@@ -414,7 +432,18 @@
                 nextId++;
             }
 
-            self.addNode({id: nextId, name: '', sigla: '', cor: '#000000', podeVerTudo: '',ePef: '', parent: parentId, novoNo: true});
+            self.addNode({
+                id: nextId,
+                name: '',
+                sigla: '',
+                cor: '#000000',
+                podeVerTudo: '',
+                ePef: '',
+                eixo_x: '',
+                eixo_y: '',
+                parent: parentId,
+                novoNo: true
+            });
         }
 
         // adiciona o novo nó
@@ -429,12 +458,64 @@
 
         // deleta o nó
         this.deleteNode = function (id) {
-            for (var i = 0; i < nodes[id].children.length; i++) {
-                self.deleteNode(nodes[id].children[i].data.id);
-            }
-            nodes[nodes[id].data.parent].removeChild(id);
-            delete nodes[id];
-            self.draw();
+
+            $.confirm({
+                title: 'Você está certo disso?',
+                content: 'Esta ação é permanente, e removerá esta Om, e todas as Om subordinadas!',
+                buttons: {
+                    Confirmar: {
+                        action: function () {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/ommanager/' + id,
+
+                                data: {
+                                    _method: 'DELETE',
+                                    _token: $('meta[name=csrf-token]').attr('content'),
+
+                                },
+                                success: function (data) {
+
+
+                                    if (data == 'sucesso'){
+
+                                        // remove nodes
+                                        nodes[nodes[id].data.parent].removeChild(id);
+                                        delete nodes[id];
+                                        self.draw();
+
+                                        // alerta de sucesso
+                                        toastr.success('A Om foi excluída com sucesso!', 'Sucesso!');
+
+                                    } else {
+
+                                        const mensagem = data.split('_')[1];
+
+                                        toastr.error(mensagem, 'Falha!');
+
+                                    }
+
+
+
+                                },
+                                error: function () {
+
+                                    // alert de erro
+                                    toastr.error('Não foi possível excluir a Om!', 'Falha!');
+
+                                }
+
+                            });
+                        },
+                        btnClass: 'btn-outline-dark'
+                    },
+                    Cancelar: {
+                        btnClass: 'btn-outline-danger'
+                    },
+                },
+                columnClass: 'col-md-6'
+            });
+
         }
 
         // traz informações sobre o nó
@@ -477,7 +558,7 @@
             this.children.push(childNode);
         }
 
-        // remover nó
+        // remover nó filhos
         this.removeChild = function (id) {
             for (var i = 0; i < self.children.length; i++) {
                 if (self.children[i].data.id == id) {
@@ -538,25 +619,26 @@
                 descString = '',
                 siglaString = '',
                 corString = '',
-                podeVerTudoBoolean = '';
+                podeVerTudoBoolean = '',
+                mapPosition = '';
 
             // name
             if (typeof data.name !== 'undefined') {
                 nameString = '<span id="nameElement_' + self.data.id + '"><h2>' + self.data.name + '</h2></span>';
             }
 
-            //cor
-            if (typeof data.cor !== 'undefined') {
-                corString = '<br>Cor: <span id="colorSpace_'+self.data.id+'" class="corbox" style="background-color: ' + self.data.cor + '"></span>';
-            }
-
             //sigla
             if (typeof data.sigla !== 'undefined') {
-                siglaString = '<br><span id="siglaElement_' + self.data.id + '"><h6>' + self.data.sigla + '</h6></span>';
+                siglaString = '<span id="siglaElement_' + self.data.id + '"><h6><br>' + self.data.sigla + '</h6></span>';
             }
 
-            //pode ver tudo
-            if (typeof data.podeVerTudo !== 'undefined') {
+            //cor
+            if (typeof data.cor !== 'undefined') {
+                corString = '<br>Cor: <span id="colorSpace_' + self.data.id + '" class="corbox" style="background-color: ' + self.data.cor + '"></span>';
+            }
+
+            //pode ver tudo e PEF
+            if (typeof data.podeVerTudo !== 'undefined' || typeof data.ePef !== 'undefined') {
 
                 let inputAttributeVer = '';
                 let inputAttributePef = '';
@@ -569,35 +651,71 @@
                 podeVerTudoBoolean = ' <div class="form-group form-check-inline">' +
                     '<input disabled type="checkbox" class="form-check-input" id="podeVerTudo_' + data.id + '" ' + inputAttributeVer + '>' +
                     '<label class="form-check-label" for="podeVerTudo_' + data.id + '">Pode ver tudo.</label>' +
-                    '</div>'+
+                    '</div>' +
                     '<div class="form-check form-check-inline">' +
-                    '<input disabled class="form-check-input" type="checkbox" id="ePef_'+data.id+'" ' + inputAttributePef + ' >' +
-                    '<label class="form-check-label" for="ePef_'+data.id+'">É PEF</label>' +
+                    '<input disabled class="form-check-input" type="checkbox" id="ePef_' + data.id + '" ' + inputAttributePef + ' >' +
+                    '<label class="form-check-label" for="ePef_' + data.id + '">É PEF</label>' +
                     '</div>';
 
             }
-
 
             // description
             if (typeof data.description !== 'undefined') {
                 descString = '<p>' + 'self.data.description' + '</p>';
             }
 
+            //map position
+            if (typeof data.eixo_x !== 'undefined' || typeof data.eixo_y !== 'undefined') {
+                mapPosition = '<div class="container-fluid d-none" id="mapPosition_' + self.data.id + '">' +
+                    '<div class="row">' +
+                    '<div class="col">' +
+                    '<div class="form-group">' +
+                    '<label for="positionX_' + self.data.id + '">Posição X</label><br>' +
+                    '<input id="positionX_' + self.data.id + '" placeholder="Digite a posição X no mapa" ' +
+                    'class="form-control form-control-sm" type="number" value="' + self.data.eixo_x + '">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col">' +
+                    '<div class="form-group">' +
+                    '<label for="positionY_' + self.data.id + '">Posição Y</label><br>' +
+                    '<input autofocus id="positionY_' + self.data.id + '" placeholder="Digite a posição Y no mapa" ' +
+                    'class="form-control form-control-sm" type="number" value="' + self.data.eixo_y + '">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+            }
+
             // botão salvar e cancelar
-            var saveEditButton = '<div class="mt-3 d-none" data-button-id="' + self.data.id + '">'+
-                '<button class="salvante btn btn-sm btn-primary col-5" id="salvar_' + self.data.id + '">Salvar</button>'+
-                '<button class="cancelante btn btn-sm btn-danger ml-2 col-5" id="cancelar_' + self.data.id + '">Cancelar</button>'+
+            var saveEditButton = '<div class="mt-2 d-none" data-button-id="' + self.data.id + '">' +
+                '<div class="container-fluid">' +
+                '<div class="row">' +
+                '<div class="col">' +
+                '<button class="salvante btn btn-sm btn-primary btn-block" id="salvar_' + self.data.id + '">Salvar</button>' +
+                '</div>' +
+                '<div class="col">' +
+                '<button class="cancelante btn btn-sm btn-danger btn-block" id="cancelar_' + self.data.id + '">Cancelar</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
                 '</div>';
 
             // controls
             if (opts.showControls) {
-                var buttonsHtml = "<div class='org-add-button'><i class='fa fa-plus-circle'></i> " + opts.newNodeText + "</div><div class='org-del-button'><i class='fa fa-trash'></i></div><div class='org-edit-button'><i class='fa fa-edit'></i> </div>";
+
+                let delButton = '';
+
+                if(data.parent != 0){
+                    delButton = "<div class='org-del-button'><i class='fa fa-trash'></i></div>";
+                }
+
+                var buttonsHtml = "<div class='org-add-button'><i class='fa fa-plus-circle'></i> " + opts.newNodeText + "</div>" + delButton + "<div class='org-edit-button'><i class='fa fa-edit'></i> </div>";
             } else {
                 buttonsHtml = '';
             }
 
             // monta a view
-            return "<div class='node' node-id='" + this.data.id + "'>" + nameString + siglaString + descString + podeVerTudoBoolean + corString + saveEditButton + buttonsHtml + "</div>";
+            return "<div class='node' node-id='" + this.data.id + "'>" + nameString + siglaString + descString + podeVerTudoBoolean + corString + mapPosition + saveEditButton + buttonsHtml + "</div>";
 
         }
 

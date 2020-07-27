@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class UpdateOmRequest extends FormRequest
 {
     public function authorize()
     {
@@ -18,17 +18,21 @@ class UpdateUserRequest extends FormRequest
             'name' => [
                 'required',
             ],
-            'email' => [
+            'sigla' => [
                 'required',
             ],
-            'password' => [
+            'eixo_x' => [
                 'required',
-                'string',
-                'min:6'
+                'numeric',
             ],
-            'comando_conjunto_id' => [
+            'eixo_y' => [
+                'required',
+                'numeric',
+            ],
+            'om_id' => [
                 'required'
             ]
+
 
         ];
     }
