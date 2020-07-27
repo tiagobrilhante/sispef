@@ -41,9 +41,12 @@
                 type: 'GET',
                 url: '/allOm',
 
-                success: function (data) {
+                beforeSend: function(){
 
-                    console.log(data);
+                    $('#orgChartContainer').LoadingOverlay("show");
+
+                },
+                success: function (data) {
 
                     org_chart = $('#orgChart').orgChart({
                         data: data,
@@ -68,6 +71,9 @@
                     // alert de erro
                     toastr.error('Não foi possível obter as informações!', 'Falha!');
 
+                },
+                complete: function () {
+                    $('#orgChartContainer').LoadingOverlay("hide");
                 }
 
             });

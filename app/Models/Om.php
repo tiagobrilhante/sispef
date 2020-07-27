@@ -17,9 +17,15 @@ class Om extends Model
     ];
 
     protected $fillable = [
-        'nome',
+        'name',
         'sigla',
         'cor',
+        'podeVerTudo',
+        'ePef',
+        'novoNo',
+        'parent',
+        'eixo_x',
+        'eixo_y',
         'om_id',
 
     ];

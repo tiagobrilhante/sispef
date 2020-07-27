@@ -108,7 +108,7 @@
 
             //input para o nome da OM
             var inputElement = $('<div class="container-fluid">' +
-                '<div class="form-group">'+
+                '<div class="form-group">' +
                 '<label for="nomeOm_' + nodes[id].data.id + '">Nome da Om</label>' +
                 '<input autofocus id="nomeOm_' + nodes[id].data.id + '" placeholder="Digite o nome da Om" ' +
                 'class="form-control form-control-sm" type="text" value="' + nomeInicial + '">' +
@@ -198,7 +198,6 @@
 
         }
 
-
         var hexDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
 
         //Function to convert rgb color to hex format
@@ -222,7 +221,6 @@
 
 
         });
-
 
         // clica para cancelar as alterações
         $(document).on('click', '.cancelante', function (e) {
@@ -356,73 +354,156 @@
 
         });
 
-
         // salva as alterações nos nós
         function commitChange(id, theColor) {
 
-            var valorInputName = $('#nomeOm_' + nodes[id].data.id).val();
+            const valorInputName = $('#nomeOm_' + nodes[id].data.id).val();
 
-            var valorInputSigla = $('#siglaOm_' + nodes[id].data.id).val();
+            const valorInputSigla = $('#siglaOm_' + nodes[id].data.id).val();
 
-            var h2Element = $('<span id="nameElement_' + nodes[id].data.id + '"><h2>' + valorInputName + '</h2></span>');
-            var h6Element = $('<span id="siglaElement_' + nodes[id].data.id + '"><h6><br>' + valorInputSigla + '</h6></span>');
-            var colorElement = $('<span id="colorSpace_' + nodes[id].data.id + '" class="corbox" style="background-color: ' + theColor + '"></span>');
+            let valorPodeVerTudo = '';
+            let valorEPef = '';
 
-            var spanNameElement = $container.find('#nameElement_' + nodes[id].data.id);
-            var spanSiglaElement = $container.find('#siglaElement_' + nodes[id].data.id);
-            var spanColorElement = $container.find('#theColorSpace');
+            if ($('#podeVerTudo_' + id).is(':checked')) {
+                valorPodeVerTudo = 1;
+            } else {
+                valorPodeVerTudo = 0;
+            }
 
-            // troca pelo novo nome
-            spanNameElement.replaceWith(h2Element);
+            if ($('#ePef_' + id).is(':checked')) {
+                valorEPef = 1;
+            } else {
+                valorEPef = 0;
+            }
 
-            // troca pela nova sigla
-            spanSiglaElement.replaceWith(h6Element);
+            const valorEixoX = $('#positionX_' + id).val();
+            const valorEixoY = $('#positionY_' + id).val();
 
-            // troca pela nova cor
-            spanColorElement.replaceWith(colorElement);
+            $.ajax({
+                type: 'POST',
+                url: '/ommanager/' + id,
+                data: {
+                    _method: 'PUT',
+                    _token: $('meta[name=csrf-token]').attr('content'),
+                    name: valorInputName,
+                    sigla: valorInputSigla,
+                    cor: theColor,
+                    podeVerTudo: valorPodeVerTudo,
+                    ePef: valorEPef,
+                    novoNo: nodes[id].data.novoNo,
+                    parent: nodes[id].data.parent,
+                    eixo_x: valorEixoX,
+                    eixo_y: valorEixoY,
+                    om_id: nodes[id].data.parent,
 
-            // desabilita o pode ver tudo e o epef
-            $container.find('#podeVerTudo_' + id).attr('disabled', true);
-            $container.find('#ePef_' + id).attr('disabled', true);
+                },
+                beforeSend: function () {
 
-            // altera para compactar
-            $container.find('div[node-id=' + id + ']').removeClass('expandForInput');
+                    $('#orgChartContainer').LoadingOverlay("show");
 
-            // oculta o botão de salvar
-            $container.find('div[data-button-id=' + id + ']').addClass('d-none');
+                },
+                success: function (data) {
 
-            // oculta os inputs de X e Y no mapa e devolve os valore iniciais
-            $container.find('#mapPosition_' + id).addClass('d-none');
+                    var h2Element = $('<span id="nameElement_' + data.id + '"><h2>' + data.name + '</h2></span>');
+                    var h6Element = $('<span id="siglaElement_' + data.id + '"><h6><br>' + data.sigla + '</h6></span>');
+                    var colorElement = $('<span id="colorSpace_' + data.id + '" class="corbox" style="background-color: ' + data.cor + '"></span>');
 
-            // mostra os botões de editar
-            $container.find('.org-edit-button').each(function () {
+                    var spanNameElement = $container.find('#nameElement_' + data.id);
+                    var spanSiglaElement = $container.find('#siglaElement_' + data.id);
+                    var spanColorElement = $container.find('#theColorSpace');
 
-                $(this).removeClass('d-none');
+                    // troca pelo novo nome
+                    spanNameElement.replaceWith(h2Element);
+
+                    // troca pela nova sigla
+                    spanSiglaElement.replaceWith(h6Element);
+
+                    // troca pela nova cor
+                    spanColorElement.replaceWith(colorElement);
+
+                    // devolve os valores do eixo x e Y
+                    $('#positionX_' + data.id).val(data.eixo_x);
+                    $('#positionY_' + data.id).val(data.eixo_y);
+
+
+                    // desabilita o pode ver tudo e o epef e ajusta o checked
+
+                    if (data.podeVerTudo) {
+
+                        $container.find('#podeVerTudo_' + data.id).prop('checked', true).attr('disabled', true);
+
+                    } else {
+                        $container.find('#podeVerTudo_' + data.id).prop('checked', false).attr('disabled', true);
+                    }
+
+                    if (data.ePef) {
+
+                        $container.find('#ePef_' + data.id).prop('checked', true).attr('disabled', true);
+
+                    } else {
+
+                        $container.find('#ePef_' + data.id).prop('checked', false).attr('disabled', true);
+
+                    }
+
+                    // altera para compactar
+                    $container.find('div[node-id=' + data.id + ']').removeClass('expandForInput');
+
+                    // oculta o botão de salvar
+                    $container.find('div[data-button-id=' + data.id + ']').addClass('d-none');
+
+                    // oculta os inputs de X e Y no mapa e devolve os valore iniciais
+                    $container.find('#mapPosition_' + data.id).addClass('d-none');
+
+                    // mostra os botões de editar
+                    $container.find('.org-edit-button').each(function () {
+
+                        $(this).removeClass('d-none');
+
+                    });
+
+                    // mostra novamente o botão de excluir OM
+                    $container.find('.org-del-button').each(function () {
+
+                        $(this).removeClass('d-none');
+
+                    });
+
+                    // mostra novamente o botão de adicionar filho
+                    $container.find('.org-add-button').each(function () {
+
+                        $(this).removeClass('d-none');
+
+                    });
+
+                    // remove sensação de disabled para os nós
+                    $container.find('.node').each(function () {
+
+                        $(this).removeClass('disableColor');
+
+                    });
+
+                    // alerta de sucesso
+                    toastr.success('A Om foi alterada com sucesso!', 'Sucesso!');
+
+                },
+                error: function (data) {
+
+                    console.log(data);
+
+                    toastr.error('Não foi possível alterar a Om!', 'Falha!');
+
+                },
+                complete: function () {
+
+                    dadoInicial = [];
+
+                    $('#orgChartContainer').LoadingOverlay("hide");
+
+                }
 
             });
 
-            // mostra novamente o botão de excluir OM
-            $container.find('.org-del-button').each(function () {
-
-                $(this).removeClass('d-none');
-
-            });
-
-            // mostra novamente o botão de adicionar filho
-            $container.find('.org-add-button').each(function () {
-
-                $(this).removeClass('d-none');
-
-            });
-
-            // remove sensação de disabled para os nós
-            $container.find('.node').each(function () {
-
-                $(this).removeClass('disableColor');
-
-            });
-
-            dadoInicial = [];
         }
 
         //inicializa os dados de um novo nó
@@ -474,10 +555,14 @@
                                     _token: $('meta[name=csrf-token]').attr('content'),
 
                                 },
+                                beforeSend: function(){
+
+                                    $('#orgChartContainer').LoadingOverlay("show");
+
+                                },
                                 success: function (data) {
 
-
-                                    if (data == 'sucesso'){
+                                    if (data == 'sucesso') {
 
                                         // remove nodes
                                         nodes[nodes[id].data.parent].removeChild(id);
@@ -496,14 +581,18 @@
                                     }
 
 
-
                                 },
                                 error: function () {
 
                                     // alert de erro
                                     toastr.error('Não foi possível excluir a Om!', 'Falha!');
 
-                                }
+                                },
+                                complete: function(){
+
+                                    $('#orgChartContainer').LoadingOverlay("hide");
+
+                                },
 
                             });
                         },
@@ -545,6 +634,7 @@
         // draw org chart
         $container.addClass('orgChart');
         self.draw();
+
     }
 
     // functions dos nós
@@ -705,7 +795,7 @@
 
                 let delButton = '';
 
-                if(data.parent != 0){
+                if (data.parent != 0) {
                     delButton = "<div class='org-del-button'><i class='fa fa-trash'></i></div>";
                 }
 
