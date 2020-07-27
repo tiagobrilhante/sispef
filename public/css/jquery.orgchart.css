@@ -76,6 +76,10 @@ div.orgChart div.node {
 }
 
 .expandForInput {
+    height: 540px !important;
+}
+
+.expandForInputMaster {
     height: 450px !important;
 }
 

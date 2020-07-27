@@ -48,6 +48,8 @@
                 },
                 success: function (data) {
 
+                    console.log(data);
+
                     org_chart = $('#orgChart').orgChart({
                         data: data,
                         showControls: true,

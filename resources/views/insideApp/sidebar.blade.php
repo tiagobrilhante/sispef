@@ -1,6 +1,8 @@
 {{-- Sidebar  --}}
 <nav id="sidebar">
 
+
+
     <ul class="list-unstyled components">
 
         {{--menu--}}
@@ -12,13 +14,13 @@
         {{--Administração--}}
         <li >
 
-            <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="@if(explode('/',Request::path())[0] == 'admin')true @else false @endif"
-               class="link-menu__sidebar dropdown-toggle adjust-caret_sidebar @if(explode('/',Request::path())[0] == 'admin') @else collapsed @endif ">
+            <a href="#adminSubmenu" data-toggle="collapse" aria-expanded= @if(Request::path() == 'ommanager' || Request::path() == 'admin/usermanager') "true" @else "false" @endif
+               class="link-menu__sidebar dropdown-toggle adjust-caret_sidebar @if(Request::path() == 'ommanager' || Request::path() == 'admin/usermanager') true @else false @endif ">
                 <i class="fas fa-cogs"></i>
                 Adm
             </a>
 
-            <ul class="@if(explode('/',Request::path())[0] == 'admin') show @else collapse @endif list-unstyled" id="adminSubmenu">
+            <ul class=" @if(Request::path() == 'ommanager' || Request::path() == 'admin/usermanager') show @else collapse @endif list-unstyled" id="adminSubmenu">
                 <li>
                     <a href="{{ route("usermanager.index") }}" class="link-menu__sidebar link-submenu__sidebar @if (Request::path() == 'admin/usermanager') active__sublink @endif"><i class="fas fa-user"></i> Controle de Usuários</a>
                 </li>

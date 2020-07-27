@@ -92,13 +92,22 @@ class OmController extends Controller
             $parent = $request['parent'];
             $eixo_x = $request['eixo_x'];
             $eixo_y = $request['eixo_y'];
-            $om_id = $request['om_id'];
+            if ($request['om_id'] == null){
+
+                $om_id = null;
+
+            } else {
+
+                $om_id = $parent;
+            }
 
             $om->name = $name;
             $om->sigla = $sigla;
             $om->cor = $cor;
             $om->podeVerTudo = $podeVerTudo;
             $om->ePef = $ePef;
+            $om->parent = $parent;
+            $om->om_id = $om_id;
             $om->eixo_x = $eixo_x;
             $om->eixo_y = $eixo_y;
             $om->save();

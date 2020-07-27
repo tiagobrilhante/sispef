@@ -124,8 +124,44 @@
                 '</div>' +
                 '</div>');
 
+            // input para cor
             var inputColor = '<div id="theColorSpace"><div class="row"><div class="offset-4 align-content-center"></div>' +
                 '<div class=" p-2 picker"></div></div></div>';
+
+            // input para subordinação
+
+            if (nodes[id].data.om_id != null) {
+
+                var ajusteOptions = '';
+
+                for (let i = 0; i < data.length; i++) {
+
+                    if (data[i].id != nodes[id].data.id) {
+
+                        if (data[i].id == nodes[id].data.parent) {
+
+                            ajusteOptions = ajusteOptions + '<option selected value="' + data[i].id + '">' + data[i].sigla + '</option>';
+
+                        } else {
+
+                            ajusteOptions = ajusteOptions + '<option value="' + data[i].id + '">' + data[i].sigla + '</option>';
+
+                        }
+                    }
+
+                }
+
+                var inputSubordinação = $('<div class="container-fluid" id="leSubord">' +
+                    '<div class="form-group">' +
+                    '<label for="subordinacao_' + nodes[id].data.id + '">Subordinação direta</label>' +
+                    '<select id="subordinacao_' + nodes[id].data.id + '" class="form-control form-control-sm">' + ajusteOptions + '</select>' +
+                    '</div>');
+
+                //subordinação pelo input
+                $container.find('#subordinacaoSpace_' + id).replaceWith(inputSubordinação);
+
+            }
+
 
             // nome (troca pelo input)
             $container.find('div[node-id=' + id + '] h2').replaceWith(inputElement);
@@ -133,6 +169,7 @@
             $container.find('div[node-id=' + id + '] h6').replaceWith(inputSigla);
             //cor pelo input
             $container.find('#colorSpace_' + id).replaceWith(inputColor);
+
 
             // monta a colorpick
             var colorPicker = new iro.ColorPicker(".picker", {
@@ -155,6 +192,7 @@
             // faz aparecer os inputs de X e Y no mapa
             $container.find('#mapPosition_' + id).removeClass('d-none');
 
+
             // sensação de disabled para os outros nós
             $container.find('.node').each(function () {
 
@@ -162,8 +200,14 @@
 
             });
 
-            // muda o tamanho pra caber tudo e remove a classe de disable
-            $container.find('div[node-id=' + id + ']').addClass('expandForInput').removeClass('disableColor');
+
+            if (nodes[id].data.om_id != null) {
+                // muda o tamanho pra caber tudo e remove a classe de disable
+                $container.find('div[node-id=' + id + ']').addClass('expandForInput').removeClass('disableColor');
+            } else {
+                // muda o tamanho pra caber tudo e remove a classe de disable
+                $container.find('div[node-id=' + id + ']').addClass('expandForInputMaster').removeClass('disableColor');
+            }
 
             // checkbox pode ver tudo permite edição
             $container.find('#podeVerTudo_' + id).attr('disabled', false);
@@ -227,15 +271,11 @@
 
             let nodeIdReference = $(this).attr('id').split('_')[1];
 
-            console.log(nodes[nodeIdReference].data.novoNo);
-
             e.stopPropagation();
 
             if (nodes[nodeIdReference].data.novoNo) {
 
-
                 var thisId = nodeIdReference;
-
 
                 if (self.opts.onDeleteNode !== null) {
                     self.opts.onDeleteNode(nodes[thisId]);
@@ -245,7 +285,6 @@
                 e.stopPropagation();
 
             } else {
-
 
                 // dado inicial
                 /*
@@ -269,10 +308,12 @@
                 var h2Element = $('<span id="nameElement_' + nodeIdReference + '"><h2>' + valorNameIni + '</h2></span>');
                 var h6Element = $('<span id="siglaElement_' + nodeIdReference + '"><h6><br>' + valorSiglaIni + '</h6></span>');
                 var colorElement = $('<span id="colorSpace_' + nodeIdReference + '" class="corbox" style="background-color: ' + valorCorIni + '"></span>');
+                var subordinacaoElement = $('<span id="subordinacaoSpace_' + nodeIdReference + '"></span>');
 
                 var spanNameElement = $container.find('#nameElement_' + nodeIdReference);
                 var spanSiglaElement = $container.find('#siglaElement_' + nodeIdReference);
                 var spanColorElement = $container.find('#theColorSpace');
+                var spanSubordinacaoElement = $container.find('#leSubord');
 
                 // troca pelo novo nome
                 spanNameElement.replaceWith(h2Element);
@@ -282,6 +323,9 @@
 
                 // troca pela nova cor
                 spanColorElement.replaceWith(colorElement);
+
+                // troca pelo espaço de subordinação
+                spanSubordinacaoElement.replaceWith(subordinacaoElement);
 
                 // desabilita o pode ver tudo
                 // se o podever tudo é false tem que deixar sem o check
@@ -305,7 +349,7 @@
                 }
 
                 // altera para compactar
-                $container.find('div[node-id=' + nodeIdReference + ']').removeClass('expandForInput');
+                $container.find('div[node-id=' + nodeIdReference + ']').removeClass('expandForInput').removeClass('expandForInputMaster');
 
                 // oculta o botão de salvar
                 $container.find('div[data-button-id=' + nodeIdReference + ']').addClass('d-none');
@@ -376,6 +420,8 @@
                 valorEPef = 0;
             }
 
+            const subordinacao = $('#subordinacao_' + id).val();
+
             const valorEixoX = $('#positionX_' + id).val();
             const valorEixoY = $('#positionY_' + id).val();
 
@@ -391,10 +437,10 @@
                     podeVerTudo: valorPodeVerTudo,
                     ePef: valorEPef,
                     novoNo: nodes[id].data.novoNo,
-                    parent: nodes[id].data.parent,
+                    parent: subordinacao,
                     eixo_x: valorEixoX,
                     eixo_y: valorEixoY,
-                    om_id: nodes[id].data.parent,
+                    om_id: subordinacao,
 
                 },
                 beforeSend: function () {
@@ -402,89 +448,12 @@
                     $('#orgChartContainer').LoadingOverlay("show");
 
                 },
-                success: function (data) {
-
-                    var h2Element = $('<span id="nameElement_' + data.id + '"><h2>' + data.name + '</h2></span>');
-                    var h6Element = $('<span id="siglaElement_' + data.id + '"><h6><br>' + data.sigla + '</h6></span>');
-                    var colorElement = $('<span id="colorSpace_' + data.id + '" class="corbox" style="background-color: ' + data.cor + '"></span>');
-
-                    var spanNameElement = $container.find('#nameElement_' + data.id);
-                    var spanSiglaElement = $container.find('#siglaElement_' + data.id);
-                    var spanColorElement = $container.find('#theColorSpace');
-
-                    // troca pelo novo nome
-                    spanNameElement.replaceWith(h2Element);
-
-                    // troca pela nova sigla
-                    spanSiglaElement.replaceWith(h6Element);
-
-                    // troca pela nova cor
-                    spanColorElement.replaceWith(colorElement);
-
-                    // devolve os valores do eixo x e Y
-                    $('#positionX_' + data.id).val(data.eixo_x);
-                    $('#positionY_' + data.id).val(data.eixo_y);
-
-
-                    // desabilita o pode ver tudo e o epef e ajusta o checked
-
-                    if (data.podeVerTudo) {
-
-                        $container.find('#podeVerTudo_' + data.id).prop('checked', true).attr('disabled', true);
-
-                    } else {
-                        $container.find('#podeVerTudo_' + data.id).prop('checked', false).attr('disabled', true);
-                    }
-
-                    if (data.ePef) {
-
-                        $container.find('#ePef_' + data.id).prop('checked', true).attr('disabled', true);
-
-                    } else {
-
-                        $container.find('#ePef_' + data.id).prop('checked', false).attr('disabled', true);
-
-                    }
-
-                    // altera para compactar
-                    $container.find('div[node-id=' + data.id + ']').removeClass('expandForInput');
-
-                    // oculta o botão de salvar
-                    $container.find('div[data-button-id=' + data.id + ']').addClass('d-none');
-
-                    // oculta os inputs de X e Y no mapa e devolve os valore iniciais
-                    $container.find('#mapPosition_' + data.id).addClass('d-none');
-
-                    // mostra os botões de editar
-                    $container.find('.org-edit-button').each(function () {
-
-                        $(this).removeClass('d-none');
-
-                    });
-
-                    // mostra novamente o botão de excluir OM
-                    $container.find('.org-del-button').each(function () {
-
-                        $(this).removeClass('d-none');
-
-                    });
-
-                    // mostra novamente o botão de adicionar filho
-                    $container.find('.org-add-button').each(function () {
-
-                        $(this).removeClass('d-none');
-
-                    });
-
-                    // remove sensação de disabled para os nós
-                    $container.find('.node').each(function () {
-
-                        $(this).removeClass('disableColor');
-
-                    });
+                success: function () {
 
                     // alerta de sucesso
                     toastr.success('A Om foi alterada com sucesso!', 'Sucesso!');
+
+                    location.reload();
 
                 },
                 error: function (data) {
@@ -555,7 +524,7 @@
                                     _token: $('meta[name=csrf-token]').attr('content'),
 
                                 },
-                                beforeSend: function(){
+                                beforeSend: function () {
 
                                     $('#orgChartContainer').LoadingOverlay("show");
 
@@ -588,7 +557,7 @@
                                     toastr.error('Não foi possível excluir a Om!', 'Falha!');
 
                                 },
-                                complete: function(){
+                                complete: function () {
 
                                     $('#orgChartContainer').LoadingOverlay("hide");
 
@@ -710,6 +679,7 @@
                 siglaString = '',
                 corString = '',
                 podeVerTudoBoolean = '',
+                subordinacaoString = '',
                 mapPosition = '';
 
             // name
@@ -747,6 +717,11 @@
                     '<label class="form-check-label" for="ePef_' + data.id + '">É PEF</label>' +
                     '</div>';
 
+            }
+
+            // subordinação
+            if (typeof data.parent !== 'undefined') {
+                subordinacaoString = '<span id="subordinacaoSpace_' + self.data.id + '"></span>';
             }
 
             // description
@@ -805,7 +780,7 @@
             }
 
             // monta a view
-            return "<div class='node' node-id='" + this.data.id + "'>" + nameString + siglaString + descString + podeVerTudoBoolean + corString + mapPosition + saveEditButton + buttonsHtml + "</div>";
+            return "<div class='node' node-id='" + this.data.id + "'>" + nameString + siglaString + descString + podeVerTudoBoolean + subordinacaoString + corString + mapPosition + saveEditButton + buttonsHtml + "</div>";
 
         }
 
