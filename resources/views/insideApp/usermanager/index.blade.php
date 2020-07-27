@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
             <div class="card">
                 <div class="card-header">{{ __('Gerenciamento de Usuários') }}</div>
 

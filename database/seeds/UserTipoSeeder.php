@@ -13,10 +13,23 @@ class UserTipoSeeder extends Seeder
     {
         DB::table('user_tipo')->insert([
             [
-
                 'id' => 1,
                 'tipo' => 'Administrador',
                 'user_id' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'id' => 2,
+                'tipo' => 'Administrador',
+                'user_id' => 2,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'id' => 3,
+                'tipo' => 'Visualizador',
+                'user_id' => 3,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]
