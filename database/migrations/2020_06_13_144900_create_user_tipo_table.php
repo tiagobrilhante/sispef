@@ -14,7 +14,7 @@ class CreateUserTipoTable extends Migration
 
             $table->unsignedBigInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
+            $table->softDeletes();
             $table->timestamps();
 
         });
