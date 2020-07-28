@@ -15,9 +15,6 @@ class StoreTokenAcessoRequest extends FormRequest
     public function rules()
     {
         return [
-            'token' => [
-                'required',
-            ],
             'type' => [
                 'required',
             ],

@@ -20,7 +20,7 @@ class CreateTokensAcessoTable extends Migration
             $table->id();
             $table->string('token');
             $table->string('type');
-            $table->string('refence');
+            $table->string('reference');
             $table->string('status');
 
             $table->unsignedBigInteger('user_id')->nullable();
