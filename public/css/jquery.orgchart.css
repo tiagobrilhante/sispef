@@ -6,8 +6,11 @@ div.orgChart {
     width: 100%;
 }
 
-div.orgChart h2 {
-    margin: 0;
+div.orgChart span h2 {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 0;
+
     font-size: 16px;
     font-weight: normal;
     min-height: 20px;
@@ -65,7 +68,7 @@ div.orgChart div.node {
     display: inline-block;
     padding: 5px;
     width: 300px;
-    height: 150px;
+    height: 170px;
     background-color: #FFFFFF;
     line-height: 1.3em;
     border-radius: 4px;

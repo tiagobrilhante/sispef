@@ -36,11 +36,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     // controles de usuario
     Route::resource('/admin/usermanager', 'UserController');
-    Route::get('/alluser', 'UserController@alluser');
+    Route::get('/allusers', 'UserController@alluser');
 
     // controles de OM
     Route::resource('ommanager', 'OmController');
     Route::get('/allOm', 'OmController@listaOms');
+    Route::get('/myom', 'OmController@omDirecionada');
 
 
 

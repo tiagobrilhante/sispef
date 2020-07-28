@@ -351,4 +351,11 @@ a[data-toggle="collapse"] {
     border-radius: 5px !important;
 }
 
+.separaicon {
+    padding-left: 5px;
+    padding-right: 5px;
+}
 
+.actions-size{
+    width: 200px;
+}

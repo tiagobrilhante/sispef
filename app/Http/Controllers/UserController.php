@@ -15,13 +15,12 @@ class UserController extends Controller
     public function index()
     {
 
-
         return view('insideApp.usermanager.index');
     }
 
     public function alluser()
     {
-        return User::all()->load('userTipo');
+        return ['data'=>User::all()->load('userTipo','Om')];
     }
 
     // update uma usuário
@@ -44,7 +43,8 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return $user;
+
+        return $user->load('userTipo','om');
     }
 
 

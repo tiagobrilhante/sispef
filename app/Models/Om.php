@@ -32,8 +32,14 @@ class Om extends Model
 
     public function om()
     {
-        return $this->belongsTo(Om::class);
+        return $this->hasMany(Om::class);
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
 
 
 }

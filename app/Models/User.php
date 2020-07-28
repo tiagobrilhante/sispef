@@ -50,7 +50,7 @@ class User extends Authenticatable
         return $this->hasOne(UserTipo::class);
     }
 
-    public function Om(){
+    public function om(){
         return $this->belongsTo(Om::class);
     }
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateOmRequest;
 use App\Models\Om;
 use Auth;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class OmController extends Controller
 {
@@ -115,6 +117,19 @@ class OmController extends Controller
         }
 
         return $om;
+    }
+
+    //lista direcionada
+    public function omDirecionada()
+    {
+
+
+            $om = Om::whereHas('user', function (Builder $query) {
+                $query->where('om_id', Auth::user()->om->id);
+            })->get();
+
+            return $om->load('om');
+
     }
 
 }

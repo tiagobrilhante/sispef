@@ -401,6 +401,11 @@
         // salva as alterações nos nós
         function commitChange(id, theColor) {
 
+
+            console.log('inicio');
+            console.log(nodes[id].data);
+            console.log('fim');
+
             const valorInputName = $('#nomeOm_' + nodes[id].data.id).val();
 
             const valorInputSigla = $('#siglaOm_' + nodes[id].data.id).val();
@@ -420,7 +425,18 @@
                 valorEPef = 0;
             }
 
-            const subordinacao = $('#subordinacao_' + id).val();
+            let subordinacao = '';
+
+            if (nodes[id].data.novoNo){
+
+                subordinacao = nodes[id].data.parent;
+
+            } else {
+
+                subordinacao = $('#subordinacao_' + id).val();
+
+
+            }
 
             const valorEixoX = $('#positionX_' + id).val();
             const valorEixoY = $('#positionY_' + id).val();
@@ -509,6 +525,15 @@
         // deleta o nó
         this.deleteNode = function (id) {
 
+
+            if (nodes[id].data.novoNo){
+
+                nodes[nodes[id].data.parent].removeChild(id);
+                delete nodes[id];
+                self.draw();
+
+            } else {
+
             $.confirm({
                 title: 'Você está certo disso?',
                 content: 'Esta ação é permanente, e removerá esta Om, e todas as Om subordinadas!',
@@ -551,7 +576,9 @@
 
 
                                 },
-                                error: function () {
+                                error: function (data) {
+
+                                    console.log(data);
 
                                     // alert de erro
                                     toastr.error('Não foi possível excluir a Om!', 'Falha!');
@@ -574,6 +601,7 @@
                 columnClass: 'col-md-6'
             });
 
+        }
         }
 
         // traz informações sobre o nó
