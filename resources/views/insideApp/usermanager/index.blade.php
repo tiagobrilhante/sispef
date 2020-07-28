@@ -559,7 +559,7 @@
 
             });
 
-
+            // retorna os possiveis tipos que a OM admite cadastro
             $(document).on('change','#select_om_new_user', function (e) {
 
                 e.preventDefault();
@@ -601,6 +601,57 @@
 
                 });
 
+
+            });
+
+            $(document).on('submit','#form_new_user', function (e) {
+
+                e.preventDefault(e);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/token',
+                    data: {
+                        _method: 'POST',
+                        _token: $('meta[name=csrf-token]').attr('content'),
+                        om_id: $('#select_om_new_user').val(),
+                        type: $('#select_type_new_user').val(),
+                        reference: $('#dado_new_user').val(),
+
+
+                    },
+                    beforeSend: function () {
+
+                        $('#orgChartContainer').LoadingOverlay("show");
+
+                    },
+                    success: function (data) {
+
+
+                        console.log(data);
+
+                        // alerta de sucesso
+                        toastr.success('A Om foi alterada com sucesso!', 'Sucesso!');
+
+                        //location.reload();
+
+                    },
+                    error: function (data) {
+
+                        console.log(data);
+
+                        toastr.error('Não foi possível alterar a Om!', 'Falha!');
+
+                    },
+                    complete: function () {
+
+                        dadoInicial = [];
+
+                        $('#orgChartContainer').LoadingOverlay("hide");
+
+                    }
+
+                });
 
             });
 

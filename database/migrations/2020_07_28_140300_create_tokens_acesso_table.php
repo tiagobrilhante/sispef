@@ -18,6 +18,7 @@ class CreateTokensAcessoTable extends Migration
 
         Schema::create('tokens_acesso', function (Blueprint $table) {
             $table->id();
+            $table->string('token');
             $table->string('type');
             $table->string('refence');
             $table->string('status');

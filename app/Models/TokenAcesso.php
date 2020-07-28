@@ -20,6 +20,7 @@ class TokenAcesso extends Model
     ];
 
     protected $fillable = [
+        'token',
         'om_id',
         'user_id',
         'type',

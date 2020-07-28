@@ -44,6 +44,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/myom', 'OmController@omDirecionada');
     Route::get('/mytypes/{id}', 'OmController@omTypes');
 
+    // controles de tokens de acesso
+    Route::resource('/token', 'TokenAcessoController');
+
 
 
 });
