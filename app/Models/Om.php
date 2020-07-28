@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Om extends Model
 {
+    use SoftDeletes;
 
     protected $table = 'oms';
 
@@ -32,7 +34,12 @@ class Om extends Model
 
     public function om()
     {
-        return $this->hasMany(Om::class);
+        return $this->hasMany(Om::class)->with('om');
+    }
+
+    public function token()
+    {
+        return $this->hasMany(TokenAcesso::class);
     }
 
     public function user()

@@ -54,4 +54,9 @@ class User extends Authenticatable
         return $this->belongsTo(Om::class);
     }
 
+    public function token()
+    {
+        return $this->hasOne(TokenAcesso::class);
+    }
+
 }

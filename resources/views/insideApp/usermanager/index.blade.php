@@ -233,11 +233,13 @@
 
                                     <h3>Sobre o sistema de cadastramento</h3>
                                     <p>O sistema de cadastramento de usuários funciona através da geração de um
-                                        "serial" de acesso (Séries de numeros e outros caracteres), que deve ser repassado para
+                                        "serial" de acesso (Séries de numeros e outros caracteres), que deve ser
+                                        repassado para
                                         o
                                         novo usuário do SisPef.</p>
                                     <p>De posse desse serial, o usuário conseguirá finalizar de forma autônoma o seu
-                                        cadastro (É obrigatório o uso do serial para finalizar o processo, e a única forma de se cadastrar usuários no SisPef).</p>
+                                        cadastro (É obrigatório o uso do serial para finalizar o processo, e a única
+                                        forma de se cadastrar usuários no SisPef).</p>
 
                                 </div>
 
@@ -254,7 +256,7 @@
                                 <div class="form-group">
 
                                     <label for="select_om_new_user">Om</label>
-                                    <select class="form-control" id="select_om_new_user"
+                                    <select class="form-control" id="select_om_new_user" required
                                             aria-describedby="select_om_new_user_help"></select>
 
                                     <small id="select_om_new_user_help" class="form-text text-muted">Selecione a Om do
@@ -265,12 +267,12 @@
                             </div>
 
                             {{--tipo de conta---}}
-                            <div class="col">
+                            <div class="col" id="selectContainer">
 
-                                <div class="form-group">
+                                <div class="form-group d-none" id="select_space">
 
                                     <label for="select_type_new_user">Tipo</label>
-                                    <select class="form-control" id="select_type_new_user"
+                                    <select class="form-control" id="select_type_new_user" required
                                             aria-describedby="select_type_new_user_help"></select>
 
                                     <small id="select_type_new_user_help" class="form-text text-muted">Selecione o tipo
@@ -492,16 +494,116 @@
 
             });
 
-            // abre o modal de cadastro de novos usuários
+            // abre o modal de cadastro de novos usuários e monta o select de OM
             $(document).on('click', '#new_user', function (e) {
 
                 e.preventDefault();
 
-                // show modal
+                $('#select_space').addClass('d-none');
 
-                $('#cadastra_pessoa').modal('show');
+                $.ajax({
+                    type: 'GET',
+                    url: '/myom',
+
+                    success: function (data) {
+
+                        const arrayOms = [];
+
+                        function omRecursiva(om) {
+                            return om.map(function (oms) {
+                                const existeSubordinada = oms.om.length;
+
+                                const newOptions = {
+                                    id: oms.id,
+                                    name: oms.sigla,
+                                };
+
+                                if (existeSubordinada > 0) {
+                                    omRecursiva(oms.om);
+                                }
+
+                                arrayOms.push(newOptions);
+                            });
+                        }
+
+                        const oms = data;
+
+                        oms.map((teste) => {
+                            arrayOms.push({ id: teste.id, name: teste.sigla });
+                            const resul = omRecursiva(teste.om);
+                            return resul;
+                        });
+
+                        let options = '<option value=""> --- Selecione ---</option>';
+
+                        arrayOms.map(function(resultadoFinal){
+
+                            options+=`<option value=${resultadoFinal.id}>${resultadoFinal.name}</option>`;
+                        })
+
+                        $('#select_om_new_user').append(options);
+
+                        // show modal
+                        $('#cadastra_pessoa').modal('show');
+
+                    },
+                    error: function () {
+
+                        // alert de erro
+                        toastr.error('Não foi possível obter as informações!', 'Falha!');
+
+                    }
+
+                });
+
 
             });
+
+
+            $(document).on('change','#select_om_new_user', function (e) {
+
+                e.preventDefault();
+
+                const id = $(this).val();
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/mytypes/'+id ,
+
+                    beforeSend: function(){
+
+                        $('#selectContainer').LoadingOverlay("show");
+
+                    },
+                    success: function (data) {
+
+                        $('#select_space').removeClass('d-none');
+
+
+
+                        $('#select_type_new_user').empty();
+
+                      for(let i = 0; i<data.length; i++){
+                          $('#select_type_new_user').append('<option>' + data[i] + '</option>');
+                      }
+
+
+                        $('#selectContainer').LoadingOverlay("hide");
+
+
+                    },
+                    error: function () {
+
+                        // alert de erro
+                        toastr.error('Não foi possível obter as informações!', 'Falha!');
+
+                    }
+
+                });
+
+
+            });
+
 
         });
     </script>

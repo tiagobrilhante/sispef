@@ -123,12 +123,35 @@ class OmController extends Controller
     public function omDirecionada()
     {
 
-
             $om = Om::whereHas('user', function (Builder $query) {
                 $query->where('om_id', Auth::user()->om->id);
             })->get();
 
             return $om->load('om');
+
+    }
+
+    // lista os tipos de usuários de acordo com a OM
+    public function omTypes($id)
+    {
+
+        // tem que verificar se é pef ou não
+        $om = Om::find($id);
+
+
+
+        if ($om->ePef){
+
+            $tipos = ['Cmt / Scmt PEF', 'Visualizador'];
+
+
+        } else {
+
+            $tipos = ['Administrador', 'Visualizador'];
+
+        }
+
+        return $tipos;
 
     }
 

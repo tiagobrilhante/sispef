@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('ommanager', 'OmController');
     Route::get('/allOm', 'OmController@listaOms');
     Route::get('/myom', 'OmController@omDirecionada');
+    Route::get('/mytypes/{id}', 'OmController@omTypes');
 
 
 
