@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             OMSeeder::Class,
             UserSeeder::Class,
-            UserTipoSeeder::Class
+            UserTipoSeeder::Class,
+            TokenSeeder::Class
         ]);
     }
 }

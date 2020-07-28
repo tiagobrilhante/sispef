@@ -44,7 +44,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        return $user->load('userTipo','om');
+        return $user->load('userTipo','om','token');
     }
 
 

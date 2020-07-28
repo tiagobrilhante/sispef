@@ -74,6 +74,7 @@
                             <th>Nome</th>
                             <th>Tipo</th>
                             <th>Om</th>
+                            <th>Vê Tudo</th>
                             <th class="actions-size">Ações</th>
 
                         </tr>
@@ -152,6 +153,7 @@
 
                         </div>
 
+
                         <div id="espaco_forma" class="d-none">
                             <div class="row">
                                 <div class="col">
@@ -184,6 +186,12 @@
                         </div>
 
                     </div>
+
+
+                    <div class="alert alert-primary">
+                        <b>Token de Acesso: </b> <span class="the_token"></span>
+                    </div>
+
 
                 </div>
 
@@ -224,132 +232,172 @@
                     {{--modal body--}}
                     <div class="modal-body">
 
-                        {{--explicação geral--}}
-                        <div class="row">
+                        <div id="retorno_chave">
 
-                            <div class="col">
+                            <div class="alert alert-meu text-center">
+                                <h3>A chave de acesso foi gerada com sucesso!</h3>
 
-                                <div class="alert alert-dark text-justify">
+                                <p>Repasse o seguinte código para o usuário:</p>
 
-                                    <h3>Sobre o sistema de cadastramento</h3>
-                                    <p>O sistema de cadastramento de usuários funciona através da geração de um
-                                        "serial" de acesso (Séries de numeros e outros caracteres), que deve ser
-                                        repassado para
-                                        o
-                                        novo usuário do SisPef.</p>
-                                    <p>De posse desse serial, o usuário conseguirá finalizar de forma autônoma o seu
-                                        cadastro (É obrigatório o uso do serial para finalizar o processo, e a única
-                                        forma de se cadastrar usuários no SisPef).</p>
-
-                                </div>
+                                <span id="serial_token"></span>
 
                             </div>
 
                         </div>
 
-                        {{--om e tipo de conta--}}
-                        <div class="row">
+                        <div id="espaco_inputs">
 
-                            {{--om--}}
-                            <div class="col">
+                            <div id="sub_espaco_inputs">
 
-                                <div class="form-group">
+                                {{--explicação geral--}}
+                                <div class="row">
 
-                                    <label for="select_om_new_user">Om</label>
-                                    <select class="form-control" id="select_om_new_user" required
-                                            aria-describedby="select_om_new_user_help"></select>
+                                    <div class="col">
 
-                                    <small id="select_om_new_user_help" class="form-text text-muted">Selecione a Om do
-                                        novo Usuário.</small>
+                                        <div class="alert alert-dark text-justify">
+
+                                            <h3>Sobre o sistema de cadastramento</h3>
+                                            <p>O sistema de cadastramento de usuários funciona através da geração de um
+                                                "serial" de acesso (Séries de numeros e outros caracteres), que deve ser
+                                                repassado para
+                                                o
+                                                novo usuário do SisPef.</p>
+                                            <p>De posse desse serial, o usuário conseguirá finalizar de forma autônoma o
+                                                seu
+                                                cadastro (É obrigatório o uso do serial para finalizar o processo, e a
+                                                única
+                                                forma de se cadastrar usuários no SisPef).</p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                {{--om e tipo de conta--}}
+                                <div class="row">
+
+                                    {{--om--}}
+                                    <div class="col">
+
+                                        <div class="form-group">
+
+                                            <label for="select_om_new_user">Om</label>
+                                            <select class="form-control" id="select_om_new_user" required
+                                                    aria-describedby="select_om_new_user_help"></select>
+
+                                            <small id="select_om_new_user_help" class="form-text text-muted">Selecione a
+                                                Om
+                                                do
+                                                novo Usuário.</small>
+
+                                        </div>
+
+                                    </div>
+
+                                    {{--tipo de conta---}}
+                                    <div class="col" id="selectContainer">
+
+                                        <div class="form-group d-none" id="select_space">
+
+                                            <label for="select_type_new_user">Tipo</label>
+                                            <select class="form-control" id="select_type_new_user" required
+                                                    aria-describedby="select_type_new_user_help"></select>
+
+                                            <small id="select_type_new_user_help" class="form-text text-muted">Selecione
+                                                o
+                                                tipo
+                                                de conta do novo Usuário.</small>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                                {{--explicações om e tipo--}}
+                                <div class="row">
+
+                                    {{--explica OM e define algum dado do novo usuário--}}
+                                    <div class="col">
+
+                                        <div class="alert alert-warning text-justify">
+
+                                            <p>Escolha a Om do novo usuário. A Om tem papel fundamental na definição dos
+                                                tipos
+                                                de usuários permitidos.</p>
+
+                                        </div>
+
+                                        {{--dado do novo usuário--}}
+                                        <div class="form-group">
+
+                                            <label for="dado_new_user">Informe pra qual usuário esta chave está sendo
+                                                gerada.</label>
+                                            <input type="text" class="form-control" id="dado_new_user"
+                                                   aria-describedby="dado_new_user_help">
+
+                                            <small id="dado_new_user_help" class="form-text text-muted">Insira uma
+                                                informação
+                                                sobre o usuário.</small>
+
+                                        </div>
+
+                                        <div class="alert alert-warning text-justify">
+
+                                            <p>Para fins de gerenciamento de chaves de acesso, no campo acima insira
+                                                qualquer
+                                                informação que ajude a rastrear a pessoa que deverá usar a chave de
+                                                acesso,
+                                                por
+                                                exemplo: <i>Cel Marcelo</i>, ou ainda por exemplo: <i>E4 CMA</i>.</p>
+                                            <p>Essa informação facilitará futuras análises por parte dos
+                                                administradores. </p>
+
+                                        </div>
+
+                                    </div>
+
+                                    {{--explica o tipo--}}
+                                    <div class="col">
+
+                                        <div class="alert alert-warning text-justify">
+
+                                            <p>O sispef possui diversos tipos de acesso, que são diretamente
+                                                influenciados
+                                                pela
+                                                Om escolhida:</p>
+                                            <ul>
+                                                <li><b>Administrador: </b> Pode cadastrar novos usuários, mas apenas
+                                                    para a
+                                                    própria Om,
+                                                    e seus subordinados, além de gerenciar as atividades inerentes a sua
+                                                    OM,
+                                                    como homologar relatórios.
+                                                </li>
+
+                                                <li><b>Visualizador: </b> Tem acesso apenas as informações estatísticas
+                                                    (Dependendo da OM, poderá ver todas as informações, ou apenas as
+                                                    informações
+                                                    das estruturas subordinadas).
+                                                </li>
+
+                                                <li><b>Cmt / Scmt PEF: </b> Tipo de acesso exclusivo de PEFs. Permite o
+                                                    uso
+                                                    de
+                                                    funcionalidades ligadas a Pelotões de Fronteira
+                                                </li>
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+
 
                                 </div>
 
                             </div>
-
-                            {{--tipo de conta---}}
-                            <div class="col" id="selectContainer">
-
-                                <div class="form-group d-none" id="select_space">
-
-                                    <label for="select_type_new_user">Tipo</label>
-                                    <select class="form-control" id="select_type_new_user" required
-                                            aria-describedby="select_type_new_user_help"></select>
-
-                                    <small id="select_type_new_user_help" class="form-text text-muted">Selecione o tipo
-                                        de conta do novo Usuário.</small>
-
-                                </div>
-
-
-                            </div>
-
-                        </div>
-
-                        {{--explicações om e tipo--}}
-                        <div class="row">
-
-                            {{--explica OM e define algum dado do novo usuário--}}
-                            <div class="col">
-
-                                <div class="alert alert-warning text-justify">
-
-                                    <p>Escolha a Om do novo usuário. A Om tem papel fundamental na definição dos tipos
-                                        de usuários permitidos.</p>
-
-                                </div>
-
-                                {{--dado do novo usuário--}}
-                                <div class="form-group">
-
-                                    <label for="dado_new_user">Informe pra qual usuário esta chave está sendo
-                                        gerada.</label>
-                                    <input type="text" class="form-control" id="dado_new_user"
-                                           aria-describedby="dado_new_user_help">
-
-                                    <small id="dado_new_user_help" class="form-text text-muted">Insira uma informação
-                                        sobre o usuário.</small>
-
-                                </div>
-
-                                <div class="alert alert-warning text-justify">
-
-                                    <p>Para fins de gerenciamento de chaves de acesso, no campo acima insira qualquer
-                                        informação que ajude a rastrear a pessoa que deverá usar a chave de acesso, por
-                                        exemplo: <i>Cel Marcelo</i>, ou ainda por exemplo: <i>E4 CMA</i>.</p>
-                                    <p>Essa informação facilitará futuras análises por parte dos administradores. </p>
-
-                                </div>
-
-                            </div>
-
-                            {{--explica o tipo--}}
-                            <div class="col">
-
-                                <div class="alert alert-warning text-justify">
-
-                                    <p>O sispef possui diversos tipos de acesso, que são diretamente influenciados pela
-                                        Om escolhida:</p>
-                                    <ul>
-                                        <li><b>Administrador: </b> Pode cadastrar novos usuários, mas apenas para a
-                                            própria Om,
-                                            e seus subordinados, além de gerenciar as atividades inerentes a sua OM,
-                                            como homologar relatórios.
-                                        </li>
-
-                                        <li><b>Visualizador: </b> Tem acesso apenas as informações estatísticas
-                                            (Dependendo da OM, poderá ver todas as informações, ou apenas as informações
-                                            das estruturas subordinadas).
-                                        </li>
-
-                                        <li><b>Cmt / Scmt PEF: </b> Tipo de acesso exclusivo de PEFs. Permite o uso de
-                                            funcionalidades ligadas a Pelotões de Fronteira
-                                        </li>
-                                    </ul>
-
-                                </div>
-
-                            </div>
-
 
                         </div>
 
@@ -357,8 +405,17 @@
 
                     {{--modal footer--}}
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <div id="botao_submit">
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        </div>
+
+                        <div id="botao_gerar_nova">
+                            <button type="button" class="btn btn-success">Gerar Nova Chave</button>
+                        </div>
+
+                        <button type="button" class="btn btn-danger" id="cancel_new_user" data-dismiss="modal">
+                            Cancelar
+                        </button>
 
                     </div>
 
@@ -417,6 +474,21 @@
                     {data: "nome"},
                     {data: "user_tipo.tipo", className: 'text-center'},
                     {data: "om.sigla", className: 'text-center'},
+                    {
+                        data: "om.podeVerTudo", className: 'text-center',
+                        render: function (data, type, row) {
+
+                            if (data === 1) {
+
+                                return '<i data-tippy-content="Pode ver tudo" class="fa fa-eye"></i>';
+
+                            } else {
+                                return '<i data-tippy-content="Não pode ver tudo" class="fa fa-eye-slash"></i>';
+                            }
+
+
+                        }
+                    },
                     {
                         data: 'action',
                         name: 'action',
@@ -479,6 +551,7 @@
 
                         $('.the_tipo').text(data.user_tipo.tipo);
                         $('.the_om').text(data.om.name);
+                        $('.the_token').text(data.token.token);
 
                         // show modal
                         $('#exibe_pessoa').modal('show');
@@ -499,7 +572,13 @@
 
                 e.preventDefault();
 
+                $('#select_om_new_user').empty();
+
                 $('#select_space').addClass('d-none');
+                $('#retorno_chave').addClass('d-none');
+                $('#botao_gerar_nova').addClass('d-none');
+                $('#botao_submit').removeClass('d-none');
+                $('#cancel_new_user').text('Cancelar');
 
                 $.ajax({
                     type: 'GET',
@@ -529,16 +608,16 @@
                         const oms = data;
 
                         oms.map((teste) => {
-                            arrayOms.push({ id: teste.id, name: teste.sigla });
+                            arrayOms.push({id: teste.id, name: teste.sigla});
                             const resul = omRecursiva(teste.om);
                             return resul;
                         });
 
                         let options = '<option value=""> --- Selecione ---</option>';
 
-                        arrayOms.map(function(resultadoFinal){
+                        arrayOms.map(function (resultadoFinal) {
 
-                            options+=`<option value=${resultadoFinal.id}>${resultadoFinal.name}</option>`;
+                            options += `<option value=${resultadoFinal.id}>${resultadoFinal.name}</option>`;
                         })
 
                         $('#select_om_new_user').append(options);
@@ -560,7 +639,7 @@
             });
 
             // retorna os possiveis tipos que a OM admite cadastro
-            $(document).on('change','#select_om_new_user', function (e) {
+            $(document).on('change', '#select_om_new_user', function (e) {
 
                 e.preventDefault();
 
@@ -568,9 +647,9 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: '/mytypes/'+id ,
+                    url: '/mytypes/' + id,
 
-                    beforeSend: function(){
+                    beforeSend: function () {
 
                         $('#selectContainer').LoadingOverlay("show");
 
@@ -580,12 +659,11 @@
                         $('#select_space').removeClass('d-none');
 
 
-
                         $('#select_type_new_user').empty();
 
-                      for(let i = 0; i<data.length; i++){
-                          $('#select_type_new_user').append('<option>' + data[i] + '</option>');
-                      }
+                        for (let i = 0; i < data.length; i++) {
+                            $('#select_type_new_user').append('<option>' + data[i] + '</option>');
+                        }
 
 
                         $('#selectContainer').LoadingOverlay("hide");
@@ -604,7 +682,8 @@
 
             });
 
-            $(document).on('submit','#form_new_user', function (e) {
+            // cria a chave da acesso do novo usuário
+            $(document).on('submit', '#form_new_user', function (e) {
 
                 e.preventDefault(e);
 
@@ -617,41 +696,60 @@
                         om_id: $('#select_om_new_user').val(),
                         type: $('#select_type_new_user').val(),
                         reference: $('#dado_new_user').val(),
-
-
                     },
                     beforeSend: function () {
 
-                        $('#orgChartContainer').LoadingOverlay("show");
+                        $('#espaco_inputs').LoadingOverlay("show");
 
                     },
                     success: function (data) {
 
+                        $('#sub_espaco_inputs').addClass('d-none');
+                        $('#retorno_chave').removeClass('d-none');
+                        $('#botao_gerar_nova').removeClass('d-none');
+                        $('#botao_submit').addClass('d-none');
+                        $('#cancel_new_user').text('Fechar');
 
-                        console.log(data);
+
+                        $('#serial_token').text(data.token);
 
                         // alerta de sucesso
-                        toastr.success('A Om foi alterada com sucesso!', 'Sucesso!');
+                        toastr.success('O Token de Acesso foi criado com sucesso!', 'Sucesso!');
 
-                        //location.reload();
 
                     },
                     error: function (data) {
 
                         console.log(data);
 
-                        toastr.error('Não foi possível alterar a Om!', 'Falha!');
+                        toastr.error('Não foi possível criar o Token de Acesso!', 'Falha!');
 
                     },
                     complete: function () {
 
-                        dadoInicial = [];
-
-                        $('#orgChartContainer').LoadingOverlay("hide");
+                        $('#espaco_inputs').LoadingOverlay("hide");
 
                     }
 
                 });
+
+            });
+
+            // ao clicar ajusta para gerar uma nova chave
+            $(document).on('click', '#botao_gerar_nova', function (e) {
+
+                e.preventDefault();
+
+                $('#sub_espaco_inputs').removeClass('d-none');
+                $('#retorno_chave').addClass('d-none');
+                $('#botao_gerar_nova').addClass('d-none');
+                $('#botao_submit').removeClass('d-none');
+                $('#select_space').addClass('d-none');
+                $('#cancel_new_user').text('Cancelar');
+
+                $('#dado_new_user').val('');
+                $('#select_om_new_user').val('');
+                $('#select_type_new_user').empty();
 
             });
 

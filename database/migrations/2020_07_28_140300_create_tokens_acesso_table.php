@@ -29,6 +29,9 @@ class CreateTokensAcessoTable extends Migration
             $table->unsignedBigInteger('om_id');
             $table->foreign('om_id')->references('id')->on('oms')->onDelete('cascade');
 
+            $table->unsignedBigInteger('quem_gerou');
+            $table->foreign('quem_gerou')->references('id')->on('users');
+
             $table->softDeletes();
             $table->timestamps();
         });

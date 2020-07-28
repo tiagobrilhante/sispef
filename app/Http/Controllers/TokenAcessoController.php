@@ -21,6 +21,7 @@ class TokenAcessoController extends Controller
         $om_id = $request['om_id'];
         $reference = $request['reference'];
         $status = 'Aguardando Uso';
+        $quem_gerou = Auth::user()->id;
 
         $token = TokenAcesso::create([
             'token'=> $serial,
@@ -28,6 +29,7 @@ class TokenAcessoController extends Controller
             'reference'=> $reference,
             'om_id'=> $om_id,
             'status'=> $status,
+            'quem_gerou'=> $quem_gerou,
 
         ]);
 
