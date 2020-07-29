@@ -29,64 +29,69 @@
 
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-                       aria-controls="pills-home" aria-selected="true">Todos</a>
+                    <a class="nav-link active mytabsselect" id="pills-todos-tab" data-toggle="pill" href="#pills-todos" role="tab"
+                       aria-selected="true">Todos Usuários</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-                       aria-controls="pills-profile" aria-selected="false">Administradores</a>
+                    <a class="nav-link mytabsselect" id="pills-admin-tab" data-toggle="pill" href="#pills-todos" role="tab"
+                       aria-selected="false">Administradores</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-                       aria-controls="pills-contact" aria-selected="false">Visualizadores</a>
-                </li>
-
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-                       aria-controls="pills-contact" aria-selected="false">Cmt / Scmt PEF</a>
+                    <a class="nav-link mytabsselect" id="pills-visu-tab" data-toggle="pill" href="#pills-todos" role="tab"
+                      aria-selected="false">Visualizadores</a>
                 </li>
 
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-                       aria-controls="pills-contact" aria-selected="false">Seriais Enviados</a>
+                    <a class="nav-link mytabsselect" id="pills-pef-tab" data-toggle="pill" href="#pills-todos" role="tab"
+                      aria-selected="false">Cmt / Scmt PEF</a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="pills-serial-tab" data-toggle="pill" href="#pills-serial" role="tab"
+                       aria-controls="pills-serial" aria-selected="false">Seriais Enviados</a>
                 </li>
 
             </ul>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    Todos
+                <div class="tab-pane show active" id="pills-todos" role="tabpanel">
+
+                    {{--tabela--}}
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <table class="table table-responsive-sm table-bordered table-sm table-hover" id="user_table">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>Tipo</th>
+                                    <th>Om</th>
+                                    <th>Vê Tudo</th>
+                                    <th>Status</th>
+                                    <th class="actions-size">Ações</th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="body_user">
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
                 </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">1
-                </div>
-                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">2
+
+
+                <div class="tab-pane " id="pills-serial" role="tabpanel" aria-labelledby="pills-serial-tab">
+
+                    tabela de seriais enviados - ok e não ok
+
                 </div>
             </div>
 
 
-            {{--tabela--}}
-            <div class="row">
 
-                <div class="col-md-12">
-                    <table class="table table-responsive-sm table-bordered table-sm table-hover" id="user_table">
-                        <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nome</th>
-                            <th>Tipo</th>
-                            <th>Om</th>
-                            <th>Vê Tudo</th>
-                            <th>Status</th>
-                            <th class="actions-size">Ações</th>
-
-                        </tr>
-                        </thead>
-                        <tbody id="body_user">
-
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
 
         </div>
 
@@ -461,8 +466,10 @@
                                     <div class="form-group">
 
                                         <label for="nome_user_edit">Nome</label>
-                                        <input type="text" class="form-control" id="name_user_edit"
+                                        <input type="text" class="form-control" id="nome_user_edit"
                                                aria-describedby="name_user_edit_help">
+
+                                        <input type="hidden" id="id_user_edit">
 
                                         <small id="name_user_edit_help" class="form-text text-muted">Altere o nome do
                                             usuário se desejar.</small>
@@ -707,7 +714,7 @@
                 },
                 pageLength: 50,
 
-                ajax: "/allusers",
+                ajax: "/allusers/todos",
                 type: 'GET',
                 rowId: function (a) {
                     return 'user_' + a.id;
@@ -718,15 +725,15 @@
                     {data: "user_tipo.tipo", className: 'text-center'},
                     {data: "om.sigla", className: 'text-center'},
                     {
-                        data: "om.podeVerTudo", className: 'text-center',
+                        data: "om.podeVerTudo", className: 'text-center', orderable: false,
                         render: function (data, type, row) {
 
                             if (data === 1) {
 
-                                return '<i data-tippy-content="Pode ver tudo" class="fa fa-eye"></i>';
+                                return '<i id="verGeral_'+row.id+'" data-tippy-content="Pode ver tudo" class="fa fa-eye"></i>';
 
                             } else {
-                                return '<i data-tippy-content="Não pode ver tudo" class="fa fa-eye-slash"></i>';
+                                return '<i id="verGeral_'+row.id+'" data-tippy-content="Não pode ver tudo" class="fa fa-eye-slash"></i>';
                             }
 
 
@@ -782,6 +789,124 @@
                 tippy('[data-tippy-content]');
             });
 
+
+            $(document).on('click', '.mytabsselect', function () {
+
+                // destroi a instancia
+                var leTable = $('#user_table').DataTable();
+                leTable.destroy();
+
+                let what_type= $(this).attr('id').split('-')[1];
+
+                console.log(what_type);
+
+                $('#user_table').DataTable({
+                    processing: false,
+                    serverSide: false,
+                    autoWidth: false,
+                    language: {
+                        emptyTable: "Nenhum usuário cadastrado",
+                        info: "Mostrando _START_ até _END_ de _TOTAL_ registros",
+                        infoEmpty: "Não existem registros a serem mostrados",
+                        infoFiltered: "(Filtrado de um total de _MAX_ registros)",
+                        infoPostFix: "",
+                        thousands: ",",
+                        lengthMenu: "Mostrar _MENU_ registros",
+                        loadingRecords: "Carregando...",
+                        processing: "Processando...",
+                        search: "Pesquisar:",
+                        zeroRecords: "Nenhum registro encontrado correspondente a busca",
+                        paginate: {
+                            "first": "Primeiro",
+                            "last": "Último",
+                            "next": "Próximo",
+                            "previous": "Anterior"
+                        },
+                        aria: {
+                            "sortAscending": ": Ative para organizar de forma crescente.",
+                            "sortDescending": ": Ative para organizar de forma decrescente."
+                        }
+                    },
+                    pageLength: 50,
+
+                    ajax: "/allusers/" + what_type,
+                    type: 'GET',
+                    rowId: function (a) {
+                        return 'user_' + a.id;
+                    },
+                    columns: [
+                        {data: "id", name: 'id', 'visible': false},
+                        {data: "nome"},
+                        {data: "user_tipo.tipo", className: 'text-center'},
+                        {data: "om.sigla", className: 'text-center'},
+                        {
+                            data: "om.podeVerTudo", className: 'text-center', orderable: false,
+                            render: function (data, type, row) {
+
+                                if (data === 1) {
+
+                                    return '<i id="verGeral_'+row.id+'" data-tippy-content="Pode ver tudo" class="fa fa-eye"></i>';
+
+                                } else {
+                                    return '<i id="verGeral_'+row.id+'" data-tippy-content="Não pode ver tudo" class="fa fa-eye-slash"></i>';
+                                }
+
+
+                            }
+                        },
+                        {data: "status", className: "text-center", name: "status"},
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            className: 'text-center',
+                            render: function (data, type, row) {
+
+                                let classe_button = '';
+                                let classe_icon = '';
+                                let text_tippy = '';
+
+                                if (row.status == 'Ativo') {
+
+                                    classe_button = 'btn-outline-danger';
+                                    classe_icon = 'fa-ban';
+                                    text_tippy = 'Desativar Pessoa';
+
+                                } else if (row.status == 'Inativo') {
+                                    classe_button = 'btn-outline-primary';
+                                    classe_icon = 'fa-check-circle';
+                                    text_tippy = 'Ativar Pessoa';
+                                }
+
+                                return '<button id="show_' + row.id + '" class="btn btn-sm btn-success btn_show" title="Detalhes sobre a pessoa" data-tippy-content="Exibe detalhes sobre a pessoa">' +
+                                    '<i class="fa fa-search"></i>' +
+                                    '</button>' +
+                                    '<span class="separaicon"></span>' +
+                                    '<button id="editar_' + row.id + '" class="btn btn-sm btn-warning btn_edit" title="Alterar Informações" data-tippy-content="Alterar Informações">' +
+                                    '<i class="fa fa-edit"></i>' +
+                                    '</button>' +
+                                    '<span class="separaicon"></span>' +
+                                    '<button id="desativa_' + row.id + '" class="btn btn-sm ' + classe_button + ' btn_desativa" title="Desativar pessoa" data-tippy-content="' + text_tippy + '">' +
+                                    '<i id="iconStatus_' + row.id + '" class="fa ' + classe_icon + '"></i>' +
+                                    '</button>' +
+                                    '<span class="separaicon"></span>' +
+                                    '<button id="excluir_' + row.id + '" class="btn btn-sm btn-danger btn_exclude" title="Excluir pessoa" data-tippy-content="Excluir Pessoa">' +
+                                    '<i class="fa fa-trash"></i>' +
+                                    '</button>';
+
+                            }
+                        },
+                    ],
+                    order: [[0, 'desc']]
+                });
+
+                $('#user_table').on('draw.dt', function () {
+                    tippy('[data-tippy-content]');
+                });
+
+            });
+
+
             // retorna informações sobre a pessoa
             $(document).on('click', '.btn_show', function (e) {
 
@@ -794,8 +919,6 @@
                     url: '/admin/usermanager/' + id,
 
                     success: function (data) {
-
-                        console.log(data);
 
                         $('.the_posto_grad').text(data.posto_grad);
                         $('.the_nome_guerra').text(data.nome_guerra);
@@ -986,8 +1109,6 @@
                     },
                     error: function (data) {
 
-                        console.log(data);
-
                         toastr.error('Não foi possível criar o Token de Acesso!', 'Falha!');
 
                     },
@@ -1137,8 +1258,6 @@
                                     },
                                     error: function (data) {
 
-                                        console.log(data);
-
                                         // alert de erro
                                         toastr.error('Não foi possível desativar o usuário!', 'Falha!');
 
@@ -1174,13 +1293,17 @@
                         $('.the_posto_grad').text(data.posto_grad);
                         $('.the_nome_guerra').text(data.nome_guerra);
 
-                        $('#name_user_edit').val(data.nome);
+                        $('#id_user_edit').val(data.id);
+
+                        $('#nome_user_edit').val(data.nome);
                         $('#nome_guerra_user_edit').val(data.nome_guerra);
 
                         $('#email_user_edit').val(data.email);
                         $('#tel_user_edit').val(data.tel_contato);
 
                         $('#tu_form_user_edit').val(data.tu_formacao);
+
+                        $('#posto_grad_user_edit').val(data.posto_grad)
 
                         var id_my_om = data.om.id;
                         var meutipo_edit = data.user_tipo.tipo;
@@ -1225,8 +1348,6 @@
 
                                 arrayOms.map(function (resultadoFinal) {
 
-
-                                    console.log(id_my_om);
                                     let selecionado = '';
 
                                     if (resultadoFinal.id == id_my_om) {
@@ -1308,32 +1429,52 @@
 
                 e.preventDefault(e);
 
-                console.log('click');
-/*
+                let le_id_edit = $('#id_user_edit').val();
+
                 $.ajax({
                     type: 'POST',
-                    url: '/token',
+                    url: '/admin/usermanager/' + le_id_edit,
                     data: {
-                        _method: 'POST',
+                        _method: 'PUT',
                         _token: $('meta[name=csrf-token]').attr('content'),
-                        om_id: $('#select_om_new_user').val(),
-                        type: $('#select_type_new_user').val(),
-                        reference: $('#dado_new_user').val(),
+                        om_id: $('#om_user_edit').val(),
+                        type: $('#type_user_edit').val(),
+                        nome: $('#nome_user_edit').val(),
+                        nome_guerra: $('#nome_guerra_user_edit').val(),
+                        posto_grad: $('#posto_grad_user_edit').val(),
+                        tel_contato: $('#tel_user_edit').val(),
+                        email: $('#email_user_edit').val(),
+
                     },
 
                     success: function (data) {
 
-                        $('#sub_espaco_inputs').addClass('d-none');
-                        $('#retorno_chave').removeClass('d-none');
-                        $('#botao_gerar_nova').removeClass('d-none');
-                        $('#botao_submit').addClass('d-none');
-                        $('#cancel_new_user').text('Fechar');
+
+                        console.log(data);
 
 
-                        $('#serial_token').text(data.token);
+                        var $userTable = $('#user_table').dataTable();
+
+                        // The second parameter will be the row, and the third is the column.
+                        $userTable.fnUpdate(data.nome , '#user_' + data.id, 1);
+                        $userTable.fnUpdate(data.user_tipo.tipo , '#user_' + data.id, 2);
+                        $userTable.fnUpdate(data.om.sigla , '#user_' + data.id, 3);
+
+                        if (data.om.podeVerTudo){
+
+                           $('#verGeral_'+data.id).removeClass('fa-eye-slash').addClass('fa-eye');
+
+                        } else {
+
+                            $('#verGeral_'+data.id).removeClass('fa-eye').addClass('fa-eye-slash');
+
+                        }
+
+                        $('#altera_pessoa').modal('hide');
+
 
                         // alerta de sucesso
-                        toastr.success('O Token de Acesso foi criado com sucesso!', 'Sucesso!');
+                        toastr.success('O usuário foi alterado com sucesso!', 'Sucesso!');
 
 
                     },
@@ -1347,7 +1488,7 @@
 
 
                 });
-*/
+
             });
 
 

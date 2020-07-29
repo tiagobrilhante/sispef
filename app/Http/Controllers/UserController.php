@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\UserTipo;
 use Request;
 use Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserController extends Controller
 {
@@ -19,24 +20,61 @@ class UserController extends Controller
     }
 
     // retorna dados de usuários para a montagem da tabela em usermanager
-    public function alluser()
+    public function alluser($tipo)
     {
-        return ['data' => User::all()->load('userTipo', 'Om')];
+
+
+
+        if ($tipo == 'todos'){
+
+            return ['data' => User::all()->load('userTipo', 'Om')];
+
+        } else {
+
+            if ($tipo == 'admin'){
+                $retorno = 'Administrador';
+            }
+            if ($tipo == 'visu'){
+                $retorno = 'Visualizador';
+            }
+            if ($tipo == 'pef'){
+                $retorno = 'Cmt / Scmt PEF';
+            }
+
+            $users = User::whereHas('userTipo', function (Builder $query)use($retorno) {
+                $query->where('tipo', $retorno);
+            })->get();
+
+            return ['data' => $users->load('userTipo', 'Om')];
+        }
+
+
     }
 
-    // update uma usuário (FALTA FAZER)
+    // update uma usuário
     public function update(UpdateUserRequest $request, $id)
     {
         $user = User::find($id);
 
         $user->update([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => bcrypt($request['password']),
-            'comando_conjunto_id' => $request['comando_conjunto_id']
+            'nome' => $request['nome'],
+            'nome_guerra' => $request['nome_guerra'],
+            'posto_grad' => $request['posto_grad'],
+            'tel_contato' => $request['tel_contato'],
+            'om_id' => $request['om_id']
         ]);
 
-        return $user;
+        if ($user->email != $request['email']){
+            $user->update([
+                'email'=>$request['email']
+            ]);
+        }
+
+        $type_user = UserTipo::where('user_id', $id)->first();
+        $type_user->tipo = $request['type'];
+        $type_user->save();
+
+        return $user->load('om', 'userTipo');
 
     }
 
