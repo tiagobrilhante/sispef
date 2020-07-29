@@ -17,7 +17,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nome','nome_guerra','posto_grad','tel_contato','tu_formacao', 'email', 'password','om_id',
+        'nome',
+        'nome_guerra',
+        'posto_grad',
+        'tel_contato',
+        'tu_formacao',
+        'email',
+        'password',
+        'status',
+        'om_id',
     ];
 
     /**
@@ -50,13 +58,19 @@ class User extends Authenticatable
         return $this->hasOne(UserTipo::class);
     }
 
-    public function om(){
+    public function om()
+    {
         return $this->belongsTo(Om::class);
     }
 
     public function token()
     {
         return $this->hasOne(TokenAcesso::class);
+    }
+
+    public function tokensGerados()
+    {
+        return $this->hasMany(TokenAcesso::class);
     }
 
 }

@@ -75,6 +75,7 @@
                             <th>Tipo</th>
                             <th>Om</th>
                             <th>Vê Tudo</th>
+                            <th>Status</th>
                             <th class="actions-size">Ações</th>
 
                         </tr>
@@ -427,12 +428,254 @@
 
     </div>
 
+    {{--modal de alterar dados de uma pessoa--}}
+    <div class="modal fade" id="altera_pessoa" tabindex="-1" role="dialog"
+         aria-labelledby="altera_pessoaLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-xl" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Alteração de dados - <span class="the_posto_grad"></span> <span
+                            class="the_nome_guerra"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form id="form_alterar_user">
+
+                    {{--modal body--}}
+                    <div class="modal-body">
+
+                        <div class=" alert alert-meu">
+
+                            {{---nome e nome de guerra (posto)--}}
+                            <div class="row">
+
+                                {{--nome--}}
+                                <div class="col">
+
+                                    <div class="form-group">
+
+                                        <label for="nome_user_edit">Nome</label>
+                                        <input type="text" class="form-control" id="name_user_edit"
+                                               aria-describedby="name_user_edit_help">
+
+                                        <small id="name_user_edit_help" class="form-text text-muted">Altere o nome do
+                                            usuário se desejar.</small>
+
+                                    </div>
+
+                                </div>
+
+                                {{--nome de guerra / posto--}}
+                                <div class="col">
+
+                                    <div class="row">
+
+                                        <div class="form-group col-5">
+
+                                            <label for="nome_guerra_user_edit">P/G</label>
+                                            <select class="form-control" id="posto_grad_user_edit"
+                                                    aria-describedby="posto_grad_user_edit_help">
+                                                <option>Gen Ex</option>
+                                                <option>Gen Div</option>
+                                                <option>Gen Bda</option>
+                                                <option>Cel</option>
+                                                <option>Ten Cel</option>
+                                                <option>Maj</option>
+                                                <option>Cap</option>
+                                                <option>1º Ten</option>
+                                                <option>2º Ten</option>
+                                                <option>Asp</option>
+                                                <option>S Ten</option>
+                                                <option>1º Sgt</option>
+                                                <option>2º Sgt</option>
+                                                <option>3º Sgt</option>
+                                                <option>Cb</option>
+                                                <option>Sd</option>
+                                                <option>SC</option>
+
+                                            </select>
+
+                                            <small id="posto_grad_user_edit_help" class="form-text text-muted">Altere o
+                                                Posto/ Grad do usuário se desejar.</small>
+
+                                        </div>
+
+                                        <div class="form-group col-7">
+
+                                            <label for="nome_guerra_user_edit">Nome de Guerra</label>
+                                            <input type="text" class="form-control" id="nome_guerra_user_edit"
+                                                   aria-describedby="nome_guerra_user_edit_help">
+
+                                            <small id="nome_guerra_user_edit_help" class="form-text text-muted">Altere o
+                                                nome de guerra do usuário se desejar.</small>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            {{---email e tel contato--}}
+                            <div class="row">
+
+                                {{--email--}}
+                                <div class="col">
+
+                                    <div class="form-group">
+
+                                        <label for="email_user_edit">Nome de Guerra</label>
+                                        <input type="text" class="form-control" id="email_user_edit"
+                                               aria-describedby="email_user_edit_help">
+
+                                        <small id="email_user_edit_help" class="form-text text-muted">Altere o email do
+                                            usuário se desejar.</small>
+
+                                    </div>
+
+                                </div>
+
+                                {{--tel contato--}}
+                                <div class="col">
+
+                                    <div class="form-group">
+
+                                        <label for="tel_user_edit">Telefone de Contato</label>
+                                        <input type="tel" class="form-control tel_ctt" id="tel_user_edit"
+                                               aria-describedby="tel_user_edit_help">
+
+                                        <small id="tel_user_edit_help" class="form-text text-muted">Altere o Telefone de
+                                            contato do usuário se desejar.</small>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            {{--tu de formação sfc--}}
+                            <div class="row">
+
+                                <div class="col">
+
+                                    <div class="form-group">
+
+                                        <label for="tu_form_user_edit">Turma de Formação</label>
+                                        <input type="text" class="form-control" id="tu_form_user_edit"
+                                               aria-describedby="tu_form_user_edit_help">
+
+                                        <small id="tu_form_user_edit_help" class="form-text text-muted">Altere a turma
+                                            de formação do usuário (SFC), obrigatório apenas para comandantes de PEF.
+                                            Demais situações favor deixar em branco.</small>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col"></div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="alert alert-dark">
+
+                            {{---tipo de usuario e om --}}
+                            <div class="row">
+
+                                {{--om--}}
+                                <div class="col">
+
+                                    <div class="form-group">
+
+                                        <label for="om_user_edit">Om</label>
+
+                                        <select class="form-control" id="om_user_edit"
+                                                aria-describedby="om_user_edit_help">
+
+                                        </select>
+
+                                        <small id="om_user_edit_help" class="form-text text-muted">Altere a Om do
+                                            usuário se desejar.</small>
+
+                                    </div>
+
+                                </div>
+
+                                {{--tipo de usuario--}}
+                                <div class="col">
+                                    <div id="selectContainer_edit">
+                                        <div class="form-group">
+
+                                            <label for="type_user_edit">Tipo de Usuário</label>
+
+                                            <select class="form-control" id="type_user_edit"
+                                                    aria-describedby="type_user_edit_help">
+
+                                            </select>
+
+                                            <small id="type_user_edit_help" class="form-text text-muted">Altere o tipo
+                                                de usuário se desejar.</small>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="alert alert-primary">
+                            <b>Token de Acesso: </b> <span class="the_token"></span>
+                        </div>
+
+
+                    </div>
+
+                    {{--modal footer--}}
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Alterar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
 @endsection
 
 @section('myScripts')
 
+    {{-- load maskinput --}}
+    <script src="{{ asset('js/maskinput.js') }}" defer></script>
+
     <script>
         $(function () {
+
+            // masks
+
+            // mask cpf
+            $("#cpf").mask("999.999.999-99");
+
+            // mask tel
+            $(".tel_ctt").mask("(99) 99999-9999");
+
 
             // inicializa o datatables
             $('#user_table').DataTable({
@@ -489,12 +732,30 @@
 
                         }
                     },
+                    {data: "status", className: "text-center", name: "status"},
                     {
                         data: 'action',
                         name: 'action',
                         orderable: false,
                         className: 'text-center',
                         render: function (data, type, row) {
+
+                            let classe_button = '';
+                            let classe_icon = '';
+                            let text_tippy = '';
+
+                            if (row.status == 'Ativo') {
+
+                                classe_button = 'btn-outline-danger';
+                                classe_icon = 'fa-ban';
+                                text_tippy = 'Desativar Pessoa';
+
+                            } else if (row.status == 'Inativo') {
+                                classe_button = 'btn-outline-primary';
+                                classe_icon = 'fa-check-circle';
+                                text_tippy = 'Ativar Pessoa';
+                            }
+
                             return '<button id="show_' + row.id + '" class="btn btn-sm btn-success btn_show" title="Detalhes sobre a pessoa" data-tippy-content="Exibe detalhes sobre a pessoa">' +
                                 '<i class="fa fa-search"></i>' +
                                 '</button>' +
@@ -503,8 +764,8 @@
                                 '<i class="fa fa-edit"></i>' +
                                 '</button>' +
                                 '<span class="separaicon"></span>' +
-                                '<button id="desativa_' + row.id + '" class="btn btn-sm btn-outline-danger btn_desativa" title="Desativar pessoa" data-tippy-content="Desativar Pessoa">' +
-                                '<i class="fa fa-ban"></i>' +
+                                '<button id="desativa_' + row.id + '" class="btn btn-sm ' + classe_button + ' btn_desativa" title="Desativar pessoa" data-tippy-content="' + text_tippy + '">' +
+                                '<i id="iconStatus_' + row.id + '" class="fa ' + classe_icon + '"></i>' +
                                 '</button>' +
                                 '<span class="separaicon"></span>' +
                                 '<button id="excluir_' + row.id + '" class="btn btn-sm btn-danger btn_exclude" title="Excluir pessoa" data-tippy-content="Excluir Pessoa">' +
@@ -534,6 +795,8 @@
 
                     success: function (data) {
 
+                        console.log(data);
+
                         $('.the_posto_grad').text(data.posto_grad);
                         $('.the_nome_guerra').text(data.nome_guerra);
                         $('.the_nome').text(data.nome);
@@ -551,7 +814,7 @@
 
                         $('.the_tipo').text(data.user_tipo.tipo);
                         $('.the_om').text(data.om.name);
-                        $('.the_token').text(data.token.token);
+                        $('.the_token').text(data.token.token + ' ( Gerado por: ' + data.token.gerador_tokens.posto_grad + ' ' + data.token.gerador_tokens.nome_guerra + ' - ' + data.token.gerador_tokens.om.sigla + ' ) ');
 
                         // show modal
                         $('#exibe_pessoa').modal('show');
@@ -639,7 +902,7 @@
             });
 
             // retorna os possiveis tipos que a OM admite cadastro
-            $(document).on('change', '#select_om_new_user', function (e) {
+            $(document).on('change', '#select_om_new_user , #om_user_edit', function (e) {
 
                 e.preventDefault();
 
@@ -652,6 +915,7 @@
                     beforeSend: function () {
 
                         $('#selectContainer').LoadingOverlay("show");
+                        $('#selectContainer_edit').LoadingOverlay("show");
 
                     },
                     success: function (data) {
@@ -660,13 +924,15 @@
 
 
                         $('#select_type_new_user').empty();
+                        $('#type_user_edit').empty();
 
                         for (let i = 0; i < data.length; i++) {
-                            $('#select_type_new_user').append('<option>' + data[i] + '</option>');
+                            $('#select_type_new_user, #type_user_edit').append('<option>' + data[i] + '</option>');
                         }
 
 
                         $('#selectContainer').LoadingOverlay("hide");
+                        $('#selectContainer_edit').LoadingOverlay("hide");
 
 
                     },
@@ -751,6 +1017,337 @@
                 $('#select_om_new_user').val('');
                 $('#select_type_new_user').empty();
 
+            });
+
+            // remove user
+            $(document).on('click', '.btn_exclude', function (e) {
+
+                e.preventDefault();
+
+                var id = $(this).attr('id').split('_')[1];
+
+                $.confirm({
+                    title: 'Você esta certo disso?',
+                    content: 'A ação de excluir um usuário não deve ser usada a não ser que vc tenha plena certeza do que está fazendo! O ideal, é apenas desativar o mesmo, pois assim é possível manter o histórico dele ao longo de toda a utilização do SisPef. O pessoa será excluída do sistema!',
+                    buttons: {
+                        Confirmar: {
+                            action: function () {
+
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/admin/usermanager/' + id,
+
+                                    data: {
+                                        _method: 'DELETE',
+                                    },
+                                    success: function (data) {
+
+                                        // remove da tabela do grupo
+                                        var tablePerson = $('#user_table').DataTable();
+                                        tablePerson.row('tr[id = "user_' + id + '" ]').remove().draw(false);
+
+
+                                        // alerta de sucesso
+                                        toastr.success('O usuário foi excluído com sucesso!', 'Sucesso!');
+
+                                    },
+                                    error: function () {
+
+                                        // alert de erro
+                                        toastr.error('Não foi possível excluir o usuário!', 'Falha!');
+
+                                    }
+
+                                });
+                            },
+                            btnClass: 'btn-outline-dark'
+                        },
+                        Cancelar: {
+                            btnClass: 'btn-outline-danger'
+                        },
+                    },
+                    columnClass: 'col-md-6'
+                });
+
+
+            });
+
+            // muda status user (Ativo Inativo)
+            $(document).on('click', '.btn_desativa', function (e) {
+
+                e.preventDefault();
+
+                var id = $(this).attr('id').split('_')[1];
+
+                $.confirm({
+                    title: 'Você esta certo disso?',
+                    content: 'A ação de desativar um usuário vai impedir o mesmo de ter acesso ao SisPef, no entanto manterá todos os dados relativos a histórico de ações e acessos!',
+                    buttons: {
+                        Confirmar: {
+                            action: function () {
+
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/user/status/' + id,
+
+                                    data: {
+                                        _method: 'GET',
+                                    },
+                                    success: function (data) {
+
+                                        var $userTable = $('#user_table').dataTable();
+
+                                        // The second parameter will be the row, and the third is the column.
+                                        $userTable.fnUpdate(data.status, '#user_' + id, 5);
+
+                                        //arruma botão
+
+                                        if (data.status == 'Inativo') {
+
+                                            $('#desativa_' + id).removeClass('btn-outline-danger').addClass('btn-outline-primary');
+                                            $('#iconStatus_' + id).removeClass('fa-ban').addClass('fa-check-circle');
+                                            $('#desativa_' + id).attr('data-tippy-content', 'Ativar Pessoa');
+
+                                        } else if (data.status == 'Ativo') {
+
+                                            $('#desativa_' + id).addClass('btn-outline-danger').removeClass('btn-outline-primary');
+                                            $('#iconStatus_' + id).addClass('fa-ban').removeClass('fa-check-circle');
+                                            $('#desativa_' + id).attr('data-tippy-content', 'Desativar Pessoa');
+
+                                        }
+
+                                        // reload tippy
+                                        tippy('[data-tippy-content]');
+
+                                        // alerta de sucesso
+                                        toastr.success('O usuário foi desativado com sucesso!', 'Sucesso!');
+
+                                    },
+                                    error: function (data) {
+
+                                        console.log(data);
+
+                                        // alert de erro
+                                        toastr.error('Não foi possível desativar o usuário!', 'Falha!');
+
+                                    }
+
+                                });
+                            },
+                            btnClass: 'btn-outline-dark'
+                        },
+                        Cancelar: {
+                            btnClass: 'btn-outline-danger'
+                        },
+                    },
+                    columnClass: 'col-md-6'
+                });
+
+
+            });
+
+            // abre o modal de editar pessoa
+            $(document).on('click', '.btn_edit', function (e) {
+
+                e.preventDefault();
+
+                var id = $(this).attr('id').split('_')[1];
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/usermanager/' + id,
+
+                    success: function (data) {
+
+                        $('.the_posto_grad').text(data.posto_grad);
+                        $('.the_nome_guerra').text(data.nome_guerra);
+
+                        $('#name_user_edit').val(data.nome);
+                        $('#nome_guerra_user_edit').val(data.nome_guerra);
+
+                        $('#email_user_edit').val(data.email);
+                        $('#tel_user_edit').val(data.tel_contato);
+
+                        $('#tu_form_user_edit').val(data.tu_formacao);
+
+                        var id_my_om = data.om.id;
+                        var meutipo_edit = data.user_tipo.tipo;
+
+                        // monta o select de OM possiveis
+                        $.ajax({
+                            type: 'GET',
+                            url: '/myom',
+
+                            success: function (data) {
+
+                                $('#om_user_edit').empty();
+
+                                const arrayOms = [];
+
+                                function omRecursiva(om) {
+                                    return om.map(function (oms) {
+                                        const existeSubordinada = oms.om.length;
+
+                                        const newOptions = {
+                                            id: oms.id,
+                                            name: oms.sigla,
+                                        };
+
+                                        if (existeSubordinada > 0) {
+                                            omRecursiva(oms.om);
+                                        }
+
+                                        arrayOms.push(newOptions);
+                                    });
+                                }
+
+                                const oms = data;
+
+                                oms.map((teste) => {
+                                    arrayOms.push({id: teste.id, name: teste.sigla});
+                                    const resul = omRecursiva(teste.om);
+                                    return resul;
+                                });
+
+                                let options = '<option value=""> --- Selecione ---</option>';
+
+                                arrayOms.map(function (resultadoFinal) {
+
+
+                                    console.log(id_my_om);
+                                    let selecionado = '';
+
+                                    if (resultadoFinal.id == id_my_om) {
+                                        selecionado = 'selected';
+                                    }
+
+                                    options += `<option ${selecionado} value=${resultadoFinal.id}>${resultadoFinal.name}</option>`;
+                                })
+
+                                $('#om_user_edit').append(options);
+
+
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/mytypes/' + id,
+
+                                    beforeSend: function () {
+
+                                        $('#selectContainer_edit').LoadingOverlay("show");
+
+                                    },
+                                    success: function (data) {
+
+                                        $('#type_user_edit').empty();
+
+                                        for (let i = 0; i < data.length; i++) {
+
+                                            var typeUserEditSelected = '';
+                                            if(data[i] == meutipo_edit){
+                                                typeUserEditSelected = 'selected';
+                                            }
+
+                                            $('#type_user_edit').append('<option '+ typeUserEditSelected +'>' + data[i] + '</option>');
+                                        }
+
+
+                                        $('#selectContainer_edit').LoadingOverlay("hide");
+
+
+                                    },
+                                    error: function () {
+
+                                        // alert de erro
+                                        toastr.error('Não foi possível obter as informações!', 'Falha!');
+
+                                    }
+
+                                });
+
+
+                            },
+                            error: function () {
+
+                                // alert de erro
+                                toastr.error('Não foi possível obter as informações!', 'Falha!');
+
+                            }
+
+                        });
+
+                        $('.the_token').text(data.token.token + ' ( Gerado por: ' + data.token.gerador_tokens.posto_grad + ' ' + data.token.gerador_tokens.nome_guerra + ' - ' + data.token.gerador_tokens.om.sigla + ' ) ');
+
+                        // show modal
+                        $('#altera_pessoa').modal('show');
+                    },
+                    error: function () {
+
+                        // alert de erro
+                        toastr.error('Não foi possível obter as informações!', 'Falha!');
+
+                    }
+
+                });
+
+            });
+
+            // submete a edição de um usuário já cadastrado
+            $(document).on('submit', '#form_alterar_user', function (e) {
+
+                e.preventDefault(e);
+
+                console.log('click');
+/*
+                $.ajax({
+                    type: 'POST',
+                    url: '/token',
+                    data: {
+                        _method: 'POST',
+                        _token: $('meta[name=csrf-token]').attr('content'),
+                        om_id: $('#select_om_new_user').val(),
+                        type: $('#select_type_new_user').val(),
+                        reference: $('#dado_new_user').val(),
+                    },
+
+                    success: function (data) {
+
+                        $('#sub_espaco_inputs').addClass('d-none');
+                        $('#retorno_chave').removeClass('d-none');
+                        $('#botao_gerar_nova').removeClass('d-none');
+                        $('#botao_submit').addClass('d-none');
+                        $('#cancel_new_user').text('Fechar');
+
+
+                        $('#serial_token').text(data.token);
+
+                        // alerta de sucesso
+                        toastr.success('O Token de Acesso foi criado com sucesso!', 'Sucesso!');
+
+
+                    },
+                    error: function (data) {
+
+                        console.log(data);
+
+                        toastr.error('Não foi possível alterar o usuário!', 'Falha!');
+
+                    }
+
+
+                });
+*/
             });
 
 

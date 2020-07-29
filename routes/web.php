@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     // controles de usuario
     Route::resource('/admin/usermanager', 'UserController');
     Route::get('/allusers', 'UserController@alluser');
+    Route::get('/user/status/{id}', 'UserController@mudaStatus');
 
     // controles de OM
     Route::resource('ommanager', 'OmController');

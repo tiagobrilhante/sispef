@@ -40,6 +40,10 @@ class TokenAcesso extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function geradorTokens()
+    {
+        return $this->belongsTo(User::class, 'quem_gerou');
+    }
 
 
 }

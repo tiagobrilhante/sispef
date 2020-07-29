@@ -84,6 +84,18 @@ class TokenSeeder extends Seeder
                 'user_id' => null,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'id' => 8,
+                'token' => '29AB6E95-6EF4-4C54-83E8-B264A8976CBC',
+                'type' => 'Visualizador',
+                'reference' => 'Ten Cel Joaquim',
+                'status' => 'Utilizado',
+                'om_id' => 4,
+                'quem_gerou' => 1,
+                'user_id' => 4,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
             ]
 
         ]);

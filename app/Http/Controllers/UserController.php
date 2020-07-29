@@ -18,21 +18,22 @@ class UserController extends Controller
         return view('insideApp.usermanager.index');
     }
 
+    // retorna dados de usuários para a montagem da tabela em usermanager
     public function alluser()
     {
-        return ['data'=>User::all()->load('userTipo','Om')];
+        return ['data' => User::all()->load('userTipo', 'Om')];
     }
 
-    // update uma usuário
+    // update uma usuário (FALTA FAZER)
     public function update(UpdateUserRequest $request, $id)
     {
         $user = User::find($id);
 
         $user->update([
-            'name'=>$request['name'],
-            'email'=>$request['email'],
+            'name' => $request['name'],
+            'email' => $request['email'],
             'password' => bcrypt($request['password']),
-            'comando_conjunto_id'=>$request['comando_conjunto_id']
+            'comando_conjunto_id' => $request['comando_conjunto_id']
         ]);
 
         return $user;
@@ -44,9 +45,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        return $user->load('userTipo','om','token');
+        return $user->load('userTipo', 'om', 'token.geradorTokens.om');
     }
-
 
     // exclui um user
     public function destroy($id)
@@ -55,14 +55,33 @@ class UserController extends Controller
         $user->delete();
     }
 
+    // desativa ou ativa um user
+    public function mudaStatus($id)
+    {
+        $user = User::find($id);
 
+        if ($user->status == 'Inativo') {
 
-    //update senha
+            $user->status = 'Ativo';
+            $user->save();
+
+        } elseif ($user->status == 'Ativo') {
+
+            $user->status = 'Inativo';
+            $user->save();
+
+        }
+
+        return $user;
+
+    }
+
+    //update senha (Falta Fazer)
     public function updatesenha(SenhaRequest $request, $id)
     {
         $user = User::find($id);
 
-        if ($user->status == 'Resetado'){
+        if ($user->status == 'Resetado') {
             $novo_status = 'Ok';
         } else {
             $novo_status = $user->status;
@@ -70,22 +89,22 @@ class UserController extends Controller
 
         $user->update([
             'password' => bcrypt($request['password']),
-            'status'=> $novo_status
+            'status' => $novo_status
         ]);
 
     }
 
-    //reset de senha
+    //reset de senha (Falta Fazer)
     public function resetsenha($id)
     {
 
         $user = User::find($id);
 
-        if ((Auth::user()->usertipo->tipo == 'Administrador' && Auth::user()->comandoConjunto->id == $user->comandoConjunto->id ) || Auth::user()->usertipo->tipo == 'Administrador Geral'){
+        if ((Auth::user()->usertipo->tipo == 'Administrador' && Auth::user()->comandoConjunto->id == $user->comandoConjunto->id) || Auth::user()->usertipo->tipo == 'Administrador Geral') {
 
             $user->update([
                 'password' => bcrypt($user->email),
-                'status'=> 'Resetado'
+                'status' => 'Resetado'
             ]);
 
             return 'Success';
@@ -95,42 +114,6 @@ class UserController extends Controller
         }
 
     }
-
-    // Altera o tipo de usuário (atribui status de OK se existir "Aguardando Aprovação"
-    public function alteratipo($id_user_tipo)
-    {
-
-        $id_user = explode('_', $id_user_tipo)[0];
-        $tipo_cru = explode('_', $id_user_tipo)[1];
-
-        if ($tipo_cru == 'admgeral'){
-            $tipo = 'Administrador Geral';
-        }
-        elseif ($tipo_cru == 'adm'){
-            $tipo = 'Administrador';
-        }
-        elseif ($tipo_cru == 'ger'){
-            $tipo = 'Gerente';
-        }
-        elseif ($tipo_cru == 'admlog'){
-            $tipo = 'Administrador Logístico';
-        }
-        else {
-            $tipo = 'Usuário';
-        }
-
-        $usertipo = UserTipo::where('user_id',$id_user)->first();
-        $usertipo->update([
-            'tipo' => $tipo
-        ]);
-
-        $user = User::find($id_user);
-        $user->update(['status'=>'Ok']);
-
-        return $usertipo;
-
-    }
-
 
 
 }
