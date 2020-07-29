@@ -47,6 +47,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // controles de tokens de acesso
     Route::resource('/token', 'TokenAcessoController');
+    Route::get('/alltoken/{tipo}', 'TokenAcessoController@returnSeriais');
+    Route::get('/renovatoken/{id}', 'TokenAcessoController@renewToken');
 
 
 

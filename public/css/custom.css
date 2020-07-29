@@ -359,3 +359,9 @@ a[data-toggle="collapse"] {
 .actions-size{
     width: 200px;
 }
+.actions-size-serial{
+    width: 100px;
+}
+.width-serial{
+    width: 300px;
+}

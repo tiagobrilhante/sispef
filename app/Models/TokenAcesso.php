@@ -27,6 +27,7 @@ class TokenAcesso extends Model
         'reference',
         'status',
         'quem_gerou',
+        'created_at'
 
     ];
 

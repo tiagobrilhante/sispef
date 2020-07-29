@@ -96,6 +96,18 @@ class TokenSeeder extends Seeder
                 'user_id' => 4,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'id' => 9,
+                'token' => '30CC6E95-9DF5-3B51-91C9-A264A8955CBC',
+                'type' => 'Visualizador',
+                'reference' => 'Maj Aristides',
+                'status' => 'Exprirado',
+                'om_id' => 4,
+                'quem_gerou' => 1,
+                'user_id' => 4,
+                'created_at' => '2020-05-23 11:11:11',
+                'updated_at' => '2020-05-23 11:11:11'
             ]
 
         ]);

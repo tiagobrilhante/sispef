@@ -28,40 +28,60 @@
 
 
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+                {{--todos usuários--}}
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active mytabsselect" id="pills-todos-tab" data-toggle="pill" href="#pills-todos" role="tab"
+                    <a class="nav-link active mytabsselect" id="pills-todos-tab" data-toggle="pill" href="#pills-todos"
+                       role="tab"
                        aria-selected="true">Todos Usuários</a>
                 </li>
+
+                {{--administradores--}}
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link mytabsselect" id="pills-admin-tab" data-toggle="pill" href="#pills-todos" role="tab"
+                    <a class="nav-link mytabsselect" id="pills-admin-tab" data-toggle="pill" href="#pills-todos"
+                       role="tab"
                        aria-selected="false">Administradores</a>
                 </li>
+
+                {{--visualizadores---}}
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link mytabsselect" id="pills-visu-tab" data-toggle="pill" href="#pills-todos" role="tab"
-                      aria-selected="false">Visualizadores</a>
+                    <a class="nav-link mytabsselect" id="pills-visu-tab" data-toggle="pill" href="#pills-todos"
+                       role="tab"
+                       aria-selected="false">Visualizadores</a>
                 </li>
 
+                {{--Cmt / Scmt PEF--}}
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link mytabsselect" id="pills-pef-tab" data-toggle="pill" href="#pills-todos" role="tab"
-                      aria-selected="false">Cmt / Scmt PEF</a>
+                    <a class="nav-link mytabsselect" id="pills-pef-tab" data-toggle="pill" href="#pills-todos"
+                       role="tab"
+                       aria-selected="false">Cmt / Scmt PEF</a>
                 </li>
 
+                {{--seriais emitidos--}}
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="pills-serial-tab" data-toggle="pill" href="#pills-serial" role="tab"
                        aria-controls="pills-serial" aria-selected="false">Seriais Enviados</a>
                 </li>
 
             </ul>
+
             <div class="tab-content" id="pills-tabContent">
+
+                {{--espaço para usuarios--}}
                 <div class="tab-pane show active" id="pills-todos" role="tabpanel">
 
-                    {{--tabela--}}
+                    {{--tabela de usuarios--}}
                     <div class="row">
 
                         <div class="col-md-12">
-                            <table class="table table-responsive-sm table-bordered table-sm table-hover" id="user_table">
+
+                            <table class="table table-responsive-sm table-bordered table-sm table-hover"
+                                   id="user_table">
+
                                 <thead>
+
                                 <tr>
+
                                     <th>Id</th>
                                     <th>Nome</th>
                                     <th>Tipo</th>
@@ -71,27 +91,62 @@
                                     <th class="actions-size">Ações</th>
 
                                 </tr>
+
                                 </thead>
+
                                 <tbody id="body_user">
 
                                 </tbody>
+
                             </table>
+
                         </div>
 
                     </div>
 
                 </div>
 
-
+                {{--espaço para seriais--}}
                 <div class="tab-pane " id="pills-serial" role="tabpanel" aria-labelledby="pills-serial-tab">
 
-                    tabela de seriais enviados - ok e não ok
+                    {{--tabela de seriais--}}
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <table class="table table-responsive-sm table-bordered table-sm table-hover"
+                                   id="serial_table">
+
+                                <thead>
+
+                                <tr>
+                                    <th class="d-none">id</th>
+                                    <th class="width-serial">Serial</th>
+                                    <th>Om</th>
+                                    <th>Tipo</th>
+                                    <th>Status</th>
+                                    <th>Referencia</th>
+                                    <th>Dono</th>
+                                    <th>Responsável</th>
+                                    <th class="actions-size-serial">Ações</th>
+
+                                </tr>
+
+                                </thead>
+
+                                <tbody id="body_serial">
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
 
                 </div>
+
             </div>
-
-
-
 
         </div>
 
@@ -730,10 +785,10 @@
 
                             if (data === 1) {
 
-                                return '<i id="verGeral_'+row.id+'" data-tippy-content="Pode ver tudo" class="fa fa-eye"></i>';
+                                return '<i id="verGeral_' + row.id + '" data-tippy-content="Pode ver tudo" class="fa fa-eye"></i>';
 
                             } else {
-                                return '<i id="verGeral_'+row.id+'" data-tippy-content="Não pode ver tudo" class="fa fa-eye-slash"></i>';
+                                return '<i id="verGeral_' + row.id + '" data-tippy-content="Não pode ver tudo" class="fa fa-eye-slash"></i>';
                             }
 
 
@@ -785,18 +840,14 @@
                 order: [[0, 'desc']]
             });
 
-            $('#user_table').on('draw.dt', function () {
-                tippy('[data-tippy-content]');
-            });
-
-
+            // monta as tabelas filtradas por tipos
             $(document).on('click', '.mytabsselect', function () {
 
                 // destroi a instancia
                 var leTable = $('#user_table').DataTable();
                 leTable.destroy();
 
-                let what_type= $(this).attr('id').split('-')[1];
+                let what_type = $(this).attr('id').split('-')[1];
 
                 console.log(what_type);
 
@@ -845,10 +896,10 @@
 
                                 if (data === 1) {
 
-                                    return '<i id="verGeral_'+row.id+'" data-tippy-content="Pode ver tudo" class="fa fa-eye"></i>';
+                                    return '<i id="verGeral_' + row.id + '" data-tippy-content="Pode ver tudo" class="fa fa-eye"></i>';
 
                                 } else {
-                                    return '<i id="verGeral_'+row.id+'" data-tippy-content="Não pode ver tudo" class="fa fa-eye-slash"></i>';
+                                    return '<i id="verGeral_' + row.id + '" data-tippy-content="Não pode ver tudo" class="fa fa-eye-slash"></i>';
                                 }
 
 
@@ -906,6 +957,120 @@
 
             });
 
+            $('#user_table').on('draw.dt', function () {
+                tippy('[data-tippy-content]');
+            });
+
+            // monta a tabela de seriais
+            $(document).on('click', '#pills-serial-tab', function () {
+
+                // inicializa o datatables
+                var leSerial = $('#serial_table').DataTable();
+                leSerial.destroy();
+
+                $('#serial_table').DataTable({
+                    processing: false,
+                    serverSide: false,
+                    autoWidth: false,
+                    language: {
+                        emptyTable: "Nenhum serial cadastrado",
+                        info: "Mostrando _START_ até _END_ de _TOTAL_ registros",
+                        infoEmpty: "Não existem registros a serem mostrados",
+                        infoFiltered: "(Filtrado de um total de _MAX_ registros)",
+                        infoPostFix: "",
+                        thousands: ",",
+                        lengthMenu: "Mostrar _MENU_ registros",
+                        loadingRecords: "Carregando...",
+                        processing: "Processando...",
+                        search: "Pesquisar:",
+                        zeroRecords: "Nenhum registro encontrado correspondente a busca",
+                        paginate: {
+                            "first": "Primeiro",
+                            "last": "Último",
+                            "next": "Próximo",
+                            "previous": "Anterior"
+                        },
+                        aria: {
+                            "sortAscending": ": Ative para organizar de forma crescente.",
+                            "sortDescending": ": Ative para organizar de forma decrescente."
+                        }
+                    },
+                    pageLength: 50,
+
+                    ajax: "/alltoken/todos",
+                    type: 'GET',
+                    rowId: function (a) {
+                        return 'user_' + a.id;
+                    },
+                    columns: [
+                        {data: "id", name: 'id', 'visible': false},
+                        {data: "token", className: 'text-center'},
+                        {data: "om.sigla"},
+                        {data: "type", className: 'text-center'},
+                        {data: "status", className: "text-center", name: "status"},
+                        {data: "reference", className: 'text-center'},
+                        {
+                            data: "user.nome", className: "text-center",
+                            render: function (data, type, row) {
+
+                                if (row.status == 'Utilizado') {
+
+                                    return row.user.posto_grad + ' ' + row.user.nome_guerra + ' ';
+
+                                } else {
+
+                                    return '-';
+                                }
+
+
+                            }
+                        },
+                        {
+                            data: "gerador_tokens.nome", className: "text-center",
+                            render: function (data, type, row) {
+                                return row.gerador_tokens.posto_grad + ' ' + row.gerador_tokens.nome_guerra + ' ';
+                            }
+                        },
+
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            className: 'text-center',
+                            render: function (data, type, row) {
+
+                                if (row.status == 'Aguardando Uso') {
+
+
+                                    return '<button id="excluir_' + row.id + '" class="btn btn-sm btn-danger btn_exclude" title="Excluir Chave" data-tippy-content="Excluir Chave">' +
+                                        '<i class="fa fa-trash"></i>' +
+                                        '</button>';
+
+                                } else if (row.status == 'Expirado') {
+
+                                    return '<button id="renovarToken_' + row.id + '" class="btn btn-sm btn-warning btn_renova_token" title="Renovar Chave" data-tippy-content="Renovar Chave">' +
+                                        '<i class="fa fa-redo"></i>' +
+                                        '</button>' +
+                                        '<span class="separaicon"></span>' +
+                                        '<button id="excluirToken_' + row.id + '" class="btn btn-sm btn-danger btn_exclude_token" title="Excluir Chave" data-tippy-content="Excluir Chave">' +
+                                        '<i class="fa fa-trash"></i>' +
+                                        '</button>';
+
+                                } else {
+
+                                    return '-';
+
+                                }
+
+                            }
+
+                        },
+
+                    ],
+                    order: [[0, 'desc']]
+                });
+
+            });
 
             // retorna informações sobre a pessoa
             $(document).on('click', '.btn_show', function (e) {
@@ -1376,11 +1541,11 @@
                                         for (let i = 0; i < data.length; i++) {
 
                                             var typeUserEditSelected = '';
-                                            if(data[i] == meutipo_edit){
+                                            if (data[i] == meutipo_edit) {
                                                 typeUserEditSelected = 'selected';
                                             }
 
-                                            $('#type_user_edit').append('<option '+ typeUserEditSelected +'>' + data[i] + '</option>');
+                                            $('#type_user_edit').append('<option ' + typeUserEditSelected + '>' + data[i] + '</option>');
                                         }
 
 
@@ -1456,17 +1621,17 @@
                         var $userTable = $('#user_table').dataTable();
 
                         // The second parameter will be the row, and the third is the column.
-                        $userTable.fnUpdate(data.nome , '#user_' + data.id, 1);
-                        $userTable.fnUpdate(data.user_tipo.tipo , '#user_' + data.id, 2);
-                        $userTable.fnUpdate(data.om.sigla , '#user_' + data.id, 3);
+                        $userTable.fnUpdate(data.nome, '#user_' + data.id, 1);
+                        $userTable.fnUpdate(data.user_tipo.tipo, '#user_' + data.id, 2);
+                        $userTable.fnUpdate(data.om.sigla, '#user_' + data.id, 3);
 
-                        if (data.om.podeVerTudo){
+                        if (data.om.podeVerTudo) {
 
-                           $('#verGeral_'+data.id).removeClass('fa-eye-slash').addClass('fa-eye');
+                            $('#verGeral_' + data.id).removeClass('fa-eye-slash').addClass('fa-eye');
 
                         } else {
 
-                            $('#verGeral_'+data.id).removeClass('fa-eye').addClass('fa-eye-slash');
+                            $('#verGeral_' + data.id).removeClass('fa-eye').addClass('fa-eye-slash');
 
                         }
 
@@ -1490,6 +1655,68 @@
                 });
 
             });
+
+            //renova token
+            $(document).on('click','.btn_renova_token', function (e) {
+
+                e.preventDefault();
+
+                console.log('renova');
+
+
+                var id = $(this).attr('id').split('_')[1];
+
+                $.confirm({
+                    title: 'Você esta certo disso?',
+                    content: 'A data de criação do Token será ajustada para o dia de hoje. ',
+                    buttons: {
+                        Confirmar: {
+                            action: function () {
+
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/renovatoken/' + id,
+
+                                    success: function (data) {
+
+                                        console.log(data);
+
+                                        // alerta de sucesso
+
+
+                                        // TENHO QUE ATUALIZAR O STATUS DO TOKEN E REMOVER O BOTÃO DE RENOVAR
+
+                                        toastr.success('O Token foi renovado com sucesso!', 'Sucesso!');
+
+                                    },
+                                    error: function () {
+
+                                        // alert de erro
+                                        toastr.error('Não foi possível renovar o Token!', 'Falha!');
+
+                                    }
+
+                                });
+                            },
+                            btnClass: 'btn-outline-dark'
+                        },
+                        Cancelar: {
+                            btnClass: 'btn-outline-danger'
+                        },
+                    },
+                    columnClass: 'col-md-6'
+                });
+
+
+
+            });
+
 
 
         });
