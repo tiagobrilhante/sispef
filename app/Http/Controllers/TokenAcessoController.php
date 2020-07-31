@@ -43,6 +43,9 @@ class TokenAcessoController extends Controller
     public function returnSeriais($tipo)
     {
 
+
+
+
         $seriais = TokenAcesso::all();
 
         // verifica os tokens e ajusta para expirado os que tiverem mais do que 10 dias
@@ -57,7 +60,26 @@ class TokenAcessoController extends Controller
 
         }
 
-        $retorna_serial = TokenAcesso::all()->load('om','geradorTokens','user');
+
+        if ($tipo == 'serialtodos' ){
+
+            $retorna_serial = TokenAcesso::all()->load('om','geradorTokens','user');
+
+        } elseif ($tipo == 'serialusado' ) {
+
+            $retorna_serial = TokenAcesso::where('status', 'Utilizado')->get()->load('om', 'geradorTokens', 'user');
+
+        }
+        elseif ($tipo == 'serialunused' ) {
+
+            $retorna_serial = TokenAcesso::where('status', 'Aguardando Uso')->get()->load('om','geradorTokens','user');
+
+        } else {
+
+            $retorna_serial = TokenAcesso::where('status', 'Expirado')->get()->load('om','geradorTokens','user');
+
+        }
+
 
         return ['data'=>$retorna_serial];
 

@@ -365,3 +365,7 @@ a[data-toggle="collapse"] {
 .width-serial{
     width: 300px;
 }
+
+#pills-tab-serial > li > a.active {
+    background-color: #635555 !important;
+}

@@ -26,7 +26,7 @@
 
         <div class="card-body">
 
-
+            {{--tab space--}}
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
                 {{--todos usuários--}}
@@ -65,6 +65,7 @@
 
             </ul>
 
+            {{--pills content--}}
             <div class="tab-content" id="pills-tabContent">
 
                 {{--espaço para usuarios--}}
@@ -109,40 +110,100 @@
                 {{--espaço para seriais--}}
                 <div class="tab-pane " id="pills-serial" role="tabpanel" aria-labelledby="pills-serial-tab">
 
-                    {{--tabela de seriais--}}
-                    <div class="row">
 
-                        <div class="col-md-12">
 
-                            <table class="table table-responsive-sm table-bordered table-sm table-hover"
-                                   id="serial_table">
 
-                                <thead>
+                    {{--tab space--}}
+                    <ul class="nav nav-pills mb-3" id="pills-tab-serial" role="tablist">
 
-                                <tr>
-                                    <th class="d-none">id</th>
-                                    <th class="width-serial">Serial</th>
-                                    <th>Om</th>
-                                    <th>Tipo</th>
-                                    <th>Status</th>
-                                    <th>Referencia</th>
-                                    <th>Dono</th>
-                                    <th>Responsável</th>
-                                    <th class="actions-size-serial">Ações</th>
+                        {{--todos--}}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active serialselect" id="pills-serialtodos-tab" data-toggle="pill" href="#pills-serial"
+                               role="tab"
+                               aria-selected="true">Todos Seriais</a>
+                        </li>
 
-                                </tr>
+                        {{--usados--}}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link serialselect" id="pills-serialusado-tab" data-toggle="pill" href="#pills-serial"
+                               role="tab"
+                               aria-selected="false">Utilizados</a>
+                        </li>
 
-                                </thead>
+                        {{--não usados--}}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link serialselect" id="pills-serialunused-tab" data-toggle="pill" href="#pills-serial"
+                               role="tab"
+                               aria-selected="false">Não utilizados</a>
+                        </li>
 
-                                <tbody id="body_serial">
+                        {{--não usados--}}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link serialselect" id="pills-serialinativo-tab" data-toggle="pill" href="#pills-serial"
+                               role="tab"
+                               aria-selected="false">Inválidos</a>
+                        </li>
 
-                                </tbody>
 
-                            </table>
+                    </ul>
+
+                    <div class="tab-content" id="pills-serialTabContent">
+
+
+                        {{--espaço para usuarios--}}
+                        <div class="tab-pane show active" id="pills-serial" role="tabpanel">
+
+                            {{--tabela de seriais--}}
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <table class="table table-responsive-sm table-bordered table-sm table-hover"
+                                           id="serial_table">
+
+                                        <thead>
+
+                                        <tr>
+                                            <th class="d-none">id</th>
+                                            <th class="width-serial">Serial</th>
+                                            <th>Om</th>
+                                            <th>Tipo</th>
+                                            <th>Status</th>
+                                            <th>Referencia</th>
+                                            <th>Dono</th>
+                                            <th>Responsável</th>
+                                            <th class="actions-size-serial">Ações</th>
+
+                                        </tr>
+
+                                        </thead>
+
+                                        <tbody id="body_serial">
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
 
                         </div>
 
+
+
+
+
                     </div>
+
+
+
+
+
+
+
+
+
 
                 </div>
 
@@ -996,7 +1057,7 @@
                     },
                     pageLength: 50,
 
-                    ajax: "/alltoken/todos",
+                    ajax: "/alltoken/serialtodos",
                     type: 'GET',
                     rowId: function (a) {
                         return 'serial_' + a.id;
@@ -1804,6 +1865,128 @@
 
 
             });
+
+            // filtra os seriais por tipo de status
+            $(document).on('click','.serialselect', function (e) {
+
+                e.preventDefault();
+
+                // destroi a instancia
+                var leTable = $('#serial_table').DataTable();
+                leTable.destroy();
+
+                let what_type = $(this).attr('id').split('-')[1];
+
+                console.log(what_type);
+
+                $('#serial_table').DataTable({
+                    processing: false,
+                    serverSide: false,
+                    autoWidth: false,
+                    language: {
+                        emptyTable: "Nenhum serial cadastrado",
+                        info: "Mostrando _START_ até _END_ de _TOTAL_ registros",
+                        infoEmpty: "Não existem registros a serem mostrados",
+                        infoFiltered: "(Filtrado de um total de _MAX_ registros)",
+                        infoPostFix: "",
+                        thousands: ",",
+                        lengthMenu: "Mostrar _MENU_ registros",
+                        loadingRecords: "Carregando...",
+                        processing: "Processando...",
+                        search: "Pesquisar:",
+                        zeroRecords: "Nenhum registro encontrado correspondente a busca",
+                        paginate: {
+                            "first": "Primeiro",
+                            "last": "Último",
+                            "next": "Próximo",
+                            "previous": "Anterior"
+                        },
+                        aria: {
+                            "sortAscending": ": Ative para organizar de forma crescente.",
+                            "sortDescending": ": Ative para organizar de forma decrescente."
+                        }
+                    },
+                    pageLength: 50,
+
+                    ajax: "/alltoken/"+what_type,
+                    type: 'GET',
+                    rowId: function (a) {
+                        return 'serial_' + a.id;
+                    },
+                    columns: [
+                        {data: "id", name: 'id', 'visible': false},
+                        {data: "token", className: 'text-center'},
+                        {data: "om.sigla"},
+                        {data: "type", className: 'text-center'},
+                        {data: "status", className: "text-center", name: "status"},
+                        {data: "reference", className: 'text-center'},
+                        {
+                            data: "user.nome", className: "text-center",
+                            render: function (data, type, row) {
+
+                                if (row.status == 'Utilizado') {
+
+                                    return row.user.posto_grad + ' ' + row.user.nome_guerra + ' ';
+
+                                } else {
+
+                                    return '-';
+                                }
+
+
+                            }
+                        },
+                        {
+                            data: "gerador_tokens.nome", className: "text-center",
+                            render: function (data, type, row) {
+                                return row.gerador_tokens.posto_grad + ' ' + row.gerador_tokens.nome_guerra + ' ';
+                            }
+                        },
+
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            className: 'h-100 text-center justify-content-center align-items-center align-middle',
+                            render: function (data, type, row) {
+
+                                if (row.status == 'Aguardando Uso') {
+
+
+                                    return '<button id="excluirToken_' + row.id + '" class="btn btn-sm btn-danger btn_exclude_token" title="Excluir Chave" data-tippy-content="Excluir Chave">' +
+                                        '<i class="fa fa-trash"></i>' +
+                                        '</button>';
+
+                                } else if (row.status == 'Expirado') {
+
+                                    return '<button id="renovarToken_' + row.id + '" class="btn btn-sm btn-warning btn_renova_token" title="Renovar Chave" data-tippy-content="Renovar Chave">' +
+                                        '<i class="fa fa-redo"></i>' +
+                                        '</button>' +
+                                        '<span class="separaicon"></span>' +
+                                        '<button id="excluirToken_' + row.id + '" class="btn btn-sm btn-danger btn_exclude_token" title="Excluir Chave" data-tippy-content="Excluir Chave">' +
+                                        '<i class="fa fa-trash"></i>' +
+                                        '</button>';
+
+                                } else {
+
+                                    return '-';
+
+                                }
+
+                            }
+
+                        },
+
+                    ],
+                    order: [[0, 'desc']]
+                });
+
+                $('#serial_table').on('draw.dt', function () {
+                    tippy('[data-tippy-content]');
+                });
+
+            });
+
 
 
         });
