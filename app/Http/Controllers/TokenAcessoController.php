@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTokenAcessoRequest;
 use App\Models\TokenAcesso;
+use App\Models\User;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 class TokenAcessoController extends Controller
 {
 
+    // cria um novo token de acesso
     public function store(StoreTokenAcessoRequest $request)
     {
 
@@ -34,7 +36,7 @@ class TokenAcessoController extends Controller
 
         ]);
 
-        return $token;
+        return $token->load('om','geradorTokens');
     }
 
     // retorna os seriais para a tabela de seriais
@@ -71,7 +73,30 @@ class TokenAcessoController extends Controller
         $token->quem_gerou = Auth::user()->id;
         $token->save();
 
-        return ['data'=>$token->load('om','geradorTokens','user')];
+        return $token->load('om','geradorTokens','user');
+
+
+    }
+
+    // exclui um token
+    public function destroy($id)
+    {
+        $token = TokenAcesso::find($id);
+
+        if ($token->user_id != null){
+
+            return 'Token já utilizado! não é possível a sua remoção.';
+
+        } else {
+
+            $token->quem_gerou = Auth::user()->id;
+            $token->save();
+            $token->delete();
+
+            return 'Ok';
+
+        }
+
 
 
     }

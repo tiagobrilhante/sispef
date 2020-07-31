@@ -738,7 +738,6 @@
             // mask tel
             $(".tel_ctt").mask("(99) 99999-9999");
 
-
             // inicializa o datatables
             $('#user_table').DataTable({
                 processing: false,
@@ -1000,7 +999,7 @@
                     ajax: "/alltoken/todos",
                     type: 'GET',
                     rowId: function (a) {
-                        return 'user_' + a.id;
+                        return 'serial_' + a.id;
                     },
                     columns: [
                         {data: "id", name: 'id', 'visible': false},
@@ -1036,13 +1035,13 @@
                             data: 'action',
                             name: 'action',
                             orderable: false,
-                            className: 'text-center',
+                            className: 'h-100 text-center justify-content-center align-items-center align-middle',
                             render: function (data, type, row) {
 
                                 if (row.status == 'Aguardando Uso') {
 
 
-                                    return '<button id="excluir_' + row.id + '" class="btn btn-sm btn-danger btn_exclude" title="Excluir Chave" data-tippy-content="Excluir Chave">' +
+                                    return '<button id="excluirToken_' + row.id + '" class="btn btn-sm btn-danger btn_exclude_token" title="Excluir Chave" data-tippy-content="Excluir Chave">' +
                                         '<i class="fa fa-trash"></i>' +
                                         '</button>';
 
@@ -1129,6 +1128,8 @@
                 $('#retorno_chave').addClass('d-none');
                 $('#botao_gerar_nova').addClass('d-none');
                 $('#botao_submit').removeClass('d-none');
+                $('#dado_new_user').val('');
+                $('#sub_espaco_inputs').removeClass('d-none');
                 $('#cancel_new_user').text('Cancelar');
 
                 $.ajax({
@@ -1266,6 +1267,18 @@
 
 
                         $('#serial_token').text(data.token);
+
+                        // se o espaço para a tabela de serial estiver exposto, insere na tabela
+                        if ($('#pills-serial-tab').hasClass('active')) {
+
+
+                            var serial_table = $('#serial_table').DataTable();
+
+                            serial_table.ajax.reload();
+
+
+                        }
+
 
                         // alerta de sucesso
                         toastr.success('O Token de Acesso foi criado com sucesso!', 'Sucesso!');
@@ -1657,7 +1670,7 @@
             });
 
             //renova token
-            $(document).on('click','.btn_renova_token', function (e) {
+            $(document).on('click', '.btn_renova_token', function (e) {
 
                 e.preventDefault();
 
@@ -1685,13 +1698,16 @@
 
                                     success: function (data) {
 
-                                        console.log(data);
+                                        // TENHO QUE ATUALIZAR O STATUS DO TOKEN E REMOVER O BOTÃO DE RENOVAR
+                                        var $serialTable = $('#serial_table').dataTable();
+
+                                        // The second parameter will be the row, and the third is the column.
+                                        $serialTable.fnUpdate(data.status, '#serial_' + id, 4);
+
+                                        $('#renovarToken_' + id).next().remove();
+                                        $('#renovarToken_' + id).remove();
 
                                         // alerta de sucesso
-
-
-                                        // TENHO QUE ATUALIZAR O STATUS DO TOKEN E REMOVER O BOTÃO DE RENOVAR
-
                                         toastr.success('O Token foi renovado com sucesso!', 'Sucesso!');
 
                                     },
@@ -1714,9 +1730,80 @@
                 });
 
 
-
             });
 
+            // remove um token sem dono
+            $(document).on('click', '.btn_exclude_token', function (e) {
+
+                e.preventDefault();
+
+                var id = $(this).attr('id').split('_')[1];
+
+                console.log('excluir token');
+                console.log(id);
+
+                $.confirm({
+                    title: 'Você esta certo disso?',
+                    content: 'A ação de excluir um Token de acesso vai removê-lo definitivamente do sistema, nenhum usuário poderá usar esse token para efetuar o cadastro no SisPef!',
+                    buttons: {
+                        Confirmar: {
+                            action: function () {
+
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/token/' + id,
+
+                                    data: {
+                                        _method: 'DELETE',
+                                    },
+                                    success: function (data) {
+
+                                        // remove da tabela do grupo
+                                        var tableSerial = $('#serial_table').DataTable();
+                                        tableSerial.row('tr[id = "serial_' + id + '" ]').remove().draw(false);
+
+
+                                        if (data == 'Ok') {
+
+                                            // alerta de sucesso
+                                            toastr.success('O token foi excluído com sucesso!', 'Sucesso!');
+
+                                        } else {
+
+                                            // alert de erro
+                                            toastr.error(data, 'Falha!');
+
+                                        }
+
+                                    },
+                                    error: function (data) {
+
+                                        console.log(data);
+
+                                        // alert de erro
+                                        toastr.error('Não foi possível excluir o token!', 'Falha!');
+
+                                    }
+
+                                });
+                            },
+                            btnClass: 'btn-outline-dark'
+                        },
+                        Cancelar: {
+                            btnClass: 'btn-outline-danger'
+                        },
+                    },
+                    columnClass: 'col-md-6'
+                });
+
+
+            });
 
 
         });
