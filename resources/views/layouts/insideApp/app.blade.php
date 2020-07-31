@@ -63,6 +63,100 @@
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active__sidebar');
         });
+
+
+
+
+        function abremodaledit(id) {
+
+            $.ajax({
+                type: 'GET',
+                url: '/admin/usermanager/' + id,
+
+                success: function (data) {
+
+                    console.log(data);
+
+                    if (data.status == 'Resetado') {
+
+                        $('#user_reseted').removeClass('d-none');
+
+                    } else {
+
+                        $('#user_reseted').addClass('d-none');
+                    }
+
+                    $('#passwdEditModal').modal('show');
+                },
+                error: function (data) {
+
+                    console.log(data);
+
+                    // alert de erro
+                    toastr.error('Não foi possível obter as informações!', 'Falha!');
+
+                }
+
+            });
+        }
+
+
+        // manda senha update
+        $(document).on('submit', '#form_edit_password', function (e) {
+
+            e.preventDefault();
+
+            if ($('#passwd').val() != $('#passwd_conf').val()) {
+
+                // alert de erro
+                toastr.error('As senhas preenchidas não estão iguais. Tente preencher o campo "Confirme a nova senha" com o mesmo valor do campo  "insira a nova senha"!', 'Falha!', {timeOut: 6000});
+
+            } else {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/updatepasswd/' + @auth{{ Auth::user()->id }}@endauth,
+                    data: {
+                        _method: 'PUT',
+                        _token: '{{ csrf_token() }}',
+                        password: $('#passwd').val(),
+
+                    },
+                    success: function () {
+
+                        // alerta de sucesso
+                        toastr.success('A Senha foi alterada com sucesso!', 'Sucesso!', {timeOut: 3000});
+
+                        //reseta o form
+
+                        $('#form_edit_password').trigger('reset');
+                        // close modal
+                        $('#passwdEditModal').modal('hide');
+
+
+                    },
+                    error: function () {
+
+                        // alert de erro
+                        toastr.error('Não foi possível alterar a sua senha!', 'Falha!', {timeOut: 3000});
+
+                    }
+
+                });
+
+            }
+
+        });
+
+        $(document).on('click', '#alterarsenha_user', function (e) {
+
+            abremodaledit(@auth{{Auth::user()->id}}@endauth);
+
+        });
+
+
+
+
     });
 </script>
 

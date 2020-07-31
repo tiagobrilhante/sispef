@@ -110,45 +110,44 @@
                 {{--espaço para seriais--}}
                 <div class="tab-pane " id="pills-serial" role="tabpanel" aria-labelledby="pills-serial-tab">
 
-
-
-
                     {{--tab space--}}
                     <ul class="nav nav-pills mb-3" id="pills-tab-serial" role="tablist">
 
                         {{--todos--}}
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active serialselect" id="pills-serialtodos-tab" data-toggle="pill" href="#pills-serial"
+                            <a class="nav-link active serialselect" id="pills-serialtodos-tab" data-toggle="pill"
+                               href="#pills-serial"
                                role="tab"
                                aria-selected="true">Todos Seriais</a>
                         </li>
 
                         {{--usados--}}
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link serialselect" id="pills-serialusado-tab" data-toggle="pill" href="#pills-serial"
+                            <a class="nav-link serialselect" id="pills-serialusado-tab" data-toggle="pill"
+                               href="#pills-serial"
                                role="tab"
                                aria-selected="false">Utilizados</a>
                         </li>
 
                         {{--não usados--}}
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link serialselect" id="pills-serialunused-tab" data-toggle="pill" href="#pills-serial"
+                            <a class="nav-link serialselect" id="pills-serialunused-tab" data-toggle="pill"
+                               href="#pills-serial"
                                role="tab"
                                aria-selected="false">Não utilizados</a>
                         </li>
 
                         {{--não usados--}}
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link serialselect" id="pills-serialinativo-tab" data-toggle="pill" href="#pills-serial"
+                            <a class="nav-link serialselect" id="pills-serialinativo-tab" data-toggle="pill"
+                               href="#pills-serial"
                                role="tab"
                                aria-selected="false">Inválidos</a>
                         </li>
 
-
                     </ul>
 
                     <div class="tab-content" id="pills-serialTabContent">
-
 
                         {{--espaço para usuarios--}}
                         <div class="tab-pane show active" id="pills-serial" role="tabpanel">
@@ -190,20 +189,7 @@
 
                         </div>
 
-
-
-
-
                     </div>
-
-
-
-
-
-
-
-
-
 
                 </div>
 
@@ -876,6 +862,10 @@
                                 classe_button = 'btn-outline-primary';
                                 classe_icon = 'fa-check-circle';
                                 text_tippy = 'Ativar Pessoa';
+                            } else if (row.status == 'Resetado') {
+                                classe_button = 'btn-outline-dark';
+                                classe_icon = 'fa-spinner';
+                                text_tippy = 'Usuário resetado aguardando acesso';
                             }
 
                             return '<button id="show_' + row.id + '" class="btn btn-sm btn-success btn_show" title="Detalhes sobre a pessoa" data-tippy-content="Exibe detalhes sobre a pessoa">' +
@@ -884,6 +874,10 @@
                                 '<span class="separaicon"></span>' +
                                 '<button id="editar_' + row.id + '" class="btn btn-sm btn-warning btn_edit" title="Alterar Informações" data-tippy-content="Alterar Informações">' +
                                 '<i class="fa fa-edit"></i>' +
+                                '</button>' +
+                                '<span class="separaicon"></span>' +
+                                '<button id="resetar_' + row.id + '" class="btn btn-sm btn-secondary btn_reset" title="Resetar Usuário" data-tippy-content="Resetar senha de usuário">' +
+                                '<i class="fa fa-lock"></i>' +
                                 '</button>' +
                                 '<span class="separaicon"></span>' +
                                 '<button id="desativa_' + row.id + '" class="btn btn-sm ' + classe_button + ' btn_desativa" title="Desativar pessoa" data-tippy-content="' + text_tippy + '">' +
@@ -987,6 +981,10 @@
                                     classe_button = 'btn-outline-primary';
                                     classe_icon = 'fa-check-circle';
                                     text_tippy = 'Ativar Pessoa';
+                                } else if (row.status == 'Resetado') {
+                                    classe_button = 'btn-outline-dark';
+                                    classe_icon = 'fa-spinner';
+                                    text_tippy = 'Usuário resetado aguardando acesso';
                                 }
 
                                 return '<button id="show_' + row.id + '" class="btn btn-sm btn-success btn_show" title="Detalhes sobre a pessoa" data-tippy-content="Exibe detalhes sobre a pessoa">' +
@@ -995,6 +993,10 @@
                                     '<span class="separaicon"></span>' +
                                     '<button id="editar_' + row.id + '" class="btn btn-sm btn-warning btn_edit" title="Alterar Informações" data-tippy-content="Alterar Informações">' +
                                     '<i class="fa fa-edit"></i>' +
+                                    '</button>' +
+                                    '<span class="separaicon"></span>' +
+                                    '<button id="resetar_' + row.id + '" class="btn btn-sm btn-secondary btn_reset" title="Resetar Usuário" data-tippy-content="Resetar senha de usuário">' +
+                                    '<i class="fa fa-lock"></i>' +
                                     '</button>' +
                                     '<span class="separaicon"></span>' +
                                     '<button id="desativa_' + row.id + '" class="btn btn-sm ' + classe_button + ' btn_desativa" title="Desativar pessoa" data-tippy-content="' + text_tippy + '">' +
@@ -1445,74 +1447,81 @@
 
                 var id = $(this).attr('id').split('_')[1];
 
-                $.confirm({
-                    title: 'Você esta certo disso?',
-                    content: 'A ação de desativar um usuário vai impedir o mesmo de ter acesso ao SisPef, no entanto manterá todos os dados relativos a histórico de ações e acessos!',
-                    buttons: {
-                        Confirmar: {
-                            action: function () {
+                if ($(this).hasClass('btn-outline-dark')){
 
-                                $.ajaxSetup({
-                                    headers: {
-                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                    }
-                                });
+                    // alerta de erro
+                    toastr.error('Você não pode desativar um usuário resetado!', 'Erro!');
 
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/user/status/' + id,
+                } else {
 
-                                    data: {
-                                        _method: 'GET',
-                                    },
-                                    success: function (data) {
+                    $.confirm({
+                        title: 'Você esta certo disso?',
+                        content: 'A ação de desativar um usuário vai impedir o mesmo de ter acesso ao SisPef, no entanto manterá todos os dados relativos a histórico de ações e acessos!',
+                        buttons: {
+                            Confirmar: {
+                                action: function () {
 
-                                        var $userTable = $('#user_table').dataTable();
+                                    $.ajaxSetup({
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        }
+                                    });
 
-                                        // The second parameter will be the row, and the third is the column.
-                                        $userTable.fnUpdate(data.status, '#user_' + id, 5);
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/user/status/' + id,
 
-                                        //arruma botão
+                                        data: {
+                                            _method: 'GET',
+                                        },
+                                        success: function (data) {
 
-                                        if (data.status == 'Inativo') {
+                                            var $userTable = $('#user_table').dataTable();
 
-                                            $('#desativa_' + id).removeClass('btn-outline-danger').addClass('btn-outline-primary');
-                                            $('#iconStatus_' + id).removeClass('fa-ban').addClass('fa-check-circle');
-                                            $('#desativa_' + id).attr('data-tippy-content', 'Ativar Pessoa');
+                                            // The second parameter will be the row, and the third is the column.
+                                            $userTable.fnUpdate(data.status, '#user_' + id, 5);
 
-                                        } else if (data.status == 'Ativo') {
+                                            //arruma botão
 
-                                            $('#desativa_' + id).addClass('btn-outline-danger').removeClass('btn-outline-primary');
-                                            $('#iconStatus_' + id).addClass('fa-ban').removeClass('fa-check-circle');
-                                            $('#desativa_' + id).attr('data-tippy-content', 'Desativar Pessoa');
+                                            if (data.status == 'Inativo') {
+
+                                                $('#desativa_' + id).removeClass('btn-outline-danger').addClass('btn-outline-primary');
+                                                $('#iconStatus_' + id).removeClass('fa-ban').addClass('fa-check-circle');
+                                                $('#desativa_' + id).attr('data-tippy-content', 'Ativar Pessoa');
+
+                                            } else if (data.status == 'Ativo') {
+
+                                                $('#desativa_' + id).addClass('btn-outline-danger').removeClass('btn-outline-primary');
+                                                $('#iconStatus_' + id).addClass('fa-ban').removeClass('fa-check-circle');
+                                                $('#desativa_' + id).attr('data-tippy-content', 'Desativar Pessoa');
+
+                                            }
+
+                                            // reload tippy
+                                            tippy('[data-tippy-content]');
+
+                                            // alerta de sucesso
+                                            toastr.success('O usuário foi desativado com sucesso!', 'Sucesso!');
+
+                                        },
+                                        error: function (data) {
+
+                                            // alert de erro
+                                            toastr.error('Não foi possível desativar o usuário!', 'Falha!');
 
                                         }
 
-                                        // reload tippy
-                                        tippy('[data-tippy-content]');
-
-                                        // alerta de sucesso
-                                        toastr.success('O usuário foi desativado com sucesso!', 'Sucesso!');
-
-                                    },
-                                    error: function (data) {
-
-                                        // alert de erro
-                                        toastr.error('Não foi possível desativar o usuário!', 'Falha!');
-
-                                    }
-
-                                });
+                                    });
+                                },
+                                btnClass: 'btn-outline-dark'
                             },
-                            btnClass: 'btn-outline-dark'
+                            Cancelar: {
+                                btnClass: 'btn-outline-danger'
+                            },
                         },
-                        Cancelar: {
-                            btnClass: 'btn-outline-danger'
-                        },
-                    },
-                    columnClass: 'col-md-6'
-                });
-
+                        columnClass: 'col-md-6'
+                    });
+                }
 
             });
 
@@ -1688,8 +1697,6 @@
 
                     success: function (data) {
 
-
-                        console.log(data);
 
 
                         var $userTable = $('#user_table').dataTable();
@@ -1867,7 +1874,7 @@
             });
 
             // filtra os seriais por tipo de status
-            $(document).on('click','.serialselect', function (e) {
+            $(document).on('click', '.serialselect', function (e) {
 
                 e.preventDefault();
 
@@ -1908,7 +1915,7 @@
                     },
                     pageLength: 50,
 
-                    ajax: "/alltoken/"+what_type,
+                    ajax: "/alltoken/" + what_type,
                     type: 'GET',
                     rowId: function (a) {
                         return 'serial_' + a.id;
@@ -1987,6 +1994,72 @@
 
             });
 
+            // reseta a senha do usuário
+            $(document).on('click', '.btn_reset', function (e) {
+
+                e.preventDefault();
+
+                var id = $(this).attr('id').split('_')[1];
+
+                $.confirm({
+                    title: 'Você esta certo disso?',
+                    content: 'A senha do usuário será alterada para o email do usuário!',
+                    buttons: {
+                        Confirmar: {
+                            action: function () {
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/resetpasswd/' + id,
+
+                                    success: function (data) {
+
+                                        if (data == 'Success') {
+                                            // alerta de sucesso
+
+
+                                            var $userTable = $('#user_table').dataTable();
+
+                                            // The second parameter will be the row, and the third is the column.
+                                            $userTable.fnUpdate('Resetado', '#user_' + id, 5);
+
+                                            $('#desativa_' + id).removeClass('btn-outline-danger').removeClass('btn-outline-primary').addClass('btn-outline-dark').attr('data-tippy-content', 'Usuário resetado aguardando acesso');
+                                            $('#iconStatus_' + id).removeClass('fa-ban').removeClass('fa-check-circle').addClass('fa-spinner');
+
+                                            // reload tippy
+                                            tippy('[data-tippy-content]');
+
+                                            toastr.success('A senha do usuário foi alterada com sucesso!', 'Sucesso!', {timeOut: 3000});
+                                        } else {
+
+                                            toastr.error('Você não tem permissão para resetar senhas!', 'Falha!', {timeOut: 3000});
+
+                                        }
+                                    },
+                                    error: function () {
+
+                                        // alert de erro
+                                        toastr.error('Não foi possível alterar a senha do usuário!', 'Falha!', {timeOut: 3000});
+
+                                    }
+
+                                });
+                            },
+                            btnClass: 'btn-outline-dark'
+                        },
+                        Cancelar: {
+                            btnClass: 'btn-outline-danger'
+                        },
+                    },
+                    columnClass: 'col-md-6'
+                });
+
+            });
+
+
+
+            // PRECISO IMPLEMENTAR NO SISTEMA DE LOGIN, A FUNCIONALIDADE DE RESET DE SENHA
+
+            // PRECISO CRIAR O SISTEMA DE CADASTRO USANDO SERIAIS DE ACESSO
 
 
         });

@@ -38,6 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/admin/usermanager', 'UserController');
     Route::get('/allusers/{tipo}', 'UserController@alluser');
     Route::get('/user/status/{id}', 'UserController@mudaStatus');
+    Route::put('/updatepasswd/{id}', 'UserController@updatesenha')->name('updatepasswd.user');
+    Route::get('/resetpasswd/{id}', 'UserController@resetsenha');
 
     // controles de OM
     Route::resource('ommanager', 'OmController');

@@ -114,7 +114,7 @@ class UserController extends Controller
 
     }
 
-    //update senha (Falta Fazer)
+    //update senha
     public function updatesenha(SenhaRequest $request, $id)
     {
         $user = User::find($id);
@@ -138,7 +138,7 @@ class UserController extends Controller
 
         $user = User::find($id);
 
-        if ((Auth::user()->usertipo->tipo == 'Administrador' && Auth::user()->comandoConjunto->id == $user->comandoConjunto->id) || Auth::user()->usertipo->tipo == 'Administrador Geral') {
+        if ((Auth::user()->userTipo->tipo == 'Administrador' && Auth::user()->om->id == $user->om->id || Auth::user()->userTipo->tipo == 'Administrador')) {
 
             $user->update([
                 'password' => bcrypt($user->email),
