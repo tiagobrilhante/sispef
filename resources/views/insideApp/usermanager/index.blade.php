@@ -2055,13 +2055,6 @@
 
             });
 
-
-
-            // PRECISO IMPLEMENTAR NO SISTEMA DE LOGIN, A FUNCIONALIDADE DE RESET DE SENHA
-
-            // PRECISO CRIAR O SISTEMA DE CADASTRO USANDO SERIAIS DE ACESSO
-
-
         });
     </script>
 

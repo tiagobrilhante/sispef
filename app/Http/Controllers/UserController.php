@@ -120,15 +120,19 @@ class UserController extends Controller
         $user = User::find($id);
 
         if ($user->status == 'Resetado') {
-            $novo_status = 'Ok';
+            $novo_status = 'Ativo';
+            $retorno = 'refresh';
         } else {
             $novo_status = $user->status;
+            $retorno = 'ok';
         }
 
         $user->update([
             'password' => bcrypt($request['password']),
             'status' => $novo_status
         ]);
+
+        return $retorno;
 
     }
 

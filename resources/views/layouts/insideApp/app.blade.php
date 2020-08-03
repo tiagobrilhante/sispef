@@ -64,9 +64,6 @@
             $('#sidebar').toggleClass('active__sidebar');
         });
 
-
-
-
         function abremodaledit(id) {
 
             $.ajax({
@@ -122,10 +119,10 @@
                         password: $('#passwd').val(),
 
                     },
-                    success: function () {
+                    success: function (data) {
 
                         // alerta de sucesso
-                        toastr.success('A Senha foi alterada com sucesso!', 'Sucesso!', {timeOut: 3000});
+                        toastr.success('A Senha foi alterada com sucesso!', 'Sucesso!');
 
                         //reseta o form
 
@@ -133,12 +130,16 @@
                         // close modal
                         $('#passwdEditModal').modal('hide');
 
+                        if (data == 'refresh'){
+                            location.reload();
+                        }
+
 
                     },
                     error: function () {
 
                         // alert de erro
-                        toastr.error('Não foi possível alterar a sua senha!', 'Falha!', {timeOut: 3000});
+                        toastr.error('Não foi possível alterar a sua senha!', 'Falha!');
 
                     }
 

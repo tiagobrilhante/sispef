@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-    <div class="container">
+    <div class="container-fluid">
 
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'SisPef') }}
@@ -23,7 +23,7 @@
 
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Cadastre-se') }}</a>
                         </li>
                     @endif
                 @else

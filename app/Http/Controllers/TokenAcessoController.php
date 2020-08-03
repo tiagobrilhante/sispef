@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Requests\SerialRequest;
 use App\Http\Requests\StoreTokenAcessoRequest;
 use App\Models\TokenAcesso;
 use App\Models\User;
@@ -44,14 +45,12 @@ class TokenAcessoController extends Controller
     {
 
 
-
-
-        $seriais = TokenAcesso::all();
+        $seriais = TokenAcesso::where('status','Aguardando Uso')->get();
 
         // verifica os tokens e ajusta para expirado os que tiverem mais do que 10 dias
         foreach ($seriais as $serial){
 
-            if (contatempo(explode(' ',$serial->created_at)[0],dataDeHoje()) > 10){
+            if (contatempo(explode(' ',$serial->created_at)[0],dataDeHoje()) > 10 && $serial->status != 'Utilizado'){
 
                 $serial->status = 'Expirado';
                 $serial->save();
@@ -123,4 +122,44 @@ class TokenAcessoController extends Controller
 
     }
 
+
+    public function getSerial(SerialRequest $request)
+    {
+
+
+        $seriais = TokenAcesso::where('status','Aguardando Uso')->get();
+
+        // verifica os tokens e ajusta para expirado os que tiverem mais do que 10 dias
+        foreach ($seriais as $serial){
+
+            if (contatempo(explode(' ',$serial->created_at)[0],dataDeHoje()) > 10){
+
+                $serial->status = 'Expirado';
+                $serial->save();
+
+            }
+
+        }
+
+        $token = TokenAcesso::where('token', $request['serial'])->first();
+
+        if ($token){
+
+            if ($token->status == 'Expirado'){
+                return 'Serial Expirado';
+            } elseif ($token->status == 'Utilizado'){
+                return 'Serial em uso';
+            } else {
+                return $token->load('om','geradorTokens');
+            }
+
+        } else {
+
+            return 'Token Inexistente';
+
+        }
+
+
+
+    }
 }

@@ -28,6 +28,9 @@ Route::get('/versoes', function () {
 Route::get('/list/oms', 'OmController@listaSimples');
 
 
+// confirma o serial para usuários se autenticarem
+Route::post('/recebeserial', 'TokenAcessoController@getSerial');
+
 
 // Authenticated application routes
 Route::group(['middleware' => 'auth'], function () {
@@ -51,6 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/token', 'TokenAcessoController');
     Route::get('/alltoken/{tipo}', 'TokenAcessoController@returnSeriais');
     Route::get('/renovatoken/{id}', 'TokenAcessoController@renewToken');
+
 
 
 

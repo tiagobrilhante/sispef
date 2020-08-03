@@ -15,22 +15,22 @@
     @yield('myStyles')
 
 
-
 </head>
 <body>
-    <div id="app">
-        @include('paginaInicial.navBar')
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+    @include('paginaInicial.navBar')
 
-    @include('static.footer')
+<div id="app">
+    <main class="py-4">
+        @yield('content')
+    </main>
+</div>
 
-   @include('layouts.paginaInicial.requiredJs')
+@include('static.footer')
 
-    @yield('myScripts')
+@include('layouts.paginaInicial.requiredJs')
+
+@yield('myScripts')
 
 </body>
 </html>

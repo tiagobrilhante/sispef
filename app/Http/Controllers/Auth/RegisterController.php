@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\TokenAcesso;
+use App\Models\UserTipo;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -52,6 +54,9 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'nome' => ['required', 'string', 'max:255'],
             'nome_guerra' => ['required', 'string', 'max:255'],
+            'posto_grad' => ['required', 'string', 'max:255'],
+            'tel_contato' => ['required', 'string', 'max:255'],
+            'token_serial' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
@@ -65,11 +70,35 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        $le_Token = TokenAcesso::where('token', $data['token_serial'])->first();
+
+        // crio o usuário
+        $user = User::create([
             'nome' => $data['nome'],
+            'posto_grad' => $data['posto_grad'],
             'nome_guerra' => $data['nome_guerra'],
+            'tel_contato' => $data['tel_contato'],
+            'tu_formacao' => $data['tu_formacao'],
+            'status' => 'Ativo',
+            'om_id' => $le_Token->om_id,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        // crio o tipo
+
+        $tipo = UserTipo::create([
+            'tipo'=>$le_Token->type,
+            'user_id'=>$user->id
+        ]);
+
+        //vinculo o token
+        $le_Token->status = 'Utilizado';
+        $le_Token->user_id = $user->id;
+        $le_Token->save();
+
+
+        return $user;
     }
 }
